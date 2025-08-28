@@ -1,0 +1,41 @@
+---
+title: List Server Settings
+scope: admin
+path: /v1/stacks/:stack_id/servers/:server_id/settings
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 1,
+        "key": "server.timezone",
+        "value": "UTC",
+        "readonly": false,
+        "created_at": "2014-08-29T17:21:25Z",
+        "updated_at": "2014-08-29T17:21:25Z"
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: server_id
+    presence: required
+    data_type: string
+    description: The server UID
+    sample_value: f8468fc145ea49bac474b30a8fea888d
+---
+
+Get list of all settings for a server.

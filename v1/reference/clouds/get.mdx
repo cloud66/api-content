@@ -1,0 +1,52 @@
+---
+title: Get Cloud
+scope: redeploy
+path: /v1/clouds/:cloud_id
+method: GET
+response: |
+  {
+    "response": {
+      "name": "digitalocean",
+      "display_name": "DigitalOcean",
+      "regions": [
+        {
+          "id": "ams1",
+          "name": "Amsterdam, Netherlands",
+          "old_id": "2"
+        },
+        {
+          "id": "ams2",
+          "name": "Amsterdam 2, Netherlands",
+          "old_id": "5"
+        },
+        {
+          "id": "nyc1",
+          "name": "New York 1, USA",
+          "old_id": "1"
+        }
+      ],
+      "server_sizes": [
+        {
+          "id": "512mb",
+          "name": "512MB / 1 CPU"
+        },
+        {
+          "id": "1gb",
+          "name": "1GB / 1 CPU"
+        },
+        {
+          "id": "2gb",
+          "name": "2GB / 1 CPU"
+        }
+      ]
+    }
+  }
+parameters:
+  - name: cloud_id
+    presence: required
+    data_type: string
+    description: The cloud ID (name)
+    sample_value: digitalocean
+---
+
+Retrieves details for a specific cloud provider, including available regions and server sizes for that provider.

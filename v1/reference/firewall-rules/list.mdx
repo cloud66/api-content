@@ -1,0 +1,43 @@
+---
+title: List Firewall Rules
+scope: admin
+path: /v1/stacks/:stack_id/firewalls
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 5027,
+        "from_ip": "0.0.0.0/0",
+        "from_group_id": null,
+        "from_server_id": null,
+        "to_ip": null,
+        "to_group_id": 128,
+        "to_server_id": null,
+        "protocol": "tcp",
+        "port": 80,
+        "rule_type": "dynamic",
+        "comments": null,
+        "created_at": "2014-08-29T17:58:23Z",
+        "updated_at": "2014-08-29T17:58:23Z"
+      }
+    ],
+    "count": 2,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 2,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+---
+
+Get list of all the firewall rules of a stack.

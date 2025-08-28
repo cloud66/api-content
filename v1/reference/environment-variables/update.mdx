@@ -1,0 +1,38 @@
+---
+title: Update Environment Variable
+scope: admin
+path: /v1/stacks/:stack_id/environments/:env_var_key
+method: PUT
+response: |
+  {
+    "response": {
+      "id": 4153,
+      "key": "POSTGRESQL_SLAVE_ADDRESSES",
+      "value": "127.0.0.1",
+      "readonly": false,
+      "created_at": "2014-08-29T17:21:25Z",
+      "updated_at": "2015-01-01T12:00:00Z",
+      "is_password": false,
+      "is_generated": true,
+      "history": []
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: env_var_key
+    presence: required
+    data_type: string
+    description: The environment variable key/name
+    sample_value: POSTGRESQL_SLAVE_ADDRESSES
+  - name: value
+    presence: required
+    data_type: string
+    description: The new environment variable value
+    sample_value: 127.0.0.1
+---
+
+Update an environment variable value.

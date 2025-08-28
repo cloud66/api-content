@@ -1,0 +1,26 @@
+---
+title: Cancel Deployment
+scope: redeploy
+path: /v1/stacks/:stack_id/deployments/:deployment_id
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Deployment cancelled"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: deployment_id
+    presence: required
+    data_type: integer
+    description: The deployment ID
+    sample_value: 3649
+---
+
+Cancel a deployment.

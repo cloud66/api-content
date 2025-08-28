@@ -1,0 +1,47 @@
+---
+title: Add Firewall Rule
+scope: admin
+path: /v1/stacks/:stack_id/firewalls
+method: POST
+response: |
+  {
+    "response": {
+      "id": 5029,
+      "from_ip": "0.0.0.0/0",
+      "from_group_id": null,
+      "from_server_id": null,
+      "to_ip": null,
+      "to_group_id": 128,
+      "to_server_id": null,
+      "protocol": "tcp",
+      "port": 8080,
+      "rule_type": "dynamic",
+      "comments": "Custom rule",
+      "created_at": "2015-01-01T12:00:00Z",
+      "updated_at": "2015-01-01T12:00:00Z"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: from_ip
+    presence: optional
+    data_type: string
+    description: Source IP address or CIDR
+    sample_value: 0.0.0.0/0
+  - name: protocol
+    presence: required
+    data_type: string
+    description: Protocol (tcp/udp/icmp)
+    sample_value: tcp
+  - name: port
+    presence: required
+    data_type: integer
+    description: Port number
+    sample_value: 8080
+---
+
+Add a new firewall rule to a stack.

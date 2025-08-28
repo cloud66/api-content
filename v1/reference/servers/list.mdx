@@ -1,0 +1,58 @@
+---
+title: List Servers
+scope: public
+path: /v1/stacks/:stack_id/servers
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "f8468fc145ea49bac474b30a8fea888d",
+        "vendor_uid": "2492780",
+        "name": "Caribou",
+        "address": "146.185.133.183",
+        "distro": "ubuntu",
+        "distro_version": "14.04",
+        "dns_record": "caribou.aws-us-east-1.cloud66.net",
+        "user_name": "root",
+        "server_type": "p",
+        "server_roles": ["rails", "web", "app", "db:mysql:master"],
+        "server_group_id": 128,
+        "stack_uid": "5999b763474b0eafa5fafb64bff0ba80",
+        "has_agent": true,
+        "params": {
+          "availability_zone": "us-east-1a",
+          "size": "t2.micro",
+          "region": "us-east-1",
+          "ecs_instance_profile": null
+        },
+        "created_at": "2014-08-29T17:21:25Z",
+        "updated_at": "2014-08-30T17:21:25Z",
+        "region": "us-east-1",
+        "availability_zone": "us-east-1a",
+        "ext_ipv4": "146.185.133.183",
+        "health_state": 3,
+        "int_ipv4": "10.177.13.137",
+        "int_ipv6": null,
+        "ext_ipv6": null
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+---
+
+Get list of all the servers of a stack.

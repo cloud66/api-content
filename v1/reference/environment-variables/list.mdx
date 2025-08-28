@@ -1,0 +1,46 @@
+---
+title: List Environment Variables
+scope: admin
+path: /v1/stacks/:stack_id/environments
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 4152,
+        "key": "STACK_GIT_BRANCH",
+        "value": "master",
+        "readonly": true,
+        "created_at": "2014-08-29T17:21:25Z",
+        "updated_at": "2014-08-29T17:21:25Z",
+        "is_password": false,
+        "is_generated": true,
+        "history": [
+          {
+            "key": 1,
+            "value": "develop",
+            "created_at": "2015-05-08T15:09:50Z",
+            "updated_at": "2015-05-08T15:09:50Z"
+          }
+        ]
+      }
+    ],
+    "count": 30,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 4,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+---
+
+Get list of all the environment variables of a stack.

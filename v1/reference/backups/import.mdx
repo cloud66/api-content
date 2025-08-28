@@ -1,0 +1,37 @@
+---
+title: Import Backup
+scope: admin
+path: /v1/stacks/:stack_id/backups
+method: POST
+response: |
+  {
+    "response":
+      {
+        "ok":true,
+        "message":"Your external backup queued for upload"
+      }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: group
+    presence: required
+    data_type: integer
+    description: The group ID of backups that imported backup must restored in
+    sample_value: "5"
+  - name: db_type
+    presence: required
+    data_type: string
+    description: "Comma separated list of Database types which need backup tasks (valid options: mysql, postgresql, redis, mongodb)"
+    sample_value: "mysql"
+  - name: remote_url
+    presence: required
+    data_type: string
+    description: A URL to backup file to be imported
+    sample_value: "https://s3.amazonaws.com/c66-managed-backup-non-prod/2aad2bb5a70e621ecf251fbd85af6927/backups/09a7dec0efdaa19b44148fccbf6128ec/redis/redis_23/2014.07.01.07.00.46/redis_23.tar"
+---
+
+Import an external backup.

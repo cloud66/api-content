@@ -1,0 +1,52 @@
+---
+title: Create Backup
+scope: admin
+path: /v1/stacks/:stack_id/backups
+method: POST
+response: |
+  {
+    "response":
+      {
+        "ok":true,
+        "message":"queued for creation"
+      }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: db_type
+    presence: optional
+    data_type: string
+    description: "Comma separated list of Database types which need backup tasks (valid options: all, mysql, postgresql, redis, mongodb)"
+    sample_value: "mysql,redis"
+  - name: frequency
+    presence: optional
+    data_type: string
+    description: Frequency of backup task in cron schedule format
+    sample_value: "0 */1 * * *"
+  - name: keep_count
+    presence: optional
+    data_type: integer
+    description: Number of previous backups to keep
+    sample_value: "10"
+  - name: gzip
+    presence: optional
+    data_type: boolean
+    description: Compress your backups with gzip
+    sample_value: "false"
+  - name: excluded_tables
+    presence: optional
+    data_type: string
+    description: Tables that must be excluded from the backup
+    sample_value: "my_log_table"
+  - name: run_on_replica_server
+    presence: optional
+    data_type: boolean
+    description: Run backup task on replica server if available
+    sample_value: "false"
+---
+
+Create a new backup task.

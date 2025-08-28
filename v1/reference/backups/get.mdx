@@ -1,0 +1,42 @@
+---
+title: Get Backup
+scope: public
+path: /v1/stacks/:stack_id/backups/:id
+method: GET
+response: |
+  {
+    "response":
+      {
+        "id":1,
+        "server_uid":"e63e859d5ab72b0bcf14321f0ffb013d",
+        "db_type":"mysql",
+        "database_name":"shab-test-db",
+        "file_base":"",
+        "backup_date_iso":"2014-09-01T18:16:16Z",
+        "backup_status":0,
+        "backup_result":"",
+        "restore_status":0,
+        "restore_result":null,
+        "created_at_iso":"2014-09-01T18:16:16Z",
+        "updated_at_iso":"2014-09-01T18:16:16Z",
+        "verify_status":0,
+        "verify_result":null,
+        "storage_path":"2aad2bb5a70e621ecf251fbd85af6927/backups/3c656a1bcc160769762763c6276c18b9/mysql/test_db_11/2014.09.01.18.16.14",
+        "skip_tables":"",
+        "backup_size":0
+      }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: id
+    presence: required
+    data_type: integer
+    description: Backup ID
+    sample_value: "4153"
+---
+
+Get information about a single backup.

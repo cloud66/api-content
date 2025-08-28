@@ -1,0 +1,38 @@
+---
+title: Add Environment Variable
+scope: admin
+path: /v1/stacks/:stack_id/environments
+method: POST
+response: |
+  {
+    "response": {
+      "id": 4169,
+      "key": "MY_ENVIRONMENT_VALUE",
+      "value": "SOME_VALUE",
+      "readonly": false,
+      "created_at": "2015-01-01T12:00:00Z",
+      "updated_at": "2015-01-01T12:00:00Z",
+      "is_password": false,
+      "is_generated": false,
+      "history": []
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: key
+    presence: required
+    data_type: string
+    description: The environment variable key/name
+    sample_value: MY_ENVIRONMENT_VALUE
+  - name: value
+    presence: required
+    data_type: string
+    description: The environment variable value
+    sample_value: SOME_VALUE
+---
+
+Add an environment variable to a stack.

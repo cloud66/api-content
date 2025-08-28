@@ -1,0 +1,38 @@
+---
+title: List Backup Files
+scope: public
+path: /v1/stacks/:stack_id/backups/:backup_id/files
+method: GET
+response: |
+  {
+    "response":[
+      {
+        "id":"tar",
+        "name":"test_db_11.tar"
+      }
+    ],
+    "count":1,
+    "pagination":
+      {
+        "previous":null,
+        "next":null,
+        "current":1,
+        "per_page":30,
+        "count":1,
+        "pages":1
+      }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: backup_id
+    presence: required
+    data_type: integer
+    description: Backup ID
+    sample_value: "4153"
+---
+
+Get list of all backup files of a stack.

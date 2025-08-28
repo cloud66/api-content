@@ -1,0 +1,40 @@
+---
+title: Get Environment Variable
+scope: admin
+path: /v1/stacks/:stack_id/environments/:env_var_id
+method: GET
+response: |
+  {
+    "response": {
+      "id": 4153,
+      "key": "STACK_PATH",
+      "value": "/var/deploy/test-elastic-1/web_head/current",
+      "readonly": true,
+      "created_at": "2014-08-29T17:21:25Z",
+      "updated_at": "2014-08-29T17:21:25Z",
+      "is_password": false,
+      "is_generated": true,
+      "history": [
+        {
+          "key": 2,
+          "value": "/var/deploy/test-elastic-1/web_head/somethingold",
+          "created_at": "2015-05-08T14:01:50Z",
+          "updated_at": "2015-05-08T14:01:50Z"
+        }
+      ]
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: env_var_id
+    presence: required
+    data_type: integer
+    description: The environment variable ID
+    sample_value: 4153
+---
+
+Get information about a single environment variable.

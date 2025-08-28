@@ -1,0 +1,58 @@
+---
+title: List Containers
+scope: public
+path: /v1/stacks/:stack_id/containers
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "cba44fa6b6acf57fb0ef6c2ce385f6a129867df544dae7181d2410e9f9cc32bc",
+        "server_uid": "c6014897b8c8e9f2fc204a3a9efdae05",
+        "server_name": "Gazelle",
+        "service_name": "web",
+        "image": "quay.io/cloud66/sample-rails",
+        "command": "bundle exec rackup -p 3000",
+        "started_at": "2015-02-10T17:41:31Z",
+        "ports": [
+          {
+            "container": 3000,
+            "http": 80,
+            "https": 443
+          }
+        ],
+        "private_ip": "25.0.0.2",
+        "docker_ip": null,
+        "health_state": 1,
+        "health_message": null,
+        "health_source": "system",
+        "capture_output": true,
+        "restart_on_deploy": true,
+        "created_at": "2015-02-10T17:41:37Z",
+        "updated_at": "2015-02-17T14:40:17Z"
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: server_uid
+    presence: optional
+    data_type: string
+    description: Server UID
+    sample_value: c6014897b8c8e9f2fc204a3a9efdae05
+---
+
+Get a list of all the containers of the stack.

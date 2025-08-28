@@ -1,0 +1,25 @@
+---
+title: Stop Container
+scope: admin
+path: /v1/stacks/:stack_id/containers/:container_id
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: container_id
+    presence: required
+    data_type: string
+    description: The container UID
+    sample_value: cba44fa6b6acf57fb0ef6c2ce385f6a129867df544dae7181d2410e9f9cc32bc
+---
+
+Stop a container of the stack.

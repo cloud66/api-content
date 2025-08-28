@@ -1,0 +1,26 @@
+---
+title: Get Account
+scope: users
+path: /v1/accounts/:id
+method: GET
+response: |
+  {
+    "response":
+      {
+        "id": 139,
+        "owner": "test@cloud66.com",
+        "created_at_iso": "2013-06-19T11:08:03Z",
+        "updated_at_iso": "2014-02-20T12:55:58Z",
+        "stack_count": 2,
+        "used_clouds": ["digitalocean","rackspace"]
+      }
+  }
+parameters:
+  - name: id
+    presence: required
+    data_type: integer
+    description: The account ID
+    sample_value: "1"
+---
+
+Get information about an account.

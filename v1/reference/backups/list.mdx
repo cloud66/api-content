@@ -1,0 +1,75 @@
+---
+title: List Backups
+scope: public
+path: /v1/stacks/:id/backups
+method: GET
+response: |
+  {
+    "response":[
+      {
+        "id":4,
+        "server_uid":"e63e859d5ab72b0bcf14321f0ffb013d",
+        "db_type":"mysql",
+        "database_name":"test-db",
+        "file_base":"",
+        "backup_date_iso":"2014-09-01T19:00:33Z",
+        "backup_status":0,
+        "backup_result":"",
+        "restore_status":0,
+        "restore_result":null,
+        "created_at_iso":"2014-09-01T19:00:33Z",
+        "updated_at_iso":"2014-09-01T19:00:33Z",
+        "verify_status":0,
+        "verify_result":null,
+        "storage_path":"2aad2bb5a70e621ecf251fbd85af6927/backups/3c656a1bcc160769762763c6276c18b9/mysql/test_db_11/2014.09.01.19.00.31",
+        "skip_tables":"","backup_size":0
+      },
+      {
+        "id":1,
+        "server_uid":"e63e859d5ab72b0bcf14321f0ffb013d",
+        "db_type":"mysql",
+        "database_name":"test-db",
+        "file_base":"",
+        "backup_date_iso":"2014-09-01T18:16:16Z",
+        "backup_status":0,
+        "backup_result":"",
+        "restore_status":0,
+        "restore_result":null,
+        "created_at_iso":"2014-09-01T18:16:16Z",
+        "updated_at_iso":"2014-09-01T18:16:16Z",
+        "verify_status":0,
+        "verify_result":null,
+        "storage_path":"2aad2bb5a70e621ecf251fbd85af6927/backups/3c656a1bcc160769762763c6276c18b9/mysql/test_db_11/2014.09.01.18.16.14",
+        "skip_tables":"","backup_size":0
+      }
+    ],
+    "count":2,
+    "pagination":
+      {
+        "previous":null,
+        "next":null,
+        "current":1,
+        "per_page":30,
+        "count":2,
+        "pages":1
+      }
+  }
+parameters:
+  - name: id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: group
+    presence: optional
+    data_type: integer
+    description: Backup group ID
+    sample_value: "15"
+  - name: db_type
+    presence: optional
+    data_type: string
+    description: "Backup database type (valid options are: mysql, postgresql, redis, mongodb)"
+    sample_value: "mysql"
+---
+
+Get list of all backups of stack.

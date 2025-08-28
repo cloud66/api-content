@@ -1,0 +1,21 @@
+---
+title: Delete Failover Group
+scope: admin
+path: /v1/failover_groups/:failover_group_id
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Failover group deleted"
+    }
+  }
+parameters:
+  - name: failover_group_id
+    presence: required
+    data_type: string
+    description: The failover group UID
+    sample_value: fg-5be3dca6d3c4bf1eaddcb5b555d993bb
+---
+
+Delete a failover group.

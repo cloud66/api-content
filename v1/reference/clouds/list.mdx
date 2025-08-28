@@ -1,0 +1,55 @@
+---
+title: List Clouds
+scope: redeploy
+path: /v1/clouds
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "name": "aws",
+        "display_name": "AWS",
+        "regions": [
+          {
+            "id": "us-east-1",
+            "name": "US East (Northern Virginia)"
+          },
+          {
+            "id": "us-west-1",
+            "name": "US West (Northern California)"
+          }
+        ],
+        "server_sizes": [
+          {
+            "id": "t2.micro",
+            "name": "General purpose (t2.micro)"
+          },
+          {
+            "id": "t2.small",
+            "name": "General purpose (t2.small)"
+          }
+        ]
+      },
+      {
+        "name": "digitalocean",
+        "display_name": "DigitalOcean",
+        "regions": [
+          {
+            "id": "ams1",
+            "name": "Amsterdam, Netherlands",
+            "old_id": "2"
+          }
+        ],
+        "server_sizes": [
+          {
+            "id": "512mb",
+            "name": "512MB / 1 CPU"
+          }
+        ]
+      }
+    ]
+  }
+parameters: []
+---
+
+Retrieves a list of all supported cloud providers, including their available regions and server sizes.

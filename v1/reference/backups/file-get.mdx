@@ -1,0 +1,32 @@
+---
+title: Get Backup File
+scope: public
+path: /v1/stacks/:stack_id/backups/:backup_id/files/:id
+method: GET
+response: |
+  {
+    "response":
+      {
+        "ok":true,
+        "public_url":"https://c66-managed-backup-non-prod.s3.amazonaws.com/2aad2bb5a70e621ecf251fbd85af6927/backups/3c656a1bcc160769762763c6276c18b9/mysql/test_db_11/2014.09.01.18.16.14/test_db_11.tar?AWSAccessKeyId=AKIAIKCYITLQBEJDIETQ\u0026Expires=1409603570\u0026Signature=C2au7Jq%252F1m6uHGHRfGJPn%252F2GSS8%253D"
+      }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: backup_id
+    presence: required
+    data_type: integer
+    description: Backup ID
+    sample_value: "4153"
+  - name: id
+    presence: required
+    data_type: string
+    description: The file ID
+    sample_value: "tar-aa"
+---
+
+Get the public URL to a backup file.

@@ -1,0 +1,26 @@
+---
+title: Delete Environment Variable
+scope: admin
+path: /v1/stacks/:stack_id/environments/:env_var_key
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Environment variable deleted"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: env_var_key
+    presence: required
+    data_type: string
+    description: The environment variable key/name
+    sample_value: MY_ENV_1
+---
+
+Delete an environment variable from a stack.

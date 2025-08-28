@@ -1,0 +1,26 @@
+---
+title: Reboot Server
+scope: admin
+path: /v1/stacks/:stack_id/servers/:server_id/reboot
+method: POST
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Server reboot initiated"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: server_id
+    presence: required
+    data_type: string
+    description: The server UID
+    sample_value: f8468fc145ea49bac474b30a8fea888d
+---
+
+Reboot a server.

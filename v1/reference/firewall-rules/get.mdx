@@ -1,0 +1,37 @@
+---
+title: Get Firewall Rule
+scope: admin
+path: /v1/stacks/:stack_id/firewalls/:firewall_rule_id
+method: GET
+response: |
+  {
+    "response": {
+      "id": 5027,
+      "from_ip": "0.0.0.0/0",
+      "from_group_id": null,
+      "from_server_id": null,
+      "to_ip": null,
+      "to_group_id": 128,
+      "to_server_id": null,
+      "protocol": "tcp",
+      "port": 80,
+      "rule_type": "dynamic",
+      "comments": null,
+      "created_at": "2014-08-29T17:58:23Z",
+      "updated_at": "2014-08-29T17:58:23Z"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: 5999b763474b0eafa5fafb64bff0ba80
+  - name: firewall_rule_id
+    presence: required
+    data_type: integer
+    description: The firewall rule ID
+    sample_value: 5027
+---
+
+Get information about a specific firewall rule.

@@ -1,0 +1,35 @@
+---
+title: List Users
+scope: admin
+path: /v1/users
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 1,
+        "email": "test@cloud66.com",
+        "primary_account_id": 1,
+        "locked": false,
+        "uses_tfa": false,
+        "timezone": "UTC",
+        "has_valid_phone": false,
+        "developer_program": false,
+        "created_at": "2014-08-29T17:21:25Z",
+        "updated_at": "2014-08-29T17:21:25Z"
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters: []
+---
+
+Get list of all users in the account.
