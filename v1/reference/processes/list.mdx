@@ -1,12 +1,44 @@
 ---
 title: List Processes
 scope: public
-path: /v1/stacks/{stack_id}/processes
+path: /v1/stacks/:stack_id/processes
 method: GET
-description: List all processes for a given stack.
+response: |
+    {
+    "response":[
+    {
+    "md5":"5999b763474b0eafa5fafb64bff0ba80",
+    "name":"worker",
+    "command":"bundle exec rake jobs:work",
+    "servers":{"server_name":1}
+    },
+    {
+    "md5":"1230fd91f8c9e4e56c1b14dd0391702",
+    "name":"scheduler",
+    "command":"bundle exec rake jobs:schedule",
+    "servers":{"server_name":1}
+    }
+    ],
+    "count":2,
+    "pagination":
+    {
+    "previous":null,
+    "next":null,
+    "current":1,
+    "per_page":30,
+    "count":2,
+    "pages":1
+    }
+    }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: Stack ID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: server_uid
+    presence: optional
+    data_type: integer
+    description: Filter processes by server ID
+    sample_value: "e63e859d5ab72b0bcf14321f0ffb013d"
 ---
-
-| Parameter  | Presence     | Data type | Description | Sample value                       |
-|------------|--------------|-----------|-------------|------------------------------------|
-| stack_id   | **required** | string    | stack UID   | `5999b763474b0eafa5fafb64bff0ba80` |
-| server_uid | optional     | integer   | server UID  | `e63e859d5ab72b0bcf14321f0ffb013d` |

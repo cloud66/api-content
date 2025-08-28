@@ -1,0 +1,21 @@
+---
+---
+
+### Processes
+
+Processes are background processes that are running on your servers and are managed by Cloud 66.
+
+<Model>
+    <ModelProperty name="md5" type="string">
+        The MD5 hash is used to uniquely identify the process configuration and can be useful for caching or comparison purposes.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the process, such as "web", "worker", or "scheduler". This helps in identifying the role of the process within the application stack.
+    </ModelProperty>
+    <ModelProperty name="command" type="string" >
+        This is the command that the process executes to perform its tasks. It typically includes the executable and any necessary arguments.
+    </ModelProperty>
+    <ModelProperty name="servers" type="number">
+        The number of server instances of this process running on each server. This helps in understanding the distribution of the process across the infrastructure.
+    </ModelProperty>
+</Model>

@@ -1,9 +1,25 @@
 ---
 title: Scale Process
 scope: public
-path: /v1/stacks/{stack_id}/processes/{id}/scale
+path: /v1/stacks/:stack_id/processes/:id/scale
 method: POST
-description: Scale a process by a given factor.
+response: |
+    {
+    "response": [
+    {
+    "id":10,
+    "user":"acme@example.com",
+    "resource_type":"stack",
+    "action":"Process_scale",
+    "resource_id":"283",
+    "started_via":"api",
+    "started_at":"2025-01-01T19:08:05Z",
+    "finished_at":null,
+    "finished_success":null,
+    "finished_message":null
+    }
+    ]
+    }
 ---
 
-This one stretches or shrinks a process by a given factor.
+
