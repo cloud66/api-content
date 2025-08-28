@@ -1,0 +1,90 @@
+---
+---
+
+### Servers
+
+Servers represent the compute instances in your infrastructure, whether they are cloud servers or your own servers. They contain information about the server's configuration, location, and health status.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the server.
+    </ModelProperty>
+    <ModelProperty name="vendor_uid" type="string">
+        The cloud provider's identifier for this server.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the server.
+    </ModelProperty>
+    <ModelProperty name="address" type="string">
+        The external IP address of the server.
+    </ModelProperty>
+    <ModelProperty name="distro" type="string">
+        The Linux distribution running on the server.
+    </ModelProperty>
+    <ModelProperty name="distro_version" type="string">
+        The version of the Linux distribution.
+    </ModelProperty>
+    <ModelProperty name="dns_record" type="string">
+        The DNS record associated with this server.
+    </ModelProperty>
+    <ModelProperty name="user_name" type="string">
+        The username for SSH access to this server.
+    </ModelProperty>
+    <ModelProperty name="server_type" type="string">
+        The type of server (BYOS for Bring Your Own Server, or Cloud with provider name).
+    </ModelProperty>
+    <ModelProperty name="server_roles" type="array">
+        An array of roles assigned to this server (e.g., web, db, docker).
+    </ModelProperty>
+    <ModelProperty name="server_group_id" type="integer">
+        The ID of the server group this server belongs to.
+    </ModelProperty>
+    <ModelProperty name="stack_uid" type="string">
+        The UID of the stack this server belongs to.
+    </ModelProperty>
+    <ModelProperty name="has_agent" type="boolean">
+        Whether the Cloud 66 agent is installed on this server.
+    </ModelProperty>
+    <ModelProperty name="params" type="object">
+        Additional parameters and metadata for the server.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the server was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the server was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="region" type="string">
+        The cloud provider region where this server is located.
+    </ModelProperty>
+    <ModelProperty name="availability_zone" type="string">
+        The availability zone within the region.
+    </ModelProperty>
+    <ModelProperty name="ext_ipv4" type="string">
+        The external IPv4 address of the server.
+    </ModelProperty>
+    <ModelProperty name="int_ipv4" type="string">
+        The internal IPv4 address of the server.
+    </ModelProperty>
+    <ModelProperty name="ext_ipv6" type="string">
+        The external IPv6 address of the server, if available.
+    </ModelProperty>
+    <ModelProperty name="int_ipv6" type="string">
+        The internal IPv6 address of the server, if available.
+    </ModelProperty>
+    <ModelProperty name="health_state" type="integer">
+        The health status code of the server.
+    </ModelProperty>
+    <ModelProperty name="personal_key" type="boolean">
+        Whether this server uses personal SSH keys for multi-user access.
+    </ModelProperty>
+    <ModelProperty name="has_deploy_gateway" type="boolean">
+        Whether this server has a deploy gateway configured.
+    </ModelProperty>
+    <ModelProperty name="deploy_gateway_address" type="string">
+        The address of the deploy gateway, if configured.
+    </ModelProperty>
+    <ModelProperty name="deploy_gateway_user_name" type="string">
+        The username for the deploy gateway, if configured.
+    </ModelProperty>
+</Model>

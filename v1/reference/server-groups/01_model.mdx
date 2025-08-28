@@ -1,0 +1,24 @@
+---
+---
+
+### Server Groups
+
+Server groups are logical collections of servers that share similar roles or purposes within a stack. They help organize and manage servers based on their function.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the server group.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The display name of the server group.
+    </ModelProperty>
+    <ModelProperty name="type" type="string">
+        The type of server group, indicating its purpose or role.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the server group was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the server group was last updated, in ISO 8601 format.
+    </ModelProperty>
+</Model>

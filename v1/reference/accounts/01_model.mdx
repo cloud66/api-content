@@ -1,0 +1,39 @@
+---
+---
+
+### Accounts
+
+Accounts represent organizational units in Cloud 66 that own and manage stacks. Users can belong to multiple accounts and have different roles within each account.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the account.
+    </ModelProperty>
+    <ModelProperty name="owner" type="string">
+        The email address of the account owner.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="datetime">
+        The date and time the account was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="datetime">
+        The date and time the account was last modified, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="stack_count" type="integer">
+        The number of stacks associated with this account.
+    </ModelProperty>
+    <ModelProperty name="used_clouds" type="array">
+        An array of cloud provider names that are being used by this account's stacks.
+    </ModelProperty>
+    <ModelProperty name="current_account" type="boolean">
+        Indicates whether this is the current account in the API context.
+    </ModelProperty>
+    <ModelProperty name="friendly_name" type="string">
+        A user-friendly display name for the account.
+    </ModelProperty>
+    <ModelProperty name="server_registration_script" type="string">
+        The script command for registering new servers to this account.
+    </ModelProperty>
+    <ModelProperty name="configstore_namespace" type="string">
+        The UUID namespace for the account's configuration store.
+    </ModelProperty>
+</Model>

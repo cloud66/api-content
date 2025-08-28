@@ -1,0 +1,66 @@
+---
+---
+
+### Containers
+
+Containers represent Docker containers running on your servers, managed by Cloud 66. They contain information about the container's configuration, network settings, and health status.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique Docker container ID.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the container.
+    </ModelProperty>
+    <ModelProperty name="server_uid" type="string">
+        The UID of the server where this container is running.
+    </ModelProperty>
+    <ModelProperty name="server_name" type="string">
+        The name of the server where this container is running.
+    </ModelProperty>
+    <ModelProperty name="service_name" type="string">
+        The name of the service this container belongs to.
+    </ModelProperty>
+    <ModelProperty name="image" type="string">
+        The Docker image used to create this container.
+    </ModelProperty>
+    <ModelProperty name="command" type="string">
+        The command that the container executes when it starts.
+    </ModelProperty>
+    <ModelProperty name="started_at" type="datetime">
+        The date and time when the container was started, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="ports" type="array">
+        An array of port mappings for the container.
+    </ModelProperty>
+    <ModelProperty name="private_ip" type="string">
+        The private IP address assigned to the container.
+    </ModelProperty>
+    <ModelProperty name="docker_ip" type="string">
+        The Docker network IP address of the container.
+    </ModelProperty>
+    <ModelProperty name="health_state" type="integer">
+        The health status code of the container.
+    </ModelProperty>
+    <ModelProperty name="health_message" type="string">
+        A message describing the health status of the container.
+    </ModelProperty>
+    <ModelProperty name="health_source" type="string">
+        The source of the health check information.
+    </ModelProperty>
+    <ModelProperty name="capture_output" type="boolean">
+        Whether output from this container is being captured.
+    </ModelProperty>
+    <ModelProperty name="restart_on_deploy" type="boolean">
+        Whether this container should be restarted during deployments.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the container record was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the container record was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="status" type="string">
+        The current status of the container (e.g., running, stopped).
+    </ModelProperty>
+</Model>

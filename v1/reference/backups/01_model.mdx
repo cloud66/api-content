@@ -1,0 +1,60 @@
+---
+---
+
+### Backups
+
+Backups represent database backup snapshots that are managed by Cloud 66. These backups can be created automatically on a schedule or manually, and support various database types including MySQL, PostgreSQL, Redis, and MongoDB.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the backup.
+    </ModelProperty>
+    <ModelProperty name="server_uid" type="string">
+        The UID of the server where this backup was created.
+    </ModelProperty>
+    <ModelProperty name="db_type" type="string">
+        The type of database backed up (mysql, postgresql, redis, or mongodb).
+    </ModelProperty>
+    <ModelProperty name="database_name" type="string">
+        The name of the database that was backed up.
+    </ModelProperty>
+    <ModelProperty name="file_base" type="string">
+        The base filename for the backup files.
+    </ModelProperty>
+    <ModelProperty name="backup_date_iso" type="datetime">
+        The date and time when the backup was taken, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="backup_status" type="integer">
+        The status code of the backup operation (0 for success).
+    </ModelProperty>
+    <ModelProperty name="backup_result" type="string">
+        The result message from the backup operation.
+    </ModelProperty>
+    <ModelProperty name="restore_status" type="integer">
+        The status code of any restore operation performed with this backup.
+    </ModelProperty>
+    <ModelProperty name="restore_result" type="string">
+        The result message from any restore operation.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="datetime">
+        The date and time the backup record was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="datetime">
+        The date and time the backup record was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="verify_status" type="integer">
+        The status code of the backup verification process.
+    </ModelProperty>
+    <ModelProperty name="verify_result" type="string">
+        The result message from the backup verification.
+    </ModelProperty>
+    <ModelProperty name="storage_path" type="string">
+        The storage location path where the backup files are stored.
+    </ModelProperty>
+    <ModelProperty name="skip_tables" type="string">
+        Comma-separated list of database tables that were excluded from the backup.
+    </ModelProperty>
+    <ModelProperty name="backup_size" type="integer">
+        The size of the backup in bytes.
+    </ModelProperty>
+</Model>

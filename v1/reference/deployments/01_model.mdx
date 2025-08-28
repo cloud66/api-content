@@ -1,0 +1,63 @@
+---
+---
+
+### Deployments
+
+Deployments represent the deployment history and operations for your stacks. Each deployment tracks the git commit, trigger source, outcome, and timing information.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the deployment.
+    </ModelProperty>
+    <ModelProperty name="triggered_by" type="string">
+        The user or system that triggered this deployment.
+    </ModelProperty>
+    <ModelProperty name="triggered_via" type="object">
+        Information about how the deployment was triggered, including code and meaning (web, api, or hook).
+    </ModelProperty>
+    <ModelProperty name="started_at" type="datetime">
+        The date and time when the deployment started, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="finished_at" type="datetime">
+        The date and time when the deployment finished, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="outcome" type="object">
+        The deployment outcome, including code and meaning (pending, success, or failed).
+    </ModelProperty>
+    <ModelProperty name="git_hash" type="string">
+        The git commit hash for this deployment.
+    </ModelProperty>
+    <ModelProperty name="git_ref" type="string">
+        The git reference (branch or tag) used for this deployment.
+    </ModelProperty>
+    <ModelProperty name="deploy_session" type="string">
+        The unique session identifier for this deployment.
+    </ModelProperty>
+    <ModelProperty name="deploy_type" type="object">
+        The type of deployment, including code and meaning (build, redeploy, scale, first_build, or revert).
+    </ModelProperty>
+    <ModelProperty name="is_head" type="boolean">
+        Whether this deployment is the current HEAD deployment.
+    </ModelProperty>
+    <ModelProperty name="is_live" type="boolean">
+        Whether this deployment is currently live.
+    </ModelProperty>
+    <ModelProperty name="reverted" type="boolean">
+        Whether this deployment has been reverted.
+    </ModelProperty>
+    <ModelProperty name="reverted_by" type="string">
+        The user who reverted this deployment, if applicable.
+    </ModelProperty>
+    <ModelProperty name="reverted_at" type="datetime">
+        The date and time when this deployment was reverted, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="is_deploying" type="boolean">
+        Whether this deployment is currently in progress.
+    </ModelProperty>
+    <ModelProperty name="commit_url" type="string">
+        The URL to view the git commit for this deployment.
+    </ModelProperty>
+    <ModelProperty name="snapshot_uuid" type="string">
+        The UUID of the snapshot associated with this deployment.
+    </ModelProperty>
+</Model>

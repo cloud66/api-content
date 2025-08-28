@@ -1,0 +1,48 @@
+---
+---
+
+### Firewall Rules
+
+Firewall rules define network access controls for your servers. They specify which IP addresses, servers, or server groups can communicate on specific ports and protocols.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the firewall rule.
+    </ModelProperty>
+    <ModelProperty name="from_ip" type="string">
+        The source IP address or CIDR block that traffic originates from.
+    </ModelProperty>
+    <ModelProperty name="from_group_id" type="integer">
+        The ID of the source server group that traffic originates from.
+    </ModelProperty>
+    <ModelProperty name="from_server_id" type="string">
+        The UID of the source server that traffic originates from.
+    </ModelProperty>
+    <ModelProperty name="to_ip" type="string">
+        The destination IP address or CIDR block that traffic is directed to.
+    </ModelProperty>
+    <ModelProperty name="to_group_id" type="integer">
+        The ID of the destination server group that traffic is directed to.
+    </ModelProperty>
+    <ModelProperty name="to_server_id" type="string">
+        The UID of the destination server that traffic is directed to.
+    </ModelProperty>
+    <ModelProperty name="protocol" type="string">
+        The network protocol for this rule (tcp, udp, or icmp).
+    </ModelProperty>
+    <ModelProperty name="port" type="string">
+        The port or port range for this rule (e.g., "80", "443", "8000-8999").
+    </ModelProperty>
+    <ModelProperty name="rule_type" type="string">
+        The type of firewall rule (static, dynamic, or user).
+    </ModelProperty>
+    <ModelProperty name="comments" type="string">
+        Optional comments or description for this firewall rule.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the firewall rule was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the firewall rule was last updated, in ISO 8601 format.
+    </ModelProperty>
+</Model>

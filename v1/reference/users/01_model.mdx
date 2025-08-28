@@ -1,0 +1,57 @@
+---
+---
+
+### Users
+
+Users represent individual user accounts in Cloud 66. Users can belong to multiple accounts with different roles and permissions.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the user.
+    </ModelProperty>
+    <ModelProperty name="email" type="string">
+        The email address of the user.
+    </ModelProperty>
+    <ModelProperty name="primary_account_id" type="integer">
+        The ID of the user's primary account.
+    </ModelProperty>
+    <ModelProperty name="accounts" type="array">
+        An array of account roles showing all accounts this user has access to.
+    </ModelProperty>
+    <ModelProperty name="locked" type="boolean">
+        Whether the user account is locked.
+    </ModelProperty>
+    <ModelProperty name="access_profile" type="object">
+        The user's access profile including account profile, stack profiles, and ACLs.
+    </ModelProperty>
+    <ModelProperty name="uses_tfa" type="boolean">
+        Whether the user has two-factor authentication enabled.
+    </ModelProperty>
+    <ModelProperty name="timezone" type="string">
+        The user's preferred timezone.
+    </ModelProperty>
+    <ModelProperty name="has_valid_phone" type="boolean">
+        Whether the user has a validated phone number.
+    </ModelProperty>
+    <ModelProperty name="developer_program" type="boolean">
+        Whether the user is part of the developer program.
+    </ModelProperty>
+    <ModelProperty name="github_login" type="boolean">
+        Whether the user logs in using GitHub authentication.
+    </ModelProperty>
+    <ModelProperty name="last_login" type="datetime">
+        The date and time of the user's last login, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="devices" type="array">
+        An array of devices registered for this user.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the user account was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the user account was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="cloud_status" type="string">
+        The status of the user's cloud provider connections.
+    </ModelProperty>
+</Model>

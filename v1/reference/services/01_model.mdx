@@ -1,0 +1,45 @@
+---
+---
+
+### Services
+
+Services represent containerized applications or microservices running in your stack. They define the Docker images, commands, and configurations for your application components.
+
+<Model>
+    <ModelProperty name="name" type="string">
+        The name of the service.
+    </ModelProperty>
+    <ModelProperty name="containers" type="array">
+        An array of container objects that belong to this service, showing all running instances.
+    </ModelProperty>
+    <ModelProperty name="source_type" type="string">
+        The source type for the service image (e.g., git, image).
+    </ModelProperty>
+    <ModelProperty name="git_ref" type="string">
+        The git reference (branch or tag) used for building this service.
+    </ModelProperty>
+    <ModelProperty name="image_name" type="string">
+        The Docker image name for this service.
+    </ModelProperty>
+    <ModelProperty name="image_uid" type="string">
+        The unique identifier of the Docker image.
+    </ModelProperty>
+    <ModelProperty name="image_tag" type="string">
+        The Docker image tag version.
+    </ModelProperty>
+    <ModelProperty name="command" type="string">
+        The command that the service containers execute when they start.
+    </ModelProperty>
+    <ModelProperty name="build_command" type="string">
+        The command used to build the Docker image for this service.
+    </ModelProperty>
+    <ModelProperty name="deploy_command" type="string">
+        The command executed during deployment of this service.
+    </ModelProperty>
+    <ModelProperty name="wrap_command" type="string">
+        The wrapper command used to execute the service in specific environments.
+    </ModelProperty>
+    <ModelProperty name="desired_count" type="integer">
+        For Kubernetes-based stacks, the desired number of replicas for this service.
+    </ModelProperty>
+</Model>

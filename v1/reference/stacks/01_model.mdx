@@ -1,0 +1,108 @@
+---
+---
+
+### Stacks
+
+Stacks are the core organizational unit in Cloud 66, representing a complete application environment including servers, services, databases, and configurations.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the stack.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The display name of the stack.
+    </ModelProperty>
+    <ModelProperty name="account_id" type="integer">
+        The ID of the account that owns this stack.
+    </ModelProperty>
+    <ModelProperty name="git" type="string">
+        The git repository URL associated with the stack.
+    </ModelProperty>
+    <ModelProperty name="git_branch" type="string">
+        The git branch or reference being deployed.
+    </ModelProperty>
+    <ModelProperty name="environment" type="string">
+        The environment name for this stack (e.g., production, staging, development).
+    </ModelProperty>
+    <ModelProperty name="cloud" type="string">
+        The cloud provider name or "no_cloud" for BYOS stacks.
+    </ModelProperty>
+    <ModelProperty name="fqdn" type="string">
+        The fully qualified domain name for the stack.
+    </ModelProperty>
+    <ModelProperty name="language" type="string">
+        The primary programming language of the stack.
+    </ModelProperty>
+    <ModelProperty name="framework" type="string">
+        The framework used by the stack (e.g., rails, nodejs, docker).
+    </ModelProperty>
+    <ModelProperty name="status" type="integer">
+        The current status code of the stack.
+    </ModelProperty>
+    <ModelProperty name="health" type="integer">
+        The current health state code of the stack.
+    </ModelProperty>
+    <ModelProperty name="last_activity" type="string">
+        The date and time of the last activity on the stack.
+    </ModelProperty>
+    <ModelProperty name="last_activity_iso" type="datetime">
+        The date and time of the last activity in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="maintenance_mode" type="boolean">
+        Whether the stack is currently in maintenance mode.
+    </ModelProperty>
+    <ModelProperty name="has_loadbalancer" type="boolean">
+        Whether the stack has a load balancer configured.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the stack was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the stack was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="deploy_directory" type="string">
+        The deployment directory path on the servers.
+    </ModelProperty>
+    <ModelProperty name="cloud_status" type="string">
+        The status of cloud resources for this stack.
+    </ModelProperty>
+    <ModelProperty name="backend" type="string">
+        The backend type for the stack.
+    </ModelProperty>
+    <ModelProperty name="version" type="string">
+        The implementation version of the stack.
+    </ModelProperty>
+    <ModelProperty name="revision" type="string">
+        The current stack revision number.
+    </ModelProperty>
+    <ModelProperty name="is_busy" type="boolean">
+        Whether the stack is currently performing an operation.
+    </ModelProperty>
+    <ModelProperty name="account_name" type="string">
+        The friendly name and email of the account owner.
+    </ModelProperty>
+    <ModelProperty name="is_cluster" type="boolean">
+        Whether this stack is a Kubernetes cluster.
+    </ModelProperty>
+    <ModelProperty name="is_inside_cluster" type="boolean">
+        Whether this stack is deployed inside a cluster.
+    </ModelProperty>
+    <ModelProperty name="cluster_name" type="string">
+        The name of the cluster this stack belongs to, if applicable.
+    </ModelProperty>
+    <ModelProperty name="application_address" type="string">
+        The main application address for accessing the stack.
+    </ModelProperty>
+    <ModelProperty name="configstore_namespace" type="string">
+        The UUID namespace for the stack's configuration store.
+    </ModelProperty>
+    <ModelProperty name="namespaces" type="array">
+        For Kubernetes stacks, the list of namespaces used.
+    </ModelProperty>
+    <ModelProperty name="considerations" type="object">
+        Important considerations or warnings about the stack state.
+    </ModelProperty>
+    <ModelProperty name="redeploy_hook" type="string">
+        The webhook URL for triggering redeployments (when exposed).
+    </ModelProperty>
+</Model>
