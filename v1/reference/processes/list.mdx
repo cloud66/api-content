@@ -1,0 +1,12 @@
+---
+title: List Processes
+scope: public
+path: /v1/stacks/{stack_id}/processes
+method: GET
+description: List all processes for a given stack.
+---
+
+| Parameter  | Presence     | Data type | Description | Sample value                       |
+|------------|--------------|-----------|-------------|------------------------------------|
+| stack_id   | **required** | string    | stack UID   | `5999b763474b0eafa5fafb64bff0ba80` |
+| server_uid | optional     | integer   | server UID  | `e63e859d5ab72b0bcf14321f0ffb013d` |
