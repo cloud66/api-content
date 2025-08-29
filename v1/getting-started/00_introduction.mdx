@@ -1,0 +1,29 @@
+---
+title: Introduction
+---
+
+## Welcome
+[Cloud 66](https://www.cloud66.com) Cloud 66 gives you everything you need to build, deploy and scale your applications on your servers.
+
+This site will guide you through the process of getting started with Cloud 66 API. If you haven't already, you can sign up for a free trial account at [Cloud 66](https://www.cloud66.com).
+
+## Resource Model
+
+The Cloud 66 API is organised around [REST](https://en.wikipedia.org/wiki/Representational_State_Transfer). It is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors.
+
+We use built-in HTTP features, like HTTP authentication and HTTP verbs, which can be understood by off-the-shelf HTTP clients.
+
+[JSON](https://www.json.org/) will be returned in all responses from the API, including errors (though if you're using API bindings, we will convert the response to the appropriate language-specific object).
+
+## Rate Limiting
+
+The Cloud 66 API can receive a maximum of 3,000 requests per user per hour. When the request level reaches the maximum rate, subsequent requests will return a `503: throttled` HTTP status message and the user must retry the request in the next hourly interval.
+
+
+## Stack UID Retrieval
+
+Many requests in the Cloud 66 API rely on the Stack UID value, an alphanumeric string that uniquely identifies your stack. You can retrieve this value by accessing the _Stack information_ page from the right sidebar of your stack page or by submitting an API request to list all stacks. The Stack UID appears in the response body for each stack you maintain.
+
+## Date Formats
+
+Cloud 66 accepts and returns date values according to the ISO 8601 standard. Combined date and time values appear in UTC including local time zone offsets. For example: `2014-06-15T14:13:18+00:00`
