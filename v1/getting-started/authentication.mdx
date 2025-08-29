@@ -1,0 +1,57 @@
+---
+title: Authentication
+---
+
+# Authentication
+
+Cloud 66 uses [OAuth2](https://oauth.net/2/) to authenticate users and grant access to stacks and redeployments. To use it, you need an OAuth 2.0 compatible client. To submit API requests, you must pass an OAuth token. An OAuth token functions as a complete authentication request, acting as a substitute for a username and password pair. Because of this, it is absolutely essential that you keep your OAuth tokens secure.
+
+To authenticate your requests with OAuth you need to send a bearer authorization header with your request. This is the preferred method of authenticating because it completes the authorization request in the header portion, away from the actual request.
+
+Usually, you use a language binding (like a [Ruby gem](https://rubygems.org/) or [Go package](https://golang.org/pkg/)) to deal with the OAuth authentication. Alternatively, you can include the OAuth authentication token in the header of each request:
+
+`Authorization: bearer 5262d64b892e8d4341000001`
+
+You can generate an OAuth token by visiting the [Apps](https://app.cloud66.com/oauth/authorized_applications) , under your Account.
+
+## How to authenticate with OAuth2
+
+You can generate an OAuth token using the Your Account > [Apps](https://app.cloud66.com/oauth/authorized_applications) area of the Cloud 66 user interface or using the API.
+
+**Step 1 - Redirect users to request Cloud 66 access**
+
+`GET https://app.cloud66.com/oauth/authorize`
+
+| Parameter    | Description                                                   | Presence     |
+|--------------|---------------------------------------------------------------|--------------|
+| client_id    | The client ID you received from Cloud 66 when you registered. | **required** |
+| redirect_url | URL in your app where users will be sent after authorization. | **required** |
+| scope        | Comma separated list of scopes.                               | optional     |
+
+**Step 2 - Cloud 66 redirects back to your site**
+
+If the user accepts your request, Cloud 66 redirects back to your site with a temporary code in a code parameter as well as the state you provided in the previous step in a state parameter. If the states don't match, the request has been created by a third party and the process should be aborted.
+
+Exchange this for an access token:
+
+`POST https://app.cloud66.com/oauth/token`
+
+| Parameter     | Description                                                       | Presence     |
+|---------------|-------------------------------------------------------------------|--------------|
+| client_id     | The client ID you received from Cloud 66 when you registered.     | **required** |
+| redirect_url  | URL in your app where users will be sent after authorization.     | optional     |
+| client_secret | The client secret you received from Cloud 66 when you registered. | **required** |
+
+**Response**
+By default, the response will take the following form:
+
+```
+access_token=e72e16c7e42f292c6912e7710c838347ae178b4a&amp;token_type=bearer
+Accept: application/json {"access_token":"e72e16c7e42f292c6912e7710c838347ae178b4a","token_type":"bearer"}
+```
+
+**Step 3 - Use the access token to access the API**
+
+The access token allows you to make requests to the API on behalf of a user.
+
+`GET "https://app.cloud66.com/api/3/stacks.json" -H "Authorization: Bearer e72e...b4a"`

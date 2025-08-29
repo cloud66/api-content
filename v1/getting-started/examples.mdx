@@ -1,0 +1,92 @@
+---
+title: Examples
+---
+
+# Examples
+
+## Ruby
+
+This example shows how to get the first token using the Application (Client) ID and Secret. This is using `urn:ietf:wg:oauth:2.0:oob` for command line tools.
+
+Once you have the code, you can apply for a token. Tokens issued by the API server do not expire and are valid until the user revokes their access. You can see how to store and retrieve the token for future use in this example.
+
+```ruby
+require 'rubygems'
+require 'oauth2'
+require 'json'
+
+base = 'https://app.cloud66.com'
+api_url = 'https://app.cloud66.com/api/3'
+
+if File.exists? '/tmp/cloud66_oauth_test.json'
+    config = JSON.parse(File.read('/tmp/cloud66_oauth_test.json'))
+    client = OAuth2::Client.new(config['app_id'], config['app_secret'], :site => base)
+    token = OAuth2::AccessToken.new(client, config['token'])
+else
+    client = OAuth2::Client.new(ENV['APP_ID'], ENV['APP_SECRET'], :site => base)
+    puts client.auth_code.authorize_url(:redirect_uri => 'urn:ietf:wg:oauth:2.0:oob', :scope => 'public admin redeploy')
+
+    puts "Enter the code:"
+    code = gets.strip
+
+    token = client.auth_code.get_token(code, :redirect_uri => "urn:ietf:wg:oauth:2.0:oob")
+
+    # save it
+    File.write('/tmp/cloud66_oauth_test.json', { :app_id => ENV['APP_ID'], :app_secret => ENV['APP_SECRET'], :token => token.token }.to_json)
+end
+
+# Now you can use the token to call API methods, like:
+
+# List all the stacks
+response = token.get("#{api_url}/stacks.json")
+
+# list all the servers in the stack
+stack_uid = 'ENTER_STACK_UID'
+response = token.get("#{api_url}/stacks/#{stack_uid}/servers.json")
+
+# show the response (no error handling)
+puts JSON.parse(response.body)['response']
+```
+
+
+## cURL
+
+For example, you can get lists of stacks with this command:
+
+```shell
+curl -X GET "https://app.cloud66.com/api/3/stacks.json"  -H "Authorization: Bearer PERSONAL_ACCESS_TOKEN"
+```
+
+You can use your **personal access token** to call the API with cURL - it just needs to be passed in as a header.
+
+```shell
+# Simple GET
+# Get list of stacks:
+curl -X GET "https://app.cloud66.com/api/3/stacks.json" -H "Authorization: Bearer 4c9c9b1111"
+
+# GET with some params
+# Get list of all `mysql` backups in `1345` backup group:
+curl -X GET "https://app.cloud66.com/api/3/stacks/f196c5b41758cb7977620d49eb1492ef/backups.json" -H "Authorization: Bearer 4c9c9b1111" -d group=1345 -d db_type=mysql
+
+# POST
+# Add a new iPhone application to user ID 18 with 'wertqy' as a token:
+curl -X POST "https://app.cloud66.com/api/3/users/18/devices.json" -H "Authorization: Bearer 4c9c9b1111" -d token=wertqy -d device_type=1 -d sub_type=1
+
+# PUT
+# Update the type of device with token 'wertqy' to iPad:
+curl -X PUT "https://app.cloud66.com/api/3/users/18/devices/wertqy.json" -H "Authorization: Bearer 4c9c9b1111" -d device_type=1 -d sub_type=2
+
+# DELETE
+# Delete device with token 'wertqy':
+curl -X DELETE "https://app.cloud66.com/api/3/users/18/devices/wertqy.json" -H "Authorization: Bearer 4c9c9b1111"
+```
+
+<Callout type="info" title="Finding your personal access token">
+    You can find your <b>personal access token</b> in your Cloud 66 Accounts page, under <i>Authorized Applications</i>.
+</Callout>
+
+Assuming that your personal access token is `4c9c9b1111`, you can find some examples for using cURL.
+
+## Go Example
+
+You can use the [Cloud 66 Go library repository](https://github.com/cloud66/cloud66) if you want to use Go.

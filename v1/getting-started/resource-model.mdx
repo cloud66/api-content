@@ -1,0 +1,11 @@
+---
+title: Resource Model
+---
+
+# Resource Model
+
+The Cloud 66 API is organised around [REST](https://en.wikipedia.org/wiki/Representational_State_Transfer). It is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors.
+
+We use built-in HTTP features, like HTTP authentication and HTTP verbs, which can be understood by off-the-shelf HTTP clients.
+
+[JSON](https://www.json.org/) will be returned in all responses from the API, including errors (though if you're using API bindings, we will convert the response to the appropriate language-specific object).
