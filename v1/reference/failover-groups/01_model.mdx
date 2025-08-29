@@ -1,0 +1,42 @@
+---
+---
+
+### Failover Groups
+
+Failover groups (formerly elastic addresses) provide high availability by managing automatic failover between primary and secondary stacks. They control traffic routing to ensure continuous service availability.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the failover group.
+    </ModelProperty>
+    <ModelProperty name="address" type="string">
+        The elastic IP address or DNS endpoint for the failover group.
+    </ModelProperty>
+    <ModelProperty name="current_stack" type="string">
+        The identifier of the stack currently receiving traffic (primary or secondary).
+    </ModelProperty>
+    <ModelProperty name="primary_stack_uid" type="string">
+        The UID of the primary stack in this failover group.
+    </ModelProperty>
+    <ModelProperty name="primary_stack_name" type="string">
+        The display name of the primary stack.
+    </ModelProperty>
+    <ModelProperty name="secondary_stack_uid" type="string">
+        The UID of the secondary (backup) stack in this failover group.
+    </ModelProperty>
+    <ModelProperty name="secondary_stack_name" type="string">
+        The display name of the secondary (backup) stack.
+    </ModelProperty>
+    <ModelProperty name="busy_toggling" type="boolean">
+        Whether the failover group is currently switching between stacks.
+    </ModelProperty>
+    <ModelProperty name="readonly" type="boolean">
+        Whether the current user has read-only access to this failover group.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time the failover group was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time the failover group was last updated, in ISO 8601 format.
+    </ModelProperty>
+</Model>

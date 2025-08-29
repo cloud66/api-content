@@ -1,0 +1,36 @@
+---
+---
+
+### Jobs
+
+Jobs represent scheduled or background tasks that run on your stacks. They can be configured to run on specific schedules using cron expressions and perform various maintenance and operational tasks.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the job.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the job.
+    </ModelProperty>
+    <ModelProperty name="type" type="string">
+        The type of job, indicating its specific function.
+    </ModelProperty>
+    <ModelProperty name="cron" type="string">
+        The cron expression defining when the job runs.
+    </ModelProperty>
+    <ModelProperty name="status" type="string">
+        The current status of the job.
+    </ModelProperty>
+    <ModelProperty name="paused" type="boolean">
+        Whether the job is currently paused and not running on schedule.
+    </ModelProperty>
+    <ModelProperty name="params" type="object">
+        Additional parameters and configuration for the job.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="string">
+        The date and time the job was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="string">
+        The date and time the job was last updated.
+    </ModelProperty>
+</Model>

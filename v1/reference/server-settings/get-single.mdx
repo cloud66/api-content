@@ -1,0 +1,31 @@
+---
+title: Get Server Setting
+scope: public
+path: /v1/stacks/:stack_id/servers/:server_id/settings/:id
+method: GET
+response: |
+  {
+    "response": {
+      "key": "server.name",
+      "value": "Caribou"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: server_id
+    presence: required
+    data_type: string
+    description: The server uid
+    sample_value: "f8468fc145ea49bac474b30a8fea888d"
+  - name: id
+    presence: required
+    data_type: string
+    description: The server setting item ID
+    sample_value: "server-name"
+---
+
+Get information of a single server setting item

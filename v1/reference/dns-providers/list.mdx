@@ -1,0 +1,30 @@
+---
+title: DNS Providers List
+scope: admin
+path: /v1/dns_providers
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uuid": "dp-fbe3d478cdc610b187b38c1d2b6b016b",
+        "type": "Cloudflare",
+        "key": "My Cloudflare",
+        "display_name": "Cloudflare (My Cloudflare)",
+        "created_at": "2023-01-25T14:08:28Z",
+        "updated_at": "2023-01-25T14:08:28Z"
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+---
+
+You can use this method to query, add, delete or update DNS providers for SSL certificate management.

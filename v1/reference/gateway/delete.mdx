@@ -1,0 +1,19 @@
+---
+title: Delete Gateway
+scope: admin
+path: /v1/accounts/:account_id/gateways/:id
+method: DELETE
+parameters:
+  - name: id
+    presence: required
+    data_type: integer
+    description: The gateway id
+    sample_value: "1"
+  - name: account_id
+    presence: required
+    data_type: string
+    description: The account id
+    sample_value: "12345"
+---
+
+Delete a gateway.

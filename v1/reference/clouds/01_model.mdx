@@ -1,0 +1,30 @@
+---
+---
+
+### Clouds
+
+Clouds represent the cloud providers available for deploying stacks. Each cloud provider has specific regions, server sizes, and configuration options.
+
+<Model>
+    <ModelProperty name="name" type="string">
+        The internal identifier symbol for the cloud provider.
+    </ModelProperty>
+    <ModelProperty name="key_name" type="string">
+        The API key name used for this cloud provider.
+    </ModelProperty>
+    <ModelProperty name="display_name" type="string">
+        The user-friendly display name of the cloud provider.
+    </ModelProperty>
+    <ModelProperty name="regions" type="array">
+        An array of available regions for this cloud provider.
+    </ModelProperty>
+    <ModelProperty name="server_sizes" type="array">
+        An array of available server sizes, each containing an id and name.
+    </ModelProperty>
+    <ModelProperty name="default_size" type="string">
+        The default server size for this cloud provider.
+    </ModelProperty>
+    <ModelProperty name="default_region" type="string">
+        The default region for this cloud provider.
+    </ModelProperty>
+</Model>

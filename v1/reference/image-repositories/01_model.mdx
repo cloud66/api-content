@@ -1,0 +1,30 @@
+---
+---
+
+### Image Repositories
+
+Image repositories represent Docker container registries where your Docker images are stored. These can be public or private registries that your stacks use to pull container images.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the image repository.
+    </ModelProperty>
+    <ModelProperty name="url" type="string">
+        The URL of the image repository.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the image repository.
+    </ModelProperty>
+    <ModelProperty name="username" type="string">
+        The username for authenticating with the repository.
+    </ModelProperty>
+    <ModelProperty name="email" type="string">
+        The email address associated with the repository account.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="datetime">
+        The date and time the repository was added, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="datetime">
+        The date and time the repository was last updated, in ISO 8601 format.
+    </ModelProperty>
+</Model>

@@ -1,0 +1,41 @@
+---
+title: Delete Tags
+scope: public
+path: /v1/tags/:entity_type/:entity_id
+method: DELETE
+response: |
+  {
+    "response":[
+      {
+        "entity_type":"loadbalancer",                    
+        "entity_id":"17823",                      
+        "tags": [],
+        "created_at_iso":"2021-01-04T21:32:33+0000",
+        "updated_at_iso":"2021-01-05T11:12:23+0000"
+      }
+    ],
+    "count":1,
+    "pagination":
+      {
+        "previous":null,
+        "next":null,
+        "current":1,
+        "per_page":30,
+        "count":1,
+        "pages":1
+      }
+  }
+parameters:
+  - name: entity_type
+    presence: required
+    data_type: string
+    description: Type of the entity
+    sample_value: "server"
+  - name: entity_id
+    presence: required
+    data_type: string
+    description: ID of the entity
+    sample_value: "57648"
+---
+
+Delete all tags on an entity (server or loadbalancer).

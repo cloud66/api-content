@@ -1,0 +1,51 @@
+---
+title: Create Gateway
+scope: admin
+path: /v1/accounts/:account_id/gateways
+method: POST
+response: |
+  { 
+    "response":
+      {
+        "ok": true
+      }
+  }
+parameters:
+  - name: account_id
+    presence: required
+    data_type: string
+    description: The account id
+    sample_value: "12345"
+  - name: name
+    presence: required
+    data_type: string
+    description: New gateway name
+    sample_value: "new_gateway_name"
+  - name: username
+    presence: optional
+    data_type: string
+    description: Username of bastion server
+    sample_value: "ec2-usr"
+  - name: address
+    presence: optional
+    data_type: string
+    description: Public IP or DNS address of bastion server
+    sample_value: "1.1.1.1"
+  - name: ttl
+    presence: optional
+    data_type: integer
+    description: The number of seconds you want the gateway available
+    sample_value: "3600"
+  - name: private_ip
+    presence: optional
+    data_type: string
+    description: Private IP or DNS address of bastion server
+    sample_value: "2.2.2.2"
+  - name: content
+    presence: optional
+    data_type: string
+    description: The content of private key of bastion server
+    sample_value: "xxxxxxxx"
+---
+
+Create a new gateway under the account. `name` must be passed as params. You can also specify `username`, `address`, `ttl`, `private_ip` and `content` as params.

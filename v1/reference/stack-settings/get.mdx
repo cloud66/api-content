@@ -1,0 +1,26 @@
+---
+title: Get Stack Setting
+scope: public
+path: /v1/stacks/:stack_id/settings/:id
+method: GET
+response: |
+  {
+    "response": {
+      "key": "git.branch",
+      "value": "master"
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: id
+    presence: required
+    data_type: string
+    description: The setting item ID
+    sample_value: "git-branch"
+---
+
+Get information of a single setting item

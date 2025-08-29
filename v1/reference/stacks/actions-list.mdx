@@ -1,0 +1,65 @@
+---
+title: Stack Actions List
+scope: public
+path: /v1/stacks/:id/actions
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 6566418,
+        "user": "person@company.com",
+        "resource_type": "stack",
+        "action": "application_deployment",
+        "resource_id": "84195",
+        "started_via": "api",
+        "started_at": "2023-10-11T11:43:57Z",
+        "finished_at": "2023-10-11T11:47:42Z",
+        "finished_success": true,
+        "finished_message": "Completed successfully",
+        "finished_result": {},
+        "metadata": {
+          "user_reference": "my-useful-id"
+        }
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: id
+    presence: required
+    data_type: string
+    description: Unique identifier of the stack
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: user_reference
+    presence: optional
+    data_type: string
+    description: Returns actions where the metadata matches the query (up to 255 chars)
+    sample_value: "useful-reference-123"
+---
+
+Retrieve a paged list of all asynchronous actions performed for the stack specified in the request. You can filter actions by your own metadata using `user_reference` (note: metadata needs to be added to the action when it is invoked to be available here).
+
+### The stack action object
+
+| Property | Data type | Description | Sample value |
+| ------------- | --------- | ----------------------------------- | ---------------- |
+| id | int | The numeric identifier of the stack action. Identifiers increment by one for each performed action. | `10` |
+| user_reference | string (up to 255 chars) | Returns actions where the metadata matches the query. | `useful-reference-123` |
+| user | string | The email address of the user who performed the stack action. | `hello@cloud66.com`|
+| resource_type | string | The resource for which the action was performed, which is `stack` in this case. | `stack` |
+| action | string | The action that was performed for the stack. | `restart` |
+| resource_id | int | The unique ID of the resource | `283` |
+| started_via | string | The process that initiated the action, which is the UI, API, or command line. | `api` |
+| started_at | datetime | The date and time the action was initiated, in UTC datetime. | `2014-09-01T19:08:05Z` |
+| finished_at | datetime | The date and time the action was completed, in UTC datetime. | `2014-09-01T19:08:09Z` |
+| finished_success | bool | Whether the action completed successfully. | `true` |
+| finished_message | string | If applicable, the system message associated with the completed action. | `null` |

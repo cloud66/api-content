@@ -1,0 +1,66 @@
+---
+title: Update User
+scope: admin
+path: /v1/users/:id
+method: PUT
+response: |
+  {
+    "id": 2,
+    "email": "jim@gmail.com",
+    "primary_account_id": 2,
+    "locked": false,
+    "access_profile": {
+      "account_profile": {
+        "can_create_stack": true,
+        "can_admin_users": false,
+        "can_payment": false,
+        "can_add_cloud_key": false,
+        "can_del_cloud_key": true,
+        "can_view_acc_notifications": false,
+        "can_edit_acc_notifications": true,
+        "can_view_audit": false,
+        "can_view_docker_img_key": false,
+        "can_del_ssh_key": false,
+        "can_edit_personal_token": false,
+        "can_del_authorized_app": false,
+        "can_view_custom_env": false,
+        "can_edit_custom_env": false,
+        "can_add_developers_app": false,
+        "can_del_developers_app": false,
+        "can_edit_git_key": false,
+        "can_edit_gateway": false,
+        "default_roles": [
+          "Viewer"
+        ]
+      },
+      "stack_profiles": [
+        {
+          "stack_uid": "740f81b98eb847fab0df538ea8780d9d",
+          "role": "Deployer"
+        },
+        {
+          "stack_uid": "b5f4eaaf56b5768f272ab875d2ba48b1",
+          "role": "Viewer"
+        }
+      ]
+    },
+    "uses_tfa": false,
+    "timezone": "UTC",
+    "has_valid_phone": false,
+    "developer_program": false,
+    "github_login": false,
+    "last_login": "2016-01-28T13:12:16Z",
+    "devices": [],
+    "created_at": "2016-01-28T13:12:13Z",
+    "updated_at": "2016-01-28T13:12:16Z",
+    "cloud_status": "healthy"
+  }
+parameters:
+  - name: id
+    presence: required
+    data_type: integer
+    description: The user ID
+    sample_value: "1"
+---
+
+Update user information. Currently only access profile section changes are applied.

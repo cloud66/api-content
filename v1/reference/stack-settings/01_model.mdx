@@ -1,0 +1,45 @@
+---
+---
+
+### Stack Settings
+
+Stack settings operations return async action responses that track the progress and result of configuration changes to your stack settings.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the async action.
+    </ModelProperty>
+    <ModelProperty name="user" type="string">
+        The email of the user who initiated the action.
+    </ModelProperty>
+    <ModelProperty name="resource_type" type="string">
+        The type of resource being modified (typically "stack" for settings).
+    </ModelProperty>
+    <ModelProperty name="action" type="string">
+        The specific action being performed on the stack settings.
+    </ModelProperty>
+    <ModelProperty name="resource_id" type="string">
+        The ID of the resource being modified (stack ID for stack settings).
+    </ModelProperty>
+    <ModelProperty name="started_via" type="string">
+        How the action was initiated (e.g., "api", "web", "cli").
+    </ModelProperty>
+    <ModelProperty name="started_at" type="datetime">
+        The date and time when the action started, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="finished_at" type="datetime">
+        The date and time when the action completed, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="finished_success" type="boolean">
+        Whether the action completed successfully.
+    </ModelProperty>
+    <ModelProperty name="finished_message" type="string">
+        A message describing the result of the action.
+    </ModelProperty>
+    <ModelProperty name="finished_result" type="object">
+        Detailed results of the completed action.
+    </ModelProperty>
+    <ModelProperty name="metadata" type="object">
+        Additional metadata associated with the action.
+    </ModelProperty>
+</Model>

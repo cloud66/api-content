@@ -1,0 +1,42 @@
+---
+---
+
+### Gateway
+
+Gateways provide secure access points for connecting to your infrastructure. They act as bastion hosts or jump servers for SSH access to your servers.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the gateway.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the gateway.
+    </ModelProperty>
+    <ModelProperty name="username" type="string">
+        The username for connecting to the gateway.
+    </ModelProperty>
+    <ModelProperty name="address" type="string">
+        The public IP address or hostname of the gateway.
+    </ModelProperty>
+    <ModelProperty name="private_ip" type="string">
+        The private IP address of the gateway within the network.
+    </ModelProperty>
+    <ModelProperty name="ttl" type="datetime">
+        The time-to-live for the gateway connection, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="content" type="string">
+        A truncated preview of the gateway configuration content.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="datetime">
+        The date and time the gateway was created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="datetime">
+        The date and time the gateway was last updated, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="created_by" type="string">
+        The email of the user who created the gateway.
+    </ModelProperty>
+    <ModelProperty name="updated_by" type="string">
+        The identifier of the user who last updated the gateway.
+    </ModelProperty>
+</Model>

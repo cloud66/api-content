@@ -1,0 +1,39 @@
+---
+title: Reboot Stack Servers
+scope: reboot
+path: /v1/stacks/:stack_id/reboot_servers
+method: POST
+response: |
+  {
+    "response": {
+      "id": 10,
+      "user": "test@cloud66.com",
+      "resource_type": "stack",
+      "action": "stack_reboot",
+      "resource_id": "283",
+      "started_via": "api",
+      "started_at": "2016-01-01T19:08:05Z",
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: Unique identifier of the stack
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: strategy
+    presence: required
+    data_type: string
+    description: parallel or serial
+    sample_value: "parallel"
+  - name: group
+    presence: optional
+    data_type: string
+    description: all or web/db/redis etc (default is web)
+    sample_value: "mysql"
+---
+
+You can use this method to reboot the stack or specific server group of a stack.

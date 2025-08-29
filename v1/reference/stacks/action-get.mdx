@@ -1,0 +1,38 @@
+---
+title: Get Stack Action
+scope: public
+path: /v1/stacks/:stack_id/actions/:id
+method: GET
+response: |
+  {
+    "response": {
+      "id": 6566418,
+      "user": "person@company.com",
+      "resource_type": "stack",
+      "action": "application_deployment",
+      "resource_id": "84195",
+      "started_via": "api",
+      "started_at": "2023-10-11T11:43:57Z",
+      "finished_at": "2023-10-11T11:47:42Z",
+      "finished_success": true,
+      "finished_message": "Completed successfully",
+      "finished_result": {},
+      "metadata": {
+        "user_reference": "my-useful-id"
+      }
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: Unique identifier of the stack
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: id
+    presence: required
+    data_type: integer
+    description: Identifier of the asynchronous action
+    sample_value: "4153"
+---
+
+Retrieve the details of an asynchronous action performed for the the stack specified in the request based on the supplied action ID.

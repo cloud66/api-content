@@ -1,0 +1,24 @@
+---
+---
+
+### Tags
+
+Tags allow you to label and organize your infrastructure components like servers and load balancers. They provide a flexible way to categorize and manage resources across your stacks.
+
+<Model>
+    <ModelProperty name="entity_type" type="string">
+        The type of entity being tagged (e.g., "server", "loadbalancer").
+    </ModelProperty>
+    <ModelProperty name="entity_id" type="string">
+        The unique identifier of the entity being tagged.
+    </ModelProperty>
+    <ModelProperty name="tags" type="array">
+        An array of tag objects, each containing a value and reserved flag indicating if it's a system-reserved tag.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="datetime">
+        The date and time the tags were first created, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="datetime">
+        The date and time the tags were last updated, in ISO 8601 format.
+    </ModelProperty>
+</Model>

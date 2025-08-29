@@ -1,0 +1,111 @@
+---
+title: SSL Certificates
+scope: admin
+path: /v1/stacks/:stack_id/ssl_certificates
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uuid": "ssl-9ad095613rrr4e0b8f718302bab8709e",
+        "name": "pp-ticker-prod-cllaz",
+        "server_group_id": null,
+        "server_names": "www.fyp111.co",
+        "sha256_fingerprint": "481f22f00e117e209dbde4c2ae3831401109fc824784943e39a194a3adb64082",
+        "ca_name": "Let's Encrypt",
+        "type": "lets_encrypt",
+        "wildcard": false,
+        "dns_provider_uuid": null,
+        "ssl_termination": true,
+        "has_intermediate_cert": true,
+        "status": 3,
+        "created_at": "2023-01-26T10:23:34Z",
+        "updated_at": "2023-01-26T10:26:29Z",
+        "expires_at": "2023-04-26T09:24:32Z",
+        "certificate": null,
+        "key": null,
+        "intermediate_certificate": null
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: Unique identifier of the stack
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: type
+    presence: required
+    data_type: string
+    description: Type of certificate (manual or lets_encrypt)
+    sample_value: "lets_encrypt"
+  - name: ssl_termination
+    presence: required
+    data_type: bool
+    description: Whether SSL certificate is terminated on the load balancer or not
+    sample_value: "true"
+  - name: server_names
+    presence: required
+    data_type: string
+    description: comma separated list of domains
+    sample_value: "hello.com,world.co.uk"
+  - name: wildcard
+    presence: optional
+    data_type: bool
+    description: Whether the certificate must support wildcarded domain names - only applies to type lets_encrypt
+    sample_value: "false"
+  - name: dns_provider_uuid
+    presence: required for wildcard certs
+    data_type: string
+    description: DNS provider to use for the Let's Encrypt DNS challenge
+    sample_value: "dp-fbe3dd78cdc..."
+  - name: certificate
+    presence: required for manual certs
+    data_type: string
+    description: The certificate address
+    sample_value: "-----BEGIN CERTIFICATE----- entire cert hash -----END CERTIFICATE-----"
+  - name: key
+    presence: required for manual certs
+    data_type: string
+    description: The certificate key
+    sample_value: "-----BEGIN RSA PRIVATE KEY----- entire key hash -----END RSA PRIVATE KEY-----"
+  - name: intermediate_certificate
+    presence: optional
+    data_type: string
+    description: The intermediate certificate chain
+    sample_value: "-----BEGIN CERTIFICATE----- entire cert hash -----END CERTIFICATE-----"
+---
+
+You can use this method to query, add, delete or update SSL certificates on a stack.
+
+### HTTP Methods
+
+- `GET /stacks/:stack_id/ssl_certificates` - List SSL certificates
+- `POST /stacks/:stack_id/ssl_certificates` - Create SSL certificate
+- `GET /stacks/:stack_id/ssl_certificates/:id` - Get SSL certificate
+- `PATCH /stacks/:stack_id/ssl_certificates/:id` - Update SSL certificate
+- `PUT /stacks/:stack_id/ssl_certificates/:id` - Update SSL certificate
+- `DELETE /stacks/:stack_id/ssl_certificates/:id` - Delete SSL certificate
+
+POST, PATCH and PUT should use the following object format:
+
+```json
+{
+  "ssl_certificate": {
+    "server_names": "mywebsite.com",
+    "ssl_termination": true,
+    "type": "lets_encrypt",
+    "wildcard": true,
+    "dns_provider_uuid": "dp-fbe3dd78cdc600b187b38c4d4b6b016b"
+  }
+}
+```

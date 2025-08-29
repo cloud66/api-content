@@ -1,0 +1,39 @@
+---
+title: Update Stack Setting
+scope: admin
+path: /v1/stacks/:stack_id/settings/:id
+method: PUT
+response: |
+  {
+    "response": {
+      "id": 7,
+      "user": "test@cloud66.com",
+      "resource_type": "stack",
+      "action": "stack-set: git.branch",
+      "resource_id": "280",
+      "started_via": "api",
+      "started_at": "2014-09-01T12:47:24Z",
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null
+    }
+  }
+parameters:
+  - name: stack_id
+    presence: required
+    data_type: string
+    description: The stack UID
+    sample_value: "5999b763474b0eafa5fafb64bff0ba80"
+  - name: id
+    presence: required
+    data_type: integer
+    description: The setting item ID
+    sample_value: "git-branch"
+  - name: value
+    presence: required
+    data_type: string
+    description: The setting item new value
+    sample_value: "staging"
+---
+
+Update value of a setting item

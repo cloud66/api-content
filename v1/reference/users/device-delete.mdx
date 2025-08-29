@@ -1,0 +1,19 @@
+---
+title: Delete Device
+scope: users
+path: /v1/users/:id/devices/:token
+method: DELETE
+parameters:
+  - name: id
+    presence: required
+    data_type: integer
+    description: The user ID
+    sample_value: "1"
+  - name: token
+    presence: required
+    data_type: string
+    description: The token of the device
+    sample_value: "htyukjbnnmshthkr"
+---
+
+Delete a device.

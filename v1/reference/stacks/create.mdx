@@ -1,0 +1,70 @@
+---
+title: Create Stack
+scope: redeploy
+path: /v1/stacks
+method: POST
+response: |
+  {
+    "response":
+      {
+        "id": 10,
+        "user": "test@cloud66.com",
+        "resource_type": "stack",
+        "action": "stack_create",
+        "resource_id": "283",
+        "started_via": "api",
+        "started_at": "2015-09-01T19:08:05Z",
+        "finished_at": null,
+        "finished_success": null,
+        "finished_message": null
+      }
+  }
+parameters:
+  - name: name
+    presence: required
+    data_type: string
+    description: New stack name
+    sample_value: "new_stack_name"
+  - name: environment
+    presence: required
+    data_type: string
+    description: New stack environment
+    sample_value: "production"
+  - name: service_yaml
+    presence: required
+    data_type: string
+    description: The services definition of the new docker stack
+    sample_value: "service_yaml_serialised"
+  - name: manifest_yaml
+    presence: optional
+    data_type: string
+    description: The manifest definition of the new docker stack
+    sample_value: "manifest_yaml_serialised"
+  - name: cloud
+    presence: optional
+    data_type: string
+    description: Cloud provider to create servers in
+    sample_value: "aws"
+  - name: key_name
+    presence: optional
+    data_type: string
+    description: Name of the cloud provider key (Default or first available key for the cloud if not specified)
+    sample_value: "my_key"
+  - name: region
+    presence: optional
+    data_type: string
+    description: Region within the cloud to create servers in
+    sample_value: "us-east-1"
+  - name: size
+    presence: optional
+    data_type: string
+    description: Size of the server
+    sample_value: "t1.micro"
+  - name: build_type
+    presence: optional
+    data_type: string
+    description: Deploy all services to single or multi servers
+    sample_value: "multi"
+---
+
+Create and build a new docker stack. Either manifest definition, or `cloud`, `region`, `size` and `build_type` must be passed as params.

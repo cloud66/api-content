@@ -1,0 +1,43 @@
+---
+title: Add Device
+scope: users
+path: /v1/users/:id/devices
+method: POST
+response: |
+  {
+    "response":
+      {
+        "device_type": 1,
+        "sub_type": 1,
+        "token": "mmccdd",
+        "enabled": true,
+        "created_at": "2014-09-01 09:15:50 UTC",
+        "updated_at": "2014-09-01 09:15:50 UTC",
+        "created_at_iso": "2014-09-01T09:15:50Z",
+        "updated_at_iso": "2014-09-01T09:15:50Z"
+      }
+  }
+parameters:
+  - name: id
+    presence: required
+    data_type: integer
+    description: The user ID
+    sample_value: "1"
+  - name: device_type
+    presence: required
+    data_type: integer
+    description: "Device type (1 = iOS, 2 = Android)"
+    sample_value: "1"
+  - name: sub_type
+    presence: required
+    data_type: integer
+    description: "Device subtype (1 = iPhone, 2 = iPad, 3 = iPod)"
+    sample_value: "1"
+  - name: token
+    presence: required
+    data_type: string
+    description: The token of the device
+    sample_value: "htyukjbnnmshthkr"
+---
+
+Add a new device for the user. Note: Android support is not currently available.
