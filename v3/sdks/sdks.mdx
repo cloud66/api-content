@@ -1,0 +1,60 @@
+---
+title: Cloud 66 Client Libraries
+---
+
+Cloud 66 provides client libraries to help you integrate with our API more easily. Currently, we maintain an official SDK for Go, with community contributions welcome for other languages.
+
+## Official SDK
+
+### Go
+
+We provide an official Go client library that offers a complete interface to the Cloud 66 API:
+
+- **Repository**: [cloud66-oss/cloud66](https://github.com/cloud66-oss/cloud66)
+- **Features**: Full API coverage, multiple authentication methods, and comprehensive Cloud 66 platform support
+- **Installation**: `go get github.com/cloud66-oss/cloud66`
+
+The SDK supports multiple authentication methods:
+- Cloud 66 Toolbelt token (stored in `~/.cloud66/cx.json`)
+- Personal Access Token from your Cloud 66 account
+- Custom token file location
+
+```go
+import "github.com/cloud66-oss/cloud66"
+
+// Get client (uses default Toolbelt token)
+client := cloud66.GetClient("", "", "")
+
+// List your stacks
+stacks, err := client.StackList()
+if err != nil {
+    log.Fatal(err)
+}
+
+// Work with your stacks
+for _, stack := range stacks {
+    fmt.Printf("Stack: %s (%s)\n", stack.Name, stack.Environment)
+}
+```
+
+## Community Libraries
+
+While we don't maintain official SDKs for other languages, the Cloud 66 API is a standard REST API that can be consumed by any HTTP client. Many community members have created unofficial libraries for various languages.
+
+## Building Your Own Client
+
+If no SDK exists for your preferred language, you can easily build one using our comprehensive API documentation. Our REST API supports:
+
+- **Authentication**: OAuth 2.0 and API tokens
+- **Standard HTTP methods**: GET, POST, PUT, DELETE
+- **JSON responses**: Consistent data format across all endpoints
+- **Error handling**: Standard HTTP status codes with detailed error messages
+
+### Getting Started
+
+1. Choose your preferred HTTP client library
+2. Implement authentication (see our [Authentication guide](/v3/getting-started/authentication))
+3. Start with basic operations like listing stacks
+4. Refer to our API reference for endpoint details
+
+We welcome contributions of community SDKs and are happy to link to well-maintained libraries in other languages.
