@@ -27,7 +27,7 @@ response = token.get("#{api_url}/stacks/#{stack_id}/actions/#{id}.json")
 result = JSON.parse(response.body)['response']
 
 #Check if the request finished successfully
-if result['finished_success']=='true'
+if result['finished_success'] == true
   puts 'Success!'
 else
   puts "Failed. Error: #{result['finished_message']}"
