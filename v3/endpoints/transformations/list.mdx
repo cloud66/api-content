@@ -1,0 +1,106 @@
+---
+title: List Transformations
+scope: public
+path: /stacks/:stack_id/formations/:formation_id/transformations
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "transformation-123-abc",
+        "name": "env-specific-config",
+        "sequence": 1,
+        "formation_uid": "formation-456-def",
+        "body": "filters:\n  - match:\n      kind: Deployment\n      metadata:\n        labels:\n          app: frontend\ntransforms:\n  - op: replace\n    path: /spec/template/spec/containers/0/env\n    value:\n      - name: NODE_ENV\n        value: production\n      - name: API_URL\n        value: https://api.production.example.com",
+        "version": "1.2.0",
+        "tags": ["environment", "configuration"],
+        "created_at": "2025-01-15T10:30:00Z",
+        "updated_at": "2025-01-15T14:20:00Z"
+      },
+      {
+        "uid": "transformation-456-def",
+        "name": "resource-optimization",
+        "sequence": 2,
+        "formation_uid": "formation-456-def",
+        "body": "filters:\n  - match:\n      kind: Deployment\ntransforms:\n  - op: replace\n    path: /spec/template/spec/containers/0/resources\n    value:\n      requests:\n        memory: \"256Mi\"\n        cpu: \"250m\"\n      limits:\n        memory: \"512Mi\"\n        cpu: \"500m\"",
+        "version": "1.0.0",
+        "tags": ["resources", "optimization"],
+        "created_at": "2025-01-15T11:00:00Z",
+        "updated_at": "2025-01-15T11:00:00Z"
+      }
+    ],
+    "count": 2,
+    "pagination": {
+      "current": 1,
+      "previous": null,
+      "next": null,
+      "per_page": 30,
+      "pages": 1,
+      "count": 2
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: page
+    in: query
+    required: false
+    type: integer
+    description: Page number for pagination (defaults to 1, minimum 1)
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include complete transformation body content
+---
+
+Lists all formation transformations configured for the specified formation.
+
+Returns a paginated collection of transformations that modify formations during deployment based on various rules and filters. Transformations are executed in sequence order during deployments.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Transformation', 'Formation', 'Stack']} />
+
+**Transformation Properties:**
+- **name**: Unique transformation identifier within the formation
+- **sequence**: Execution order (lower numbers execute first)
+- **body**: YAML transformation rules and filters
+- **tags**: Categorization labels for organization
+- **version**: Transformation version for tracking changes
+
+<Callout type="info" title="Content Control">
+Use the `full_content=1` query parameter to include complete transformation body content. By default, transformation bodies may be truncated for performance.
+</Callout>
+
+**Transformation Types:**
+- **Environment Configuration**: Environment-specific settings and variables
+- **Resource Management**: Resource limits, requests, and optimization
+- **Security Hardening**: Security contexts and policy enforcement
+- **Service Configuration**: Service mesh and networking modifications
+- **Scaling Rules**: Auto-scaling and replica configurations
+
+**Execution Order:**
+- Transformations execute in sequence order during deployments
+- Lower sequence numbers execute first
+- Dependencies between transformations should be considered when ordering
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns paginated list of transformations",
+    400: "Bad Request - Invalid pagination or filter parameters",
+    403: "Forbidden - OAuth token lacks required `public` scope or formations feature not enabled",
+    404: "Not Found - Stack or formation not found"
+  }}
+/>

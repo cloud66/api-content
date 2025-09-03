@@ -1,0 +1,78 @@
+---
+title: List Formations
+scope: public
+path: /stacks/:stack_id/formations
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "formation-123-abc",
+        "name": "web-formation",
+        "tags": ["production", "web"],
+        "status": "ready",
+        "base_templates": [
+          {
+            "id": 45,
+            "name": "Web Template",
+            "git_repo": "https://github.com/cloud66/template-web.git",
+            "git_branch": "main"
+          }
+        ],
+        "stencils": [],
+        "filters": [],
+        "policies": [],
+        "workflows": [],
+        "helm_releases": [],
+        "transformations": [],
+        "selected_filter": null,
+        "created_at_iso": "2023-01-15T10:30:00Z",
+        "updated_at_iso": "2023-01-15T10:30:00Z"
+      }
+    ],
+    "count": 1,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 1,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: page
+    in: query
+    required: false
+    type: integer
+    description: Page number for pagination (defaults to 1, minimum 1)
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include full content details for nested objects
+---
+
+Returns a paginated collection of formations for the specified Kubernetes stack.
+
+Formations define the deployment structure and configuration for Kubernetes-based stacks, including base templates, stencils, policies, workflows, and Helm releases.
+
+<Callout type="info" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if you need access.
+</Callout>
+
+<RelatedModels models={['Formation', 'Stack', 'Pagination']} />
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns paginated list of formations",
+    403: "Forbidden - OAuth token lacks required `public` scope or formations feature not enabled",
+    404: "Not Found - Stack not found"
+  }}
+/>

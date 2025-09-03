@@ -1,0 +1,44 @@
+---
+title: "Register Queue Agent"
+scope: "redeploy"
+path: "/queues/register"
+method: "POST"
+request_body: |
+  {
+    "host_name": "agent-hostname"
+  }
+response: |
+  {
+    "ok": true,
+    "log_key": "account_api_key",
+    "agent_uuid": "agent-uuid-here"
+  }
+parameters:
+  - name: host_name
+    in: body
+    required: true
+    type: string
+    description: "Host name of the agent to register"
+---
+
+# Register Queue Agent
+
+Registers a new queue agent or updates an existing agent's activity. While agent registration is not required (agents are created automatically when they first request work), this endpoint provides better user experience by giving immediate feedback during agent initialization.
+
+## Registration Process
+
+1. **Find or Create**: Locates existing agent by host name or creates a new one
+2. **Activity Update**: Updates the agent's last activity timestamp (pulse)
+3. **Credentials**: Returns the account API key and agent UUID for future operations
+
+## Response Data
+
+- `ok` - Always `true` for successful registration
+- `log_key` - Account API key for logging and authentication
+- `agent_uuid` - Unique identifier for this agent
+
+<Callout type="info" title="Agent Lifecycle">
+Agents don't need to be explicitly registered before requesting work from queues. The registration endpoint is provided for better UX during agent initialization to confirm successful setup.
+</Callout>
+
+<RelatedModels models={['AsyncAction']} />

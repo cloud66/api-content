@@ -1,0 +1,44 @@
+---
+title: Delete Preview Variant
+scope: redeploy
+path: /stacks/:stack_id/application_variants/:id
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Done"
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Preview variant UID to delete
+---
+
+Permanently removes a preview variant from the system.
+
+<Callout type="warning" title="Preview Variants Only">
+This operation only applies to preview variants and cannot be undone. The variant management system will be updated to reflect the change and clean up associated resources.
+</Callout>
+
+<RelatedModels models={['ApplicationVariant', 'Stack']} />
+
+Preview variants are used for testing changes in isolated environments before promoting them to production through rollout strategies.
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Preview variant deleted successfully",
+    400: "Bad Request - Invalid variant UID or not a preview variant",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient permissions",
+    404: "Not Found - Stack or preview variant not found"
+  }}
+/>

@@ -1,0 +1,82 @@
+---
+title: "Session"
+method: ""
+path: ""
+---
+
+# Session
+
+Represents an interactive container session that provides shell access to running containers for debugging and troubleshooting purposes. Sessions enable developers to connect directly to containers in their stacks for real-time inspection and problem solving.
+
+<Model>
+<ModelProperty name="uid" type="string">
+Unique session identifier used to reference this specific session.
+</ModelProperty>
+
+<ModelProperty name="title" type="string">
+Human-readable title or description for the session.
+</ModelProperty>
+
+<ModelProperty name="service_name" type="string">
+Name of the service this session is connected to.
+</ModelProperty>
+
+<ModelProperty name="namespace" type="string">
+Kubernetes namespace where the session container is running (for Kubernetes-based stacks).
+</ModelProperty>
+
+<ModelProperty name="command" type="string">
+Command or shell that will be executed when the session starts (e.g., "/bin/bash", "/bin/sh").
+</ModelProperty>
+
+<ModelProperty name="deployment_name" type="string">
+Name of the deployment that contains the target container.
+</ModelProperty>
+
+<ModelProperty name="pod_name" type="string">
+Kubernetes pod name where the session is established (for Kubernetes-based stacks).
+</ModelProperty>
+
+<ModelProperty name="container_name" type="string">
+Specific container name within the pod or deployment for multi-container scenarios.
+</ModelProperty>
+</Model>
+
+## Session Types
+
+Sessions are created based on the stack type:
+
+### Kubernetes Sessions
+- **Pod-based** - Connect to specific pods in deployments
+- **Namespace isolation** - Sessions operate within stack namespaces
+- **kubectl integration** - Uses Kubernetes APIs for session management
+
+### Docker Sessions  
+- **Container-based** - Connect directly to Docker containers
+- **Service targeting** - Sessions target specific service containers
+- **Docker integration** - Uses Docker APIs for container access
+
+## Session Lifecycle
+
+1. **Creation** - Session is requested for a specific service
+2. **Provisioning** - Container connection is established
+3. **Active** - Session is ready for interactive use
+4. **Termination** - Session ends automatically or manually
+
+## Use Cases
+
+- **Application Debugging** - Inspect running application processes
+- **Log Analysis** - Real-time log monitoring and analysis
+- **Configuration Inspection** - Examine runtime configuration files
+- **Performance Monitoring** - Monitor system resources and performance
+- **Database Operations** - Direct database client access
+- **File System Exploration** - Browse and modify container filesystem
+
+## Security Considerations
+
+- **Permission-based Access** - Requires SSH key download permissions
+- **Session Limits** - Maximum concurrent sessions per service (typically 15)
+- **Audit Logging** - All session activities are logged for security
+- **Secure Connections** - All session traffic is encrypted
+
+<RelatedModels models={['Stack', 'Service', 'AsyncAction']} />

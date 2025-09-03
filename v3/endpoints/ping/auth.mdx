@@ -1,0 +1,41 @@
+---
+title: "Authenticated Ping"
+scope: "public"
+path: "/ping/auth"
+method: "GET"
+response: |
+  {
+    "ok": true,
+    "message": "all good. authenticated. User ID is 123. Account ID is 456",
+    "user_id": 123,
+    "account_id": 456,
+    "user_name": "John Doe",
+    "account_name": "My Company"
+  }
+---
+
+# Authenticated Ping
+
+Tests API connectivity with authentication. This endpoint verifies that the API is accessible and the OAuth token is valid, returning user and account information to confirm successful authentication.
+
+## Use Cases
+
+- **Health Checks**: Verify API availability and authentication status
+- **Token Validation**: Confirm OAuth tokens are still valid
+- **User Context**: Retrieve current user and account information
+- **Integration Testing**: Test authenticated API connectivity
+
+## Response Fields
+
+- `ok` - Always `true` for successful operations
+- `message` - Confirmation message with user and account IDs
+- `user_id` - Current user's unique identifier
+- `account_id` - Current account's unique identifier  
+- `user_name` - User's display name
+- `account_name` - Account's display name
+
+<Callout type="info" title="Authentication Required">
+This endpoint requires valid OAuth authentication. Use `/ping` for unauthenticated connectivity testing.
+</Callout>
+
+<RelatedModels models={['User', 'Account']} />

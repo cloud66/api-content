@@ -1,0 +1,55 @@
+---
+title: Get Helm Release
+scope: public
+path: /stacks/:stack_id/formations/:formation_id/helm_releases/:id
+method: GET
+response: |
+  {
+    "response": {
+      "uid": "helm-release-123-abc",
+      "display_name": "nginx-ingress-controller",
+      "chart_name": "nginx-ingress",
+      "repository": "https://kubernetes.github.io/ingress-nginx",
+      "version": "4.7.1",
+      "body": "controller:\n  replicaCount: 2\n  service:\n    type: LoadBalancer\n...",
+      "created_at_iso": "2023-01-15T10:30:00Z",
+      "updated_at_iso": "2023-01-15T10:30:00Z"
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Helm release UID
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include full YAML configuration content
+---
+
+Returns comprehensive details about the specified Helm release.
+
+Includes chart information, version details, and optionally the full YAML configuration when `full_content=1` is specified.
+
+<RelatedModels models={['HelmRelease', 'Formation', 'Stack']} />
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns Helm release details",
+    403: "Forbidden - OAuth token lacks required `public` scope or insufficient Helm release view rights",
+    404: "Not Found - Stack, formation, or Helm release not found"
+  }}
+/>

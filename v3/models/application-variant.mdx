@@ -1,0 +1,53 @@
+---
+title: "ApplicationVariant"
+method: ""
+path: ""
+---
+
+# ApplicationVariant
+
+Application variants enable advanced deployment strategies including blue-green deployments, canary releases, and preview environments. Each variant represents a different version of an application with specific traffic routing configuration.
+
+<Model>
+    <ModelProperty name="name" type="string">
+        The name of the application variant.
+    </ModelProperty>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the application variant.
+    </ModelProperty>
+    <ModelProperty name="namespace" type="string">
+        The Kubernetes namespace for this variant.
+    </ModelProperty>
+    <ModelProperty name="traffic_percentage" type="integer">
+        The percentage of traffic routed to this variant (0-100).
+    </ModelProperty>
+    <ModelProperty name="traffic_split_name" type="string">
+        The name of the traffic split configuration.
+    </ModelProperty>
+    <ModelProperty name="status" type="string">
+        The current status of the variant (e.g., "active", "canary", "preview").
+    </ModelProperty>
+    <ModelProperty name="git_hash" type="string">
+        The git commit hash associated with this variant.
+    </ModelProperty>
+    <ModelProperty name="deploy_session" type="string">
+        The deployment session identifier.
+    </ModelProperty>
+    <ModelProperty name="dns_record" type="array">
+        Array of DNS records associated with this variant.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="string">
+        The ISO 8601 timestamp when the application variant was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="string">
+        The ISO 8601 timestamp when the application variant was last updated.
+    </ModelProperty>
+</Model>
+
+**Variant Types:**
+- **Active**: The current production version receiving 100% traffic
+- **Canary**: A rollout variant receiving a percentage of traffic for testing
+- **Blue/Green**: A rollout variant for blue-green deployments 
+- **Preview**: A preview environment for testing changes
+
+<RelatedModels models={['Stack']} />

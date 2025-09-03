@@ -1,0 +1,71 @@
+---
+title: List Database Users
+scope: public
+path: /stacks/:stack_id/server_groups/:server_group_id/database_users
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "user_abc123",
+        "username": "app_user",
+        "databases": ["app_production", "app_staging"],
+        "user_type": "application",
+        "created_at": "2023-01-15T10:30:00Z"
+      },
+      {
+        "uid": "user_def456",
+        "username": "readonly_user", 
+        "databases": ["app_production"],
+        "user_type": "readonly",
+        "created_at": "2023-01-10T14:20:00Z"
+      }
+    ],
+    "count": 2,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 2,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: integer
+    description: Stack ID
+  - name: server_group_id  
+    in: path
+    required: true
+    type: integer
+    description: Server group ID
+  - name: page
+    in: query
+    required: false
+    type: integer
+    description: Page number for pagination (defaults to 1, minimum 1)
+  - name: show_password
+    in: query
+    required: false
+    type: boolean
+    description: Include password in response (requires edit permissions)
+---
+
+Returns a paginated collection of database users associated with the specified server group.
+
+Optionally includes password information if the user has edit permissions and explicitly requests it via the `show_password` parameter. This endpoint triggers an asynchronous info retrieval operation to ensure database user information is current.
+
+<RelatedModels models={['DatabaseUser', 'ServerGroup', 'Pagination']} />
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns paginated list of database users",
+    400: "Bad Request - Server group does not support database operations",
+    403: "Forbidden - OAuth token lacks required `public` scope or insufficient permissions for show_password",
+    404: "Not Found - Stack or server group not found"
+  }}
+/>

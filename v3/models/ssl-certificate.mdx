@@ -1,0 +1,112 @@
+---
+title: "SSL Certificate"
+method: ""
+path: ""
+---
+
+# SSL Certificate
+
+Represents an SSL/TLS certificate used for securing web traffic in Cloud66 stacks. Certificates can be either manually uploaded or automatically provisioned through Let's Encrypt integration.
+
+<Model>
+<ModelProperty name="uuid" type="string">
+Unique identifier for the SSL certificate.
+</ModelProperty>
+
+<ModelProperty name="name" type="string">
+Certificate display name, typically the primary domain name.
+</ModelProperty>
+
+<ModelProperty name="server_group_id" type="integer">
+ID of the server group this certificate is associated with.
+</ModelProperty>
+
+<ModelProperty name="server_names" type="string">
+Comma-separated list of domain names covered by this certificate.
+</ModelProperty>
+
+<ModelProperty name="sha256_fingerprint" type="string">
+SHA256 fingerprint of the certificate for verification purposes. May be null if certificate parsing failed.
+</ModelProperty>
+
+<ModelProperty name="ca_name" type="string">
+Certificate Authority name (e.g., "Let's Encrypt") or null for manually uploaded certificates.
+</ModelProperty>
+
+<ModelProperty name="type" type="string">
+Certificate type: "lets_encrypt" for automatically provisioned certificates or "manual" for externally obtained certificates.
+</ModelProperty>
+
+<ModelProperty name="wildcard" type="boolean">
+Whether this is a wildcard certificate (covers *.domain.com patterns).
+</ModelProperty>
+
+<ModelProperty name="dns_provider_uuid" type="string">
+UUID of the DNS provider used for Let's Encrypt domain validation. Only applicable for Let's Encrypt certificates.
+</ModelProperty>
+
+<ModelProperty name="ssl_termination" type="string">
+SSL termination configuration setting.
+</ModelProperty>
+
+<ModelProperty name="has_intermediate_cert" type="boolean">
+Whether an intermediate certificate is present in the certificate chain.
+</ModelProperty>
+
+<ModelProperty name="status" type="string">
+Current certificate status (e.g., "active", "expired", "pending").
+</ModelProperty>
+
+<ModelProperty name="created_at" type="string">
+ISO 8601 formatted timestamp when the certificate was created.
+</ModelProperty>
+
+<ModelProperty name="updated_at" type="string">
+ISO 8601 formatted timestamp when the certificate was last updated.
+</ModelProperty>
+
+<ModelProperty name="expires_at" type="string">
+ISO 8601 formatted timestamp when the certificate expires. May be null if expiration cannot be determined.
+</ModelProperty>
+
+<ModelProperty name="certificate" type="null">
+Always null in API responses for security reasons. Used only for certificate upload operations.
+</ModelProperty>
+
+<ModelProperty name="key" type="null">
+Always null in API responses for security reasons. Used only for certificate upload operations.
+</ModelProperty>
+
+<ModelProperty name="intermediate_certificate" type="null">
+Always null in API responses for security reasons. Used only for certificate upload operations.
+</ModelProperty>
+</Model>
+
+## Certificate Types
+
+### Let's Encrypt Certificates
+- **Automatic provisioning** - Certificates are automatically obtained and renewed
+- **DNS validation** - Uses configured DNS providers for domain validation
+- **Free certificates** - No cost for basic SSL certificates
+- **Wildcard support** - Can provision wildcard certificates with DNS validation
+
+### Manual Certificates
+- **External certificates** - Certificates obtained from any Certificate Authority
+- **Upload required** - Certificate, private key, and intermediate certificates must be uploaded
+- **Custom CA support** - Supports certificates from any trusted Certificate Authority
+- **Extended validation** - Can use EV and OV certificates
+
+## Security Considerations
+
+<Callout type="warning" title="Certificate Data Security">
+Certificate private keys and certificate content are never exposed through the API for security reasons. The `certificate`, `key`, and `intermediate_certificate` fields are always null in API responses.
+</Callout>
+
+## Use Cases
+
+- **Web application security** - Securing HTTP traffic with SSL/TLS
+- **API endpoint protection** - Securing REST API endpoints
+- **Custom domain certificates** - Certificates for custom domains
+- **Wildcard domain coverage** - Single certificate for multiple subdomains
+
+<RelatedModels models={['DnsProvider', 'Stack', 'Server']} />

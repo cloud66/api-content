@@ -1,0 +1,67 @@
+---
+title: Create Database
+scope: admin
+path: /stacks/:stack_id/server_groups/:server_group_id/databases
+method: POST
+response: |
+  {
+    "response": {
+      "id": 792,
+      "status": "queued",
+      "action_type": "database_create",
+      "resource_type": "database",
+      "resource_id": null,
+      "started_via": "api",
+      "started_at": null,
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null,
+      "created_at": "2023-01-15T10:30:00Z",
+      "updated_at": "2023-01-15T10:30:00Z"
+    }
+  }
+request_body: |
+  {
+    "database_name": "new_app_db",
+    "database_user_ids": ["user_abc123", "user_def456"]
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: integer
+    description: Stack ID
+  - name: server_group_id  
+    in: path
+    required: true
+    type: integer
+    description: Server group ID
+  - name: database_name
+    in: body
+    required: true
+    type: string
+    description: Name for the new database
+  - name: database_user_ids
+    in: body
+    required: false
+    type: array
+    description: Array of database user UIDs to grant access to the new database
+---
+
+Creates a new database with the specified name and optionally assigns database users to it.
+
+This operation is performed asynchronously and returns an async action object to track progress. Only works with server groups that support database operations.
+
+<RelatedModels models={['Database', 'DatabaseUser', 'AsyncAction', 'ServerGroup']} />
+
+The async action can be monitored using the [Get Async Action](/v3/endpoints/async-actions/show) endpoint to track the creation progress.
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns async action to track database creation",
+    400: "Bad Request - Invalid database name or server group does not support database operations", 
+    403: "Forbidden - OAuth token lacks required `admin` scope or insufficient permissions",
+    404: "Not Found - Stack or server group not found"
+  }}
+/>

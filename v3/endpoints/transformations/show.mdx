@@ -1,0 +1,100 @@
+---
+title: Get Transformation
+scope: public
+path: /stacks/:stack_id/formations/:formation_id/transformations/:id
+method: GET
+response: |
+  {
+    "response": {
+      "uid": "transformation-123-abc",
+      "name": "env-specific-config",
+      "sequence": 1,
+      "formation_uid": "formation-456-def",
+      "body": "filters:\n  - match:\n      kind: Deployment\n      metadata:\n        labels:\n          app: frontend\n        namespace: production\n  - match:\n      kind: Service\n      metadata:\n        labels:\n          app: frontend\ntransforms:\n  - op: replace\n    path: /spec/template/spec/containers/0/env\n    value:\n      - name: NODE_ENV\n        value: production\n      - name: API_URL\n        value: https://api.production.example.com\n      - name: DATABASE_URL\n        valueFrom:\n          secretKeyRef:\n            name: db-secret\n            key: url\n  - op: add\n    path: /metadata/annotations\n    value:\n      deployment.kubernetes.io/revision: \"auto\"\n      app.kubernetes.io/managed-by: \"cloud66\"",
+      "version": "2.1.0",
+      "tags": ["environment", "configuration", "production"],
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-15T16:45:00Z",
+      "created_by": {
+        "id": 123,
+        "email": "devops@example.com"
+      },
+      "last_modified_by": {
+        "id": 456,
+        "email": "admin@example.com"
+      }
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Transformation UID
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include complete transformation body content
+---
+
+Retrieves detailed information about a specific formation transformation.
+
+Returns comprehensive details about the specified transformation, including the complete rule configuration, version history, and metadata for deployment customization management.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Transformation', 'Formation', 'Stack']} />
+
+**Transformation Details:**
+- **Rule Configuration**: Complete YAML transformation definition with filters and transforms
+- **Sequence Order**: Execution priority during deployments
+- **Version Tracking**: Transformation version and modification history
+- **Tag Management**: Organization and categorization labels
+- **Access Control**: User permissions and modification tracking
+
+<Callout type="info" title="Permission Required">
+You must have transformation view rights on the formation to access transformation details.
+</Callout>
+
+**Transformation Structure:**
+- **Filters**: Define which Kubernetes resources to target
+- **Transforms**: Specify modifications to apply to matched resources
+- **Operations**: Support add, replace, remove, copy, move, and test operations
+- **JSON Patch**: Uses JSON Patch specification for precise modifications
+
+**Common Transformation Operations:**
+- **replace**: Replace existing values at specified paths
+- **add**: Add new fields or array elements
+- **remove**: Delete fields or array elements
+- **copy**: Copy values from one path to another
+- **move**: Move values between paths
+- **test**: Validate values before applying other operations
+
+**Filter Matching:**
+- **kind**: Kubernetes resource type (Deployment, Service, etc.)
+- **metadata**: Labels, annotations, names, and namespaces
+- **spec**: Resource specification fields
+- **status**: Resource status fields (read-only)
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns transformation configuration details",
+    400: "Bad Request - Invalid transformation parameters",
+    403: "Forbidden - OAuth token lacks required `public` scope or insufficient transformation view rights",
+    404: "Not Found - Stack, formation, or transformation not found"
+  }}
+/>

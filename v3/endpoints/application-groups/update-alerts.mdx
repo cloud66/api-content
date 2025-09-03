@@ -1,0 +1,63 @@
+---
+title: Update Application Group Alerts
+scope: admin
+path: /application_groups/:application_group_name/update_alerts
+method: POST
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Alerts updated successfully for application group"
+    }
+  }
+request_body: |
+  {
+    "alerts": {
+      "email": {
+        "enabled": true,
+        "recipients": ["admin@example.com", "ops@example.com"]
+      },
+      "slack": {
+        "enabled": true,
+        "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+      },
+      "deployment": {
+        "success": true,
+        "failure": true
+      },
+      "server": {
+        "down": true,
+        "up": true
+      }
+    }
+  }
+parameters:
+  - name: application_group_name
+    in: path
+    required: true
+    type: string
+    description: Name of the application group
+  - name: alerts
+    in: body
+    required: true
+    type: object
+    description: Alert configuration settings for the application group
+---
+
+Configures notification alerts for all stacks within the specified application group.
+
+This allows bulk management of alert settings across multiple related stacks, making it easier to maintain consistent notification preferences for applications that are logically grouped together.
+
+<RelatedModels models={['ApplicationGroup', 'Stack', 'Alert']} />
+
+Alert configurations applied to an application group will affect all stacks within that group. Individual stack alert settings may override application group settings.
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Alerts updated for all stacks in the application group",
+    400: "Bad Request - Invalid alert configuration provided",
+    403: "Forbidden - OAuth token lacks required `admin` scope or insufficient permissions",
+    404: "Not Found - Application group not found"
+  }}
+/>

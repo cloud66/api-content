@@ -1,0 +1,30 @@
+---
+title: Create Cluster
+scope: redeploy
+path: /clusters
+method: POST
+response: |
+  {
+    "response": {
+      "message": "Not implemented yet",
+      "status": "not_implemented"
+    }
+  }
+parameters: []
+---
+
+Creates a new Kubernetes cluster with the provided parameters.
+
+<Callout type="info" title="Not Yet Implemented">
+This endpoint is not yet implemented and will return a "Not implemented yet" error. Cluster creation functionality is planned for future releases.
+</Callout>
+
+<RelatedModels models={['Cluster']} />
+
+<ResponseCodes 
+  codes={[501, 401, 403]}
+  overrides={{
+    501: "Not Implemented - Cluster creation not yet available",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope"
+  }}
+/>

@@ -1,0 +1,61 @@
+---
+title: Create Elastic Address
+scope: admin
+path: /elastic_addresses
+method: POST
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Failover Group created"
+    }
+  }
+request_body: |
+  {
+    "primary_stack_uid": "stack-123-abc",
+    "secondary_stack_uid": "stack-456-def",
+    "current_stack": "primary"
+  }
+parameters:
+  - name: primary_stack_uid
+    in: body
+    required: false
+    type: string
+    description: UID of the primary stack for the failover group
+  - name: secondary_stack_uid
+    in: body
+    required: false
+    type: string
+    description: UID of the secondary/backup stack for the failover group
+  - name: current_stack
+    in: body
+    required: false
+    type: string
+    description: Which stack is currently active ("primary" or "secondary")
+---
+
+Creates a new elastic address (failover group) that provides high availability by allowing traffic to be switched between primary and secondary stacks.
+
+Both stacks must support failover groups and you must have appropriate permissions on both stacks. The stacks cannot be the same and must have DNS configurations.
+
+<Callout type="info" title="Stack Requirements">
+Stacks must not be cluster or prepress type and must have head DNS present to be used in failover groups.
+</Callout>
+
+<RelatedModels models={['ElasticAddress', 'Stack']} />
+
+**Validation Rules:**
+- Primary and secondary stacks must be different
+- You must have failover group edit permissions on both stacks
+- Stacks must support failover group functionality
+- Stacks cannot be cluster or prepress type
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 422]}
+  overrides={{
+    200: "Success - Failover group created successfully",
+    400: "Bad Request - Invalid stack configuration or validation errors",
+    403: "Forbidden - OAuth token lacks required `admin` scope or insufficient permissions on stacks",
+    422: "Unprocessable Entity - Cannot create failover group at this time"
+  }}
+/>

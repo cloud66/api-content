@@ -1,0 +1,108 @@
+---
+title: Create Policy
+scope: redeploy
+path: /stacks/:stack_id/formations/:formation_id/policies
+method: POST
+response: |
+  {
+    "response": {
+      "uid": "policy-789-ghi",
+      "name": "new-security-policy",
+      "sequence": 3,
+      "formation_uid": "formation-456-def",
+      "body": "apiVersion: v1\nkind: NetworkPolicy\nmetadata:\n  name: allow-frontend\n  namespace: production\nspec:\n  podSelector:\n    matchLabels:\n      app: frontend\n  policyTypes:\n  - Ingress\n  ingress:\n  - from:\n    - podSelector:\n        matchLabels:\n          app: backend\n    ports:\n    - protocol: TCP\n      port: 8080",
+      "version": "1.0.0",
+      "tags": ["security", "frontend"],
+      "created_at": "2025-01-15T18:30:00Z",
+      "updated_at": "2025-01-15T18:30:00Z"
+    }
+  }
+request_body: |
+  {
+    "message": "Add new network policy for frontend security",
+    "policy": {
+      "name": "allow-frontend",
+      "sequence": 3,
+      "body": "apiVersion: v1\nkind: NetworkPolicy\nmetadata:\n  name: allow-frontend\n  namespace: production\nspec:\n  podSelector:\n    matchLabels:\n      app: frontend\n  policyTypes:\n  - Ingress\n  ingress:\n  - from:\n    - podSelector:\n        matchLabels:\n          app: backend\n    ports:\n    - protocol: TCP\n      port: 8080",
+      "tags": ["security", "frontend"]
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: message
+    in: body
+    required: true
+    type: string
+    description: Commit message describing the policy creation
+  - name: policy
+    in: body
+    required: true
+    type: object
+    description: Policy configuration
+    properties:
+      name:
+        type: string
+        description: Unique policy name within the formation
+      sequence:
+        type: integer
+        description: Execution order (lower numbers execute first)
+      body:
+        type: string
+        description: YAML/JSON policy configuration content
+      tags:
+        type: array
+        description: Optional tags for policy organization
+        items:
+          type: string
+---
+
+Creates a new deployment policy for the specified formation.
+
+Creates a policy that defines rules and constraints for deployments and resource management. Policies are executed in sequence order during deployments to enforce governance and compliance requirements.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Policy', 'Formation', 'Stack']} />
+
+**Policy Requirements:**
+- **Unique Name**: Policy name must be unique within the formation
+- **Valid YAML/JSON**: Policy body must contain valid configuration syntax
+- **Sequence Order**: Lower sequence numbers execute first during deployment
+- **Version Control**: All policy changes are tracked with commit messages
+
+<Callout type="info" title="Permission Required">
+You must have policy create rights on the formation to create new policies.
+</Callout>
+
+**Policy Categories:**
+- **Security**: Network policies, pod security, RBAC configurations
+- **Resources**: Limits, quotas, priority classes
+- **Deployment**: Strategies, health checks, rollback rules
+- **Compliance**: Governance, auditing, regulatory requirements
+
+**Sequence Guidelines:**
+- **1-10**: Infrastructure and security policies
+- **11-20**: Resource and quota policies
+- **21-30**: Application deployment policies
+- **31+**: Post-deployment and monitoring policies
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 422]}
+  overrides={{
+    200: "Success - Policy created successfully",
+    400: "Bad Request - Invalid policy configuration or parameters",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient policy create rights",
+    422: "Unprocessable Entity - Validation errors in policy configuration"
+  }}
+/>

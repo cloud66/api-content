@@ -1,0 +1,70 @@
+---
+title: "Transformation"
+method: ""
+path: ""
+---
+
+# Transformation
+
+Represents a data transformation rule that defines how to modify, filter, or process data within Cloud66 infrastructure. Transformations are used to customize configurations, modify deployments, and implement data processing logic.
+
+<Model>
+<ModelProperty name="uid" type="string">
+Unique identifier for the transformation (UUID format).
+</ModelProperty>
+
+<ModelProperty name="name" type="string">
+Human-readable name of the transformation.
+</ModelProperty>
+
+<ModelProperty name="tags" type="array">
+Array of tag strings associated with this transformation for organization and filtering.
+</ModelProperty>
+
+<ModelProperty name="sequence" type="integer">
+Execution order or priority sequence for this transformation when multiple transformations are applied.
+</ModelProperty>
+
+<ModelProperty name="body" type="string">
+Transformation definition body containing the actual YAML configuration and transformation logic (only included when full_content=true).
+</ModelProperty>
+
+<ModelProperty name="created_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the transformation was created.
+</ModelProperty>
+
+<ModelProperty name="updated_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the transformation was last updated.
+</ModelProperty>
+</Model>
+
+## Transformation Logic
+
+The `body` field contains YAML configuration that defines:
+- **Input Sources** - Data sources to transform (configurations, manifests, etc.)
+- **Processing Rules** - How to modify, filter, or enhance the input data
+- **Output Format** - Structure and format of transformed data
+- **Conditions** - When and how transformations should be applied
+
+## Execution Order
+
+Transformations are executed based on their `sequence` value, allowing for ordered application of multiple transformation rules. Lower sequence numbers are typically executed first.
+
+## Use Cases
+
+- **Configuration Customization** - Modify default configurations for specific environments
+- **Manifest Processing** - Transform Kubernetes manifests before deployment
+- **Data Filtering** - Remove or modify sensitive data in configurations
+- **Template Enhancement** - Add dynamic values or computed fields to templates
+- **Environment-Specific Modifications** - Apply different transformations per environment
+
+## Transformation Types
+
+Common transformation patterns include:
+- **Field Mapping** - Renaming or restructuring data fields
+- **Value Substitution** - Replacing placeholder values with actual values
+- **Conditional Logic** - Applying transformations based on conditions
+- **Data Enrichment** - Adding computed or external data to existing structures
+- **Format Conversion** - Converting between different data formats
+
+<RelatedModels models={['Formation', 'Stack', 'Policy']} />

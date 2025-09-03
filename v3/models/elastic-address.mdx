@@ -1,0 +1,53 @@
+---
+title: "ElasticAddress"
+method: ""
+path: ""
+---
+
+# ElasticAddress
+
+Elastic addresses (also known as failover groups) provide high availability by allowing IP addresses to be moved between primary and secondary stacks during failover operations. They enable zero-downtime maintenance and automatic disaster recovery.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the elastic address.
+    </ModelProperty>
+    <ModelProperty name="address" type="string">
+        The elastic IP address that can be switched between stacks.
+    </ModelProperty>
+    <ModelProperty name="current_stack" type="string">
+        Which stack currently owns the IP address ("primary" or "secondary").
+    </ModelProperty>
+    <ModelProperty name="primary_stack_uid" type="string|null">
+        The unique identifier of the primary stack (null if not configured).
+    </ModelProperty>
+    <ModelProperty name="primary_stack_name" type="string|null">
+        The display name of the primary stack (null if not configured).
+    </ModelProperty>
+    <ModelProperty name="secondary_stack_uid" type="string|null">
+        The unique identifier of the secondary/backup stack (null if not configured).
+    </ModelProperty>
+    <ModelProperty name="secondary_stack_name" type="string|null">
+        The display name of the secondary/backup stack (null if not configured).
+    </ModelProperty>
+    <ModelProperty name="busy_toggling" type="boolean">
+        Whether a failover operation is currently in progress.
+    </ModelProperty>
+    <ModelProperty name="readonly" type="boolean">
+        Whether the current user can edit this elastic address.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="string">
+        The ISO 8601 timestamp when the elastic address was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="string">
+        The ISO 8601 timestamp when the elastic address was last updated.
+    </ModelProperty>
+</Model>
+
+**Key Features:**
+- **High Availability**: Automatic IP switching during stack failures
+- **Zero-Downtime Maintenance**: Manual failover for maintenance windows
+- **Multi-Stack Support**: Primary and secondary stack configuration
+- **Real-time Status**: Live monitoring of failover operations
+
+<RelatedModels models={['Stack']} />

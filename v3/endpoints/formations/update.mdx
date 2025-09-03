@@ -1,0 +1,82 @@
+---
+title: Update Formation
+scope: redeploy
+path: /stacks/:stack_id/formations/:id
+method: PUT
+response: |
+  {
+    "response": {
+      "uid": "formation-123-abc",
+      "name": "updated-web-formation",
+      "tags": ["production", "web", "updated"],
+      "status": "ready",
+      "base_templates": [
+        {
+          "id": 48,
+          "name": "Updated Web Template",
+          "git_repo": "https://github.com/cloud66/template-web-v2.git",
+          "git_branch": "main"
+        }
+      ],
+      "stencils": [],
+      "filters": [],
+      "policies": [],
+      "workflows": [],
+      "helm_releases": [],
+      "transformations": [],
+      "selected_filter": null,
+      "created_at_iso": "2023-01-15T10:30:00Z",
+      "updated_at_iso": "2023-01-15T11:45:00Z"
+    }
+  }
+request_body: |
+  {
+    "name": "updated-web-formation",
+    "base_template": {
+      "repo": "https://github.com/cloud66/template-web-v2.git",
+      "branch": "main"
+    },
+    "tags": ["production", "web", "updated"]
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: name
+    in: body
+    required: false
+    type: string
+    description: Updated name for the formation
+  - name: base_template
+    in: body
+    required: false
+    type: object
+    description: Updated base template configuration
+  - name: tags
+    in: body
+    required: false
+    type: array
+    description: Updated tags for the formation
+---
+
+Modifies the specified formation with new values.
+
+Updates formation properties including name, base templates, and tags. Validates changes against business rules and permissions before applying updates.
+
+<RelatedModels models={['Formation', 'Stack', 'BaseTemplate']} />
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Formation updated successfully",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient formation update rights",
+    404: "Not Found - Stack or formation not found"
+  }}
+/>

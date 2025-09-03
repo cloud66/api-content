@@ -1,0 +1,59 @@
+---
+title: "AsyncAction"
+method: ""
+path: ""
+---
+
+# AsyncAction
+
+AsyncActions track the progress and results of long-running background operations. They provide real-time status updates for operations like deployments, server reboots, database operations, and other asynchronous tasks.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the async action.
+    </ModelProperty>
+    <ModelProperty name="user" type="string">
+        The email address of the user who initiated the action.
+    </ModelProperty>
+    <ModelProperty name="resource_type" type="string">
+        The type of resource being operated on (e.g., "Stack", "Server", "Database").
+    </ModelProperty>
+    <ModelProperty name="action" type="string">
+        The name of the action being performed (e.g., "deploy", "restart", "database_create").
+    </ModelProperty>
+    <ModelProperty name="resource_id" type="integer">
+        The database ID of the target resource.
+    </ModelProperty>
+    <ModelProperty name="started_via" type="string">
+        How the action was initiated (e.g., "api", "web", "hook").
+    </ModelProperty>
+    <ModelProperty name="started_at" type="string">
+        The ISO 8601 timestamp when the action was started.
+    </ModelProperty>
+    <ModelProperty name="finished_at" type="string|null">
+        The ISO 8601 timestamp when the action completed (null if still running).
+    </ModelProperty>
+    <ModelProperty name="finished_success" type="boolean|null">
+        Whether the action completed successfully (null if still running).
+    </ModelProperty>
+    <ModelProperty name="finished_message" type="string|null">
+        Human-readable completion message (null if still running).
+    </ModelProperty>
+    <ModelProperty name="finished_result" type="object|null">
+        Structured result data containing operation-specific details (null if still running).
+    </ModelProperty>
+    <ModelProperty name="metadata" type="object">
+        Additional action-specific metadata and parameters.
+    </ModelProperty>
+</Model>
+
+**Common Action Types:**
+- **deploy**: Stack deployment operations
+- **restart**: Server restart operations  
+- **database_create**: Database creation
+- **database_delete**: Database deletion
+- **database_user_create**: Database user creation
+- **database_user_delete**: Database user deletion
+- **stack_reboot**: Stack server reboot operations
+
+<RelatedModels models={['Stack', 'Server', 'Database', 'User']} />

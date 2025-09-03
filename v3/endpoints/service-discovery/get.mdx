@@ -1,0 +1,114 @@
+---
+title: "Get Service Discovery Records"
+scope: "public"
+path: "/discovery/:stack_key"
+method: "GET"
+response: |
+  {
+    "data": [
+      {
+        "id": "web-service-1",
+        "name": "web",
+        "ip_address": "10.0.1.100",
+        "port": 3000,
+        "protocol": "http",
+        "tags": ["production", "web"]
+      },
+      {
+        "id": "web-service-2", 
+        "name": "web",
+        "ip_address": "10.0.1.101",
+        "port": 3000,
+        "protocol": "http",
+        "tags": ["production", "web"]
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "total_pages": 1,
+      "total_count": 2
+    }
+  }
+parameters:
+  - name: stack_key
+    in: path
+    required: true
+    type: string
+    description: "Public API key of the stack"
+  - name: query
+    in: query
+    required: true
+    type: string
+    description: "Service name to query for DNS records"
+  - name: ver
+    in: query
+    required: false
+    type: string
+    description: "Version tag for service discovery (defaults to latest)"
+  - name: page
+    in: query
+    required: false
+    type: integer
+    description: "Page number for pagination"
+---
+
+# Get Service Discovery Records
+
+Retrieves DNS records and service information that Cloud66 maintains for services deployed on a stack. This endpoint enables service discovery by providing connection details for inter-service communication and load balancing.
+
+## Service Discovery
+
+Service discovery allows services within your infrastructure to find and connect to each other without hardcoding IP addresses or hostnames. Cloud66 maintains DNS records for your deployed services that can be queried through this endpoint.
+
+## Authentication
+
+This endpoint uses stack-level authentication via the `stack_key` parameter, which is the public API key of the target stack. This allows services within the stack to discover other services.
+
+## Query Parameters
+
+- **query** (required) - The name of the service you want to discover
+- **ver** (optional) - Version tag for the service discovery system (defaults to latest)
+- **page** (optional) - Page number for paginated results
+
+## Response Structure
+
+The response includes:
+- **data** - Array of service records matching the query
+- **pagination** - Pagination information for large result sets
+
+Each service record typically contains:
+- Service identifier and name
+- IP address and port information
+- Protocol details
+- Service tags and metadata
+
+## Use Cases
+
+- **Inter-service Communication**: Services discovering each other's endpoints
+- **Load Balancing**: Finding all instances of a service for load distribution
+- **Health Checking**: Monitoring service availability and endpoints
+- **Dynamic Configuration**: Services adapting to infrastructure changes
+
+## Limitations
+
+<Callout type="warning" title="Container v1 Only">
+This endpoint is not valid for Kubernetes-based (container v2) stacks. Kubernetes stacks use native Kubernetes service discovery mechanisms.
+</Callout>
+
+## Error Responses
+
+<ResponseCodes 
+  codes={[400, 404]} 
+  overrides={{
+    400: [
+      "No stack_key given - Missing stack key parameter",
+      "No query given - Missing service query parameter",
+      "This command is not valid for container v2 stacks - Kubernetes stacks not supported"
+    ],
+    404: [
+      "Could not find stack with stack_key - Invalid or non-existent stack key"
+    ]
+  }}
+/>
+
+<RelatedModels models={['Stack', 'Service']} />

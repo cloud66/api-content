@@ -1,0 +1,71 @@
+---
+title: Create Helm Release
+scope: redeploy
+path: /stacks/:stack_id/formations/:formation_id/helm_releases
+method: POST
+response: |
+  {
+    "response": {
+      "id": 892,
+      "status": "queued",
+      "action_type": "create_helm_release",
+      "resource_type": "stack",
+      "resource_id": 123,
+      "started_via": "api",
+      "started_at": null,
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null,
+      "created_at": "2023-01-15T10:30:00Z",
+      "updated_at": "2023-01-15T10:30:00Z"
+    }
+  }
+request_body: |
+  {
+    "helm_release": {
+      "display_name": "nginx-ingress-controller",
+      "chart_name": "nginx-ingress",
+      "repository": "https://kubernetes.github.io/ingress-nginx",
+      "version": "4.7.1",
+      "body": "controller:\n  replicaCount: 2\n  service:\n    type: LoadBalancer"
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: helm_release
+    in: body
+    required: true
+    type: object
+    description: Helm release configuration object
+---
+
+Creates a new Helm release with the specified chart and configuration.
+
+This operation is performed asynchronously and returns an async action object to track progress. The Helm repository must already be added to your account before creating releases.
+
+<Callout type="info" title="Repository Required">
+The Helm repository must be added to your account through the UI before you can create releases from it. The repository URL must match exactly.
+</Callout>
+
+<RelatedModels models={['HelmRelease', 'Formation', 'Stack', 'AsyncAction']} />
+
+The async action can be monitored using the [Get Async Action](/v3/endpoints/async-actions/show) endpoint to track the creation progress.
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns async action to track Helm release creation",
+    400: "Bad Request - Invalid Helm release parameters or operation failed",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope, insufficient creation rights, or repository not found in account",
+    404: "Not Found - Stack or formation not found"
+  }}
+/>

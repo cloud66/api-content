@@ -1,0 +1,53 @@
+---
+title: "Policy"
+method: ""
+path: ""
+---
+
+# Policy
+
+Represents a security or access policy that can be applied to Cloud66 stacks and resources. Policies define rules and configurations for various aspects of infrastructure security, compliance, and operational controls.
+
+<Model>
+<ModelProperty name="uid" type="string">
+Unique identifier for the policy (UUID format).
+</ModelProperty>
+
+<ModelProperty name="name" type="string">
+Human-readable name of the policy.
+</ModelProperty>
+
+<ModelProperty name="tags" type="array">
+Array of tag strings associated with this policy for organization and filtering.
+</ModelProperty>
+
+<ModelProperty name="sequence" type="integer">
+Execution order or priority sequence for this policy when multiple policies are applied.
+</ModelProperty>
+
+<ModelProperty name="body" type="string">
+Policy definition body containing the actual policy rules and configuration (only included when full_content=true).
+</ModelProperty>
+
+<ModelProperty name="created_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the policy was created.
+</ModelProperty>
+
+<ModelProperty name="updated_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the policy was last updated.
+</ModelProperty>
+</Model>
+
+## Policy Types
+
+Policies can define various types of rules and controls:
+- **Security Policies** - Access controls, authentication requirements, network security rules
+- **Compliance Policies** - Regulatory compliance requirements and auditing rules
+- **Operational Policies** - Deployment restrictions, resource usage limits, monitoring requirements
+- **Configuration Policies** - Standard configurations and environmental settings
+
+## Policy Execution
+
+Policies are executed based on their `sequence` value, allowing for ordered application of multiple policies. Lower sequence numbers are typically executed first.
+
+<RelatedModels models={['Stack', 'User']} />

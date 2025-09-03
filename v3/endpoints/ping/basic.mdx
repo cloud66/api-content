@@ -1,0 +1,35 @@
+---
+title: "Basic Ping"
+scope: ""
+path: "/ping"
+method: "GET"
+response: |
+  {
+    "ok": true,
+    "message": "all good. unauthenticated"
+  }
+---
+
+# Basic Ping
+
+Tests API connectivity without authentication. This endpoint verifies that the API is accessible without requiring any authentication, making it useful for checking basic API availability and network connectivity.
+
+## Use Cases
+
+- **Health Checks**: Monitor API availability without authentication
+- **Network Testing**: Verify network connectivity to Cloud66 API
+- **Service Status**: Check if the API service is running
+- **Load Balancer Checks**: Simple endpoint for load balancer health checks
+
+## Response Fields
+
+- `ok` - Always `true` for successful operations
+- `message` - Simple confirmation message
+
+<Callout type="info" title="No Authentication Required">
+This endpoint does not require any authentication or API keys. It's designed for basic connectivity testing.
+</Callout>
+
+## Related Endpoints
+
+For authenticated connectivity testing, use the [Authenticated Ping](/v3/ping/auth) endpoint.

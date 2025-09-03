@@ -1,0 +1,64 @@
+---
+title: "Nginx Modules Reference"
+scope: ""
+path: "/reference/nginx_modules"
+method: "GET"
+response: |
+  {
+    "http_geoip_module": {
+      "name": "GeoIP Module",
+      "description": "Provides geographic location information based on client IP addresses",
+      "version": "1.0"
+    },
+    "http_ssl_module": {
+      "name": "SSL Module", 
+      "description": "Enables HTTPS and SSL/TLS support",
+      "version": "1.0"
+    },
+    "http_realip_module": {
+      "name": "Real IP Module",
+      "description": "Allows changing the client address to value from request header",
+      "version": "1.0"
+    }
+  }
+---
+
+# Nginx Modules Reference
+
+Retrieves reference information about available Nginx modules that can be configured in Cloud66 stacks. This endpoint provides static reference data about module capabilities and does not require authentication.
+
+## Use Cases
+
+- **Stack Configuration**: Determine available Nginx modules for web server configuration
+- **Feature Planning**: Understand what Nginx capabilities are available
+- **Documentation**: Reference module information for configuration guides
+
+## Module Information
+
+Each module entry includes:
+- `name` - Human-readable module name
+- `description` - Brief description of module functionality
+- `version` - Module version information
+
+## Common Nginx Modules
+
+The response typically includes modules for:
+- **SSL/TLS Support** - HTTPS and certificate management
+- **Geographic IP** - Location-based request handling
+- **Real IP Detection** - Proper client IP handling behind proxies
+- **Compression** - Content compression modules
+- **Security** - Security-related modules
+- **Performance** - Caching and optimization modules
+
+<Callout type="info" title="No Authentication Required">
+This endpoint provides public reference data about Nginx modules and does not require authentication or API keys.
+</Callout>
+
+## Related Configuration
+
+This reference data is typically used when:
+- Configuring web servers in stack creation
+- Setting up custom Nginx configurations
+- Planning stack architecture with specific Nginx features
+
+<RelatedModels models={['Stack', 'Service']} />

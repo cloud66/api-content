@@ -1,0 +1,73 @@
+---
+title: Create Database User
+scope: admin
+path: /stacks/:stack_id/server_groups/:server_group_id/database_users
+method: POST
+response: |
+  {
+    "response": {
+      "id": 789,
+      "status": "queued",
+      "action_type": "database_user_create",
+      "resource_type": "database_user",
+      "resource_id": null,
+      "started_via": "api",
+      "started_at": null,
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null,
+      "created_at": "2023-01-15T10:30:00Z",
+      "updated_at": "2023-01-15T10:30:00Z"
+    }
+  }
+request_body: |
+  {
+    "username": "new_app_user",
+    "database_ids": ["db_abc123", "db_def456"],
+    "user_type": "application"
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: integer
+    description: Stack ID
+  - name: server_group_id  
+    in: path
+    required: true
+    type: integer
+    description: Server group ID
+  - name: username
+    in: body
+    required: true
+    type: string
+    description: Database username to create
+  - name: database_ids
+    in: body
+    required: false
+    type: array
+    description: Array of database UIDs to grant access to
+  - name: user_type
+    in: body
+    required: true
+    type: string
+    description: User type - must be one of the supported types
+---
+
+Creates a new database user with the specified username and access to the selected databases.
+
+This operation is performed asynchronously and returns an async action object to track progress. The user will be created with a randomly generated secure password. Only works with server groups that support database operations.
+
+<RelatedModels models={['DatabaseUser', 'Database', 'AsyncAction', 'ServerGroup']} />
+
+The async action can be monitored using the [Get Async Action](/v3/endpoints/async-actions/show) endpoint to track the creation progress.
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns async action to track database user creation",
+    400: "Bad Request - Invalid username, user type, or server group does not support database operations", 
+    403: "Forbidden - OAuth token lacks required `admin` scope or insufficient permissions",
+    404: "Not Found - Stack or server group not found"
+  }}
+/>

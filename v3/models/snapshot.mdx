@@ -1,0 +1,52 @@
+---
+title: "Snapshot"
+method: ""
+path: ""
+---
+
+# Snapshot
+
+Snapshots capture the complete state of stacks at specific points in time, including configurations, environment variables, and deployment settings. They enable restoration, comparison, and formation generation for infrastructure management.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the snapshot.
+    </ModelProperty>
+    <ModelProperty name="triggered_at" type="string">
+        The ISO 8601 timestamp when the snapshot was triggered.
+    </ModelProperty>
+    <ModelProperty name="triggered_by" type="string">
+        The email address of the user or system that triggered the snapshot.
+    </ModelProperty>
+    <ModelProperty name="action" type="string">
+        The action that caused this snapshot to be created (e.g., "manual_snapshot", "deployment_snapshot").
+    </ModelProperty>
+    <ModelProperty name="tags" type="array">
+        Array of tags associated with this snapshot for categorization and identification.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="string">
+        The ISO 8601 timestamp when the snapshot record was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="string">
+        The ISO 8601 timestamp when the snapshot record was last updated.
+    </ModelProperty>
+</Model>
+
+**Key Features:**
+- **State Capture**: Complete stack configuration and environment state
+- **Historical Reference**: Point-in-time records for comparison and analysis
+- **Formation Generation**: Render configurations from historical snapshots
+- **Deployment Tracking**: Automatic snapshots during deployment processes
+
+**Common Use Cases:**
+- **Backup and Recovery**: Restore previous stack configurations
+- **Configuration Management**: Compare changes between deployments
+- **Audit Trail**: Track configuration changes over time
+- **Formation Templates**: Generate deployment configurations from known-good states
+
+**Snapshot Types:**
+- **Manual**: User-triggered snapshots for specific purposes
+- **Deployment**: Automatic snapshots created during deployments
+- **Scheduled**: System-generated snapshots at regular intervals
+
+<RelatedModels models={['Stack', 'Formation', 'Stencil']} />

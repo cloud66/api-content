@@ -1,0 +1,44 @@
+---
+title: "Database"
+method: ""
+path: ""
+---
+
+# Database
+
+Databases represent database instances within server groups that support database operations. They contain database-specific configuration, size metrics, and connection information.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the database.
+    </ModelProperty>
+    <ModelProperty name="stack_uid" type="string">
+        The unique identifier of the stack that owns this database.
+    </ModelProperty>
+    <ModelProperty name="server_group_id" type="integer">
+        The ID of the server group that hosts this database.
+    </ModelProperty>
+    <ModelProperty name="database_name" type="string">
+        The name of the database.
+    </ModelProperty>
+    <ModelProperty name="collation" type="string">
+        The collation setting for the database (e.g., "utf8mb4_unicode_ci").
+    </ModelProperty>
+    <ModelProperty name="encoding" type="string">
+        The character encoding for the database (e.g., "utf8mb4").
+    </ModelProperty>
+    <ModelProperty name="size_bytes" type="integer">
+        The size of the database in bytes.
+    </ModelProperty>
+    <ModelProperty name="size_rows" type="integer">
+        The number of rows across all tables in the database.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="string">
+        The ISO 8601 timestamp when the database was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="string">
+        The ISO 8601 timestamp when the database was last updated.
+    </ModelProperty>
+</Model>
+
+<RelatedModels models={['ServerGroup', 'Stack', 'DatabaseUser']} />

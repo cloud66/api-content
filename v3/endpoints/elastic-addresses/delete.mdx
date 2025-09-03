@@ -1,0 +1,41 @@
+---
+title: Delete Elastic Address
+scope: admin
+path: /elastic_addresses/:uid
+method: DELETE
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Failover Group deleted"
+    }
+  }
+parameters:
+  - name: uid
+    in: path
+    required: true
+    type: string
+    description: Elastic address UID
+---
+
+Permanently removes the specified elastic address (failover group) from the system.
+
+<Callout type="warning" title="Attachment Restriction">
+Cannot delete a failover group that is currently attached to a stack. You must first detach it from all stacks before deletion.
+</Callout>
+
+<RelatedModels models={['ElasticAddress', 'Stack']} />
+
+The deletion process will:
+1. Verify the failover group is not attached to any stack
+2. Remove the elastic address configuration
+3. Log the deletion event for audit purposes
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403]}
+  overrides={{
+    200: "Success - Failover group deleted successfully",
+    400: "Bad Request - Invalid failover group UID or failover group is attached to a stack",
+    403: "Forbidden - OAuth token lacks required `admin` scope"
+  }}
+/>

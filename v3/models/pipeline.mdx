@@ -1,0 +1,69 @@
+---
+title: "Pipeline"
+method: ""
+path: ""
+---
+
+# Pipeline
+
+Represents a CI/CD pipeline configuration that defines the steps and processes for deploying applications to Kubernetes clusters. Pipelines are generated based on formations and can include custom workflows or auto-generated deployment steps.
+
+<Model>
+<ModelProperty name="version" type="integer">
+Pipeline format version (currently version 1).
+</ModelProperty>
+
+<ModelProperty name="steps" type="array">
+Array of pipeline steps defining the deployment process. Each step contains execution commands, dependencies, and preflight checks.
+</ModelProperty>
+</Model>
+
+## Pipeline Steps
+
+Each step in the pipeline includes:
+
+### Step Properties
+- **name** - Step identifier (e.g., "render", "helm")
+- **command** - Shell command to execute for this step
+- **depends_on** - Array of step names this step depends on
+- **preflights** - Array of preflight checks to run before execution
+
+### Preflight Checks
+Each preflight check includes:
+- **command** - Command to run to verify prerequisites
+- **message** - Error message to display if the check fails
+
+## Pipeline Types
+
+### Auto-Generated Pipelines
+When no custom workflow is specified, Cloud66 generates a pipeline based on the formation:
+
+1. **Render Step** - Applies Kubernetes manifests using `cx` CLI and `kubectl`
+2. **Helm Steps** - Installs Helm releases with proper dependency management
+
+### Custom Workflow Pipelines  
+When a custom workflow is provided, the pipeline uses the workflow's defined steps and configuration.
+
+## Common Pipeline Steps
+
+### Render Step
+```bash
+bash -c 'cx toolbelt render | kubectl apply -f -'
+```
+- Renders formation templates using Cloud66 toolbelt
+- Applies the rendered manifests to Kubernetes cluster
+- Requires `cx` and `kubectl` CLI tools
+
+### Helm Steps
+```bash
+helm upgrade --install release-name chart-path
+```
+- Deploys Helm charts to the cluster
+- Handles upgrades and installations
+- Requires `helm` and `kubectl` CLI tools
+
+## Dependencies
+
+Pipeline steps can depend on each other using the `depends_on` property. This ensures proper execution order, such as Helm installations completing before manifest application.
+
+<RelatedModels models={['Formation', 'Workflow', 'HelmRelease']} />

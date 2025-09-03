@@ -1,0 +1,44 @@
+---
+title: Get Snapshot
+scope: public
+path: /stacks/:stack_id/snapshots/:id
+method: GET
+response: |
+  {
+    "response": {
+      "uid": "snapshot-123-abc",
+      "triggered_at": "2023-01-15T10:30:00Z",
+      "triggered_by": "admin@example.com",
+      "action": "manual_snapshot",
+      "tags": ["backup", "production"],
+      "created_at_iso": "2023-01-15T10:30:00Z",
+      "updated_at_iso": "2023-01-15T10:30:00Z"
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Snapshot UID
+---
+
+Returns comprehensive details about the specified snapshot.
+
+Includes information about when the snapshot was created, who triggered it, the action that caused it, and associated tags for categorization and identification.
+
+<RelatedModels models={['Snapshot', 'Stack']} />
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns snapshot details",
+    403: "Forbidden - OAuth token lacks required `public` scope",
+    404: "Not Found - Stack or snapshot not found"
+  }}
+/>

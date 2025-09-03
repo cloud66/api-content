@@ -1,0 +1,72 @@
+---
+title: "Generate JWT Token"
+scope: "public"
+path: "/jwt/fetch"
+method: "POST"
+request_body: |
+  {
+    "scope": "log.write",
+    "aud": "cloud66.halo"
+  }
+response: |
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjbG91ZDY2LmNlbnRyYWwiLCJhdWQiOiJjbG91ZDY2LmhhbG8iLCJzY29wZSI6ImxvZy53cml0ZSIsInZhbGlkLnByZWZpeCI6Ii9hY2NvdW50X2FwaV9rZXkifQ.signature"
+parameters:
+  - name: scope
+    in: body
+    required: true
+    type: string
+    description: "Requested token scope. Valid values: 'log.write', 'log.read'"
+  - name: aud
+    in: body
+    required: true
+    type: string
+    description: "Token audience. Currently only 'cloud66.halo' is supported"
+---
+
+# Generate JWT Token
+
+Generates a JWT token with the requested scope and audience for authenticated service access. Currently supports tokens for Halo logging service access.
+
+The JWT token is scoped to the authenticated account and includes appropriate audience and scope validation for secure service-to-service communication.
+
+## JWT Token Structure
+
+The generated JWT contains the following payload:
+
+```json
+{
+  "iss": "cloud66.central",
+  "aud": "cloud66.halo", 
+  "scope": "log.write",
+  "valid.prefix": "/account_api_key"
+}
+```
+
+## Supported Scopes
+
+- `log.write` - Write access to logging service
+- `log.read` - Read access to logging service  
+
+## Supported Audiences
+
+- `cloud66.halo` - Halo logging service
+
+<Callout type="info" title="Service Authentication">
+This endpoint is designed for service-to-service authentication. The generated JWT token should be used in the Authorization header when making requests to Cloud66 services.
+</Callout>
+
+## Error Responses
+
+<ResponseCodes 
+  codes={[400, 403]} 
+  overrides={{
+    400: [
+      "no aud - Missing audience parameter",
+      "no scope - Missing scope parameter", 
+      "no JWT can be generated - Token generation failed"
+    ],
+    403: [
+      "invalid aud - Unsupported audience value"
+    ]
+  }}
+/>

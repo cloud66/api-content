@@ -1,0 +1,87 @@
+---
+title: Get Policy
+scope: public
+path: /stacks/:stack_id/formations/:formation_id/policies/:id
+method: GET
+response: |
+  {
+    "response": {
+      "uid": "policy-123-abc",
+      "name": "security-policy",
+      "sequence": 1,
+      "formation_uid": "formation-456-def",
+      "body": "apiVersion: v1\nkind: NetworkPolicy\nmetadata:\n  name: deny-all-ingress\n  namespace: production\nspec:\n  podSelector: {}\n  policyTypes:\n  - Ingress\n  - Egress\n  ingress: []\n  egress:\n  - to: []\n    ports:\n    - protocol: TCP\n      port: 53\n    - protocol: UDP\n      port: 53",
+      "version": "1.2.0",
+      "tags": ["security", "network", "production"],
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-15T16:45:00Z",
+      "created_by": {
+        "id": 123,
+        "email": "admin@example.com"
+      },
+      "last_modified_by": {
+        "id": 456,
+        "email": "devops@example.com"
+      }
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Policy UID
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include complete policy body content
+---
+
+Retrieves detailed information about a specific deployment policy.
+
+Returns comprehensive details about the specified policy, including the complete configuration body, version history, and metadata for deployment rule management.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Policy', 'Formation', 'Stack']} />
+
+**Policy Details:**
+- **Configuration Body**: Complete YAML/JSON policy definition
+- **Sequence Order**: Execution priority during deployments
+- **Version Tracking**: Policy version and modification history
+- **Tag Management**: Organization and categorization labels
+- **Access Control**: User permissions and modification tracking
+
+<Callout type="info" title="Permission Required">
+You must have policy view rights on the formation to access policy details.
+</Callout>
+
+**Common Policy Types:**
+- **NetworkPolicy**: Kubernetes network security rules
+- **LimitRange**: Resource consumption constraints
+- **PodSecurityPolicy**: Pod security configurations
+- **ResourceQuota**: Namespace resource limits
+- **PriorityClass**: Pod scheduling priorities
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns policy configuration details",
+    400: "Bad Request - Invalid policy parameters",
+    403: "Forbidden - OAuth token lacks required `public` scope or insufficient policy view rights",
+    404: "Not Found - Stack, formation, or policy not found"
+  }}
+/>

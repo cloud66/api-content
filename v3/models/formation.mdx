@@ -1,0 +1,64 @@
+---
+title: "Formation"
+method: ""
+path: ""
+---
+
+# Formation
+
+Formations define the deployment structure and configuration for Kubernetes-based stacks. They serve as blueprints that combine base templates, stencils, policies, workflows, and Helm releases to create comprehensive deployment configurations.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the formation.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the formation.
+    </ModelProperty>
+    <ModelProperty name="tags" type="array">
+        Array of tags associated with this formation for categorization and filtering.
+    </ModelProperty>
+    <ModelProperty name="status" type="string">
+        The current status of the formation (e.g., "ready", "pending").
+    </ModelProperty>
+    <ModelProperty name="base_templates" type="array">
+        Array of base template objects that provide the foundation for this formation.
+    </ModelProperty>
+    <ModelProperty name="stencils" type="array">
+        Array of stencil objects containing configuration templates and snippets.
+    </ModelProperty>
+    <ModelProperty name="filters" type="array">
+        Array of filter objects that define selection criteria for deployments.
+    </ModelProperty>
+    <ModelProperty name="policies" type="array">
+        Array of policy objects that define security and operational rules.
+    </ModelProperty>
+    <ModelProperty name="workflows" type="array">
+        Array of workflow objects that define automated deployment processes.
+    </ModelProperty>
+    <ModelProperty name="helm_releases" type="array">
+        Array of Helm release objects for Kubernetes package management.
+    </ModelProperty>
+    <ModelProperty name="transformations" type="array">
+        Array of transformation objects that modify configurations during deployment.
+    </ModelProperty>
+    <ModelProperty name="selected_filter" type="object|null">
+        The currently active filter object, or null if no filter is selected.
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="string">
+        The ISO 8601 timestamp when the formation was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="string">
+        The ISO 8601 timestamp when the formation was last updated.
+    </ModelProperty>
+</Model>
+
+**Key Components:**
+- **Base Templates**: Foundation templates from Template Libraries
+- **Stencils**: Reusable configuration templates
+- **Policies**: Security and operational rules
+- **Workflows**: Automated deployment processes
+- **Helm Releases**: Kubernetes package deployments
+- **Transformations**: Configuration modification rules
+
+<RelatedModels models={['Stack', 'BaseTemplate', 'Stencil', 'Policy', 'Workflow', 'HelmRelease', 'Transformation']} />

@@ -1,0 +1,48 @@
+---
+title: "ApplicationGroup"
+method: ""
+path: ""
+---
+
+# ApplicationGroup
+
+Application groups are logical collections of related stacks that can be managed together for configuration and monitoring purposes. They enable bulk operations like alert configuration across multiple stacks that share common characteristics.
+
+<Model>
+    <ModelProperty name="id" type="integer">
+        The unique identifier of the application group.
+    </ModelProperty>
+    <ModelProperty name="name" type="string">
+        The name of the application group (1-128 characters).
+    </ModelProperty>
+    <ModelProperty name="account_id" type="integer">
+        The ID of the account that owns this application group.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="string">
+        The ISO 8601 timestamp when the application group was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="string">
+        The ISO 8601 timestamp when the application group was last updated.
+    </ModelProperty>
+    <ModelProperty name="rules" type="array">
+        Array of rules that determine which stacks belong to this group (based on name, tag, branch, environment, or ID).
+    </ModelProperty>
+    <ModelProperty name="stacks" type="array">
+        Array of stacks that currently belong to this application group.
+    </ModelProperty>
+</Model>
+
+**Grouping Rules:**
+Application groups can automatically include stacks based on various criteria:
+- **name**: Stack name patterns
+- **tag**: Stack tags
+- **branch**: Git branch names
+- **environment**: Environment names (e.g., production, staging)
+- **id**: Specific stack IDs
+
+**Use Cases:**
+- **Bulk Alert Configuration**: Set notification preferences for all stacks in a group
+- **Environment Management**: Group stacks by environment for consistent operations
+- **Team Organization**: Organize stacks by team or project ownership
+
+<RelatedModels models={['Stack', 'Alert']} />

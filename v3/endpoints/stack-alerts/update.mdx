@@ -1,0 +1,96 @@
+---
+title: Update Stack Alerts
+scope: admin
+path: /stacks/:stack_id/alerts
+method: PUT
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Alerts updated successfully"
+    }
+  }
+request_body: |
+  {
+    "alerts": {
+      "deployment_success": {
+        "channels": [
+          {
+            "type": "email",
+            "enabled": true,
+            "recipients": ["admin@example.com", "dev-team@example.com"]
+          },
+          {
+            "type": "slack",
+            "enabled": true,
+            "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+          }
+        ],
+        "active": true,
+        "settings": {
+          "frequency": "immediate",
+          "threshold": 1
+        }
+      },
+      "server_down": {
+        "channels": [
+          {
+            "type": "email",
+            "enabled": true,
+            "recipients": ["ops@example.com"]
+          }
+        ],
+        "active": true,
+        "settings": {
+          "frequency": "immediate",
+          "threshold": 1
+        }
+      }
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: alerts
+    in: body
+    required: true
+    type: object
+    description: Alert configurations to update, keyed by alert name
+---
+
+Updates multiple stack alert configurations in a single operation.
+
+Modifies notification settings for specified alerts on the stack. Validates changes against business rules and permissions before applying updates.
+
+<RelatedModels models={['Stack', 'Alert']} />
+
+**Configurable Alert Types:**
+- **deployment_success**: Deployment completed successfully
+- **deployment_failure**: Deployment failed
+- **server_down**: Server became unavailable
+- **server_up**: Server became available
+- **scaling_complete**: Auto-scaling operation completed
+- **backup_complete**: Backup operation completed
+
+**Channel Configuration:**
+- **email**: Recipients list with email addresses
+- **slack**: Webhook URL for Slack integration
+- **webhook**: Custom webhook endpoints
+- **sms**: SMS notification settings
+
+<Callout type="info" title="Bulk Updates">
+This endpoint allows updating multiple alert configurations simultaneously. Only specified alerts in the request will be modified - other existing alerts remain unchanged.
+</Callout>
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 422]}
+  overrides={{
+    200: "Success - Alerts updated successfully",
+    400: "Bad Request - Invalid alert configuration or parameters",
+    403: "Forbidden - OAuth token lacks required `admin` scope",
+    422: "Unprocessable Entity - Validation errors in alert settings"
+  }}
+/>

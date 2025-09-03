@@ -1,0 +1,89 @@
+---
+title: "Get Container Session"
+scope: "redeploy"
+path: "/stacks/:stack_id/sessions/fetch"
+method: "GET"
+response: |
+  {
+    "id": 123,
+    "service_name": "web",
+    "container_name": "web-container-abc123",
+    "status": "active",
+    "connection_info": {
+      "host": "session.cloud66.com",
+      "port": 22,
+      "username": "session_user"
+    },
+    "created_at": "2023-01-15T10:30:00Z",
+    "updated_at": "2023-01-15T10:30:00Z"
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: "Stack UID"
+  - name: session_id
+    in: query
+    required: false
+    type: integer
+    description: "Database ID for a specific session"
+  - name: service_name
+    in: query
+    required: false
+    type: string
+    description: "Service name to get the most recent session for"
+---
+
+# Get Container Session
+
+Retrieves container session information for debugging and troubleshooting purposes. Returns either a specific session by ID or the most recent session for a specified service.
+
+## Session Lookup
+
+The endpoint supports two lookup methods:
+- **By Session ID** - Use `session_id` parameter to get a specific session
+- **By Service Name** - Use `service_name` parameter to get the most recent session for that service
+
+If both parameters are provided, `session_id` takes precedence.
+
+## Container Sessions
+
+Sessions allow users to establish interactive connections to running containers for:
+- **Debugging applications** - Inspect running processes and logs
+- **Troubleshooting issues** - Examine container filesystem and configuration  
+- **Interactive shell access** - Execute commands inside containers
+- **Performance monitoring** - Monitor container resource usage
+
+## Access Requirements
+
+- **SSH Key Download Permission** - User must have SSH key download permissions on the stack
+- **Container Stacks Only** - Sessions are only available for container-based stacks
+- **Active Sessions** - Returns information about currently active sessions
+
+## Connection Information
+
+The response includes connection details needed to establish the session:
+- Connection host and port
+- Authentication credentials
+- Container and service identifiers
+- Session status and metadata
+
+<Callout type="warning" title="Container Stacks Only">
+This endpoint only works with container-based stacks. Traditional server stacks do not support container sessions.
+</Callout>
+
+## Error Responses
+
+<ResponseCodes 
+  codes={[400]} 
+  overrides={{
+    400: [
+      "Insufficient permissions - User lacks SSH key download permissions",
+      "Invalid stack type - Stack is not container-based",
+      "Invalid session - Session not found or inaccessible"
+    ]
+  }}
+/>
+
+<RelatedModels models={['Session', 'Stack', 'Service']} />

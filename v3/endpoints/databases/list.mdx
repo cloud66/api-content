@@ -1,0 +1,70 @@
+---
+title: List Databases
+scope: public
+path: /stacks/:stack_id/server_groups/:server_group_id/databases
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "uid": "db_abc123",
+        "name": "app_production",
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_unicode_ci",
+        "size_bytes": 104857600,
+        "created_at": "2023-01-15T10:30:00Z",
+        "users": ["app_user", "readonly_user"]
+      },
+      {
+        "uid": "db_def456", 
+        "name": "analytics_db",
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_unicode_ci",
+        "size_bytes": 52428800,
+        "created_at": "2023-01-10T14:20:00Z",
+        "users": ["analytics_user"]
+      }
+    ],
+    "count": 2,
+    "pagination": {
+      "previous": null,
+      "next": null,
+      "current": 1,
+      "per_page": 30,
+      "count": 2,
+      "pages": 1
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: integer
+    description: Stack ID
+  - name: server_group_id  
+    in: path
+    required: true
+    type: integer
+    description: Server group ID
+  - name: page
+    in: query
+    required: false
+    type: integer
+    description: Page number for pagination (defaults to 1, minimum 1)
+---
+
+Returns a paginated collection of databases associated with the specified server group.
+
+This endpoint triggers an asynchronous info retrieval operation to ensure database information is current before returning the results. Only works with server groups that support database operations.
+
+<RelatedModels models={['Database', 'ServerGroup', 'Pagination']} />
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns paginated list of databases",
+    400: "Bad Request - Server group does not support database operations",
+    403: "Forbidden - OAuth token lacks required `public` scope",
+    404: "Not Found - Stack or server group not found"
+  }}
+/>

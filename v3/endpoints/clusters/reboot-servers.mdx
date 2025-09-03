@@ -1,0 +1,56 @@
+---
+title: Reboot Cluster Servers
+scope: admin
+path: /clusters/:id/reboot_servers
+method: POST
+response: |
+  {
+    "response": {
+      "id": 789,
+      "status": "queued",
+      "action_type": "stack_reboot",
+      "resource_type": "stack",
+      "resource_id": 123,
+      "started_via": "api",
+      "started_at": null,
+      "finished_at": null,
+      "finished_success": null,
+      "finished_message": null,
+      "created_at": "2023-01-15T10:30:00Z",
+      "updated_at": "2023-01-15T10:30:00Z"
+    }
+  }
+parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Cluster UID
+  - name: strategy
+    in: query
+    required: false
+    type: string
+    description: Reboot strategy (optional)
+  - name: group
+    in: query
+    required: false
+    type: string
+    description: Server group to reboot (optional)
+---
+
+Executes reboot operations on servers within the specified Kubernetes cluster.
+
+This operation is performed asynchronously and returns an async action object to track progress. Requires admin permissions on the cluster resource.
+
+<RelatedModels models={['Cluster', 'AsyncAction', 'Server']} />
+
+The async action can be monitored using the [Get Async Action](/v3/endpoints/async-actions/show) endpoint to track the reboot progress.
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns async action to track server reboot",
+    403: "Forbidden - OAuth token lacks required `admin` scope or insufficient permissions",
+    404: "Not Found - Cluster not found"
+  }}
+/>

@@ -1,0 +1,69 @@
+---
+title: List Stack Alerts
+scope: public
+path: /stacks/:stack_id/alerts
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "name": "deployment_success",
+        "description": "Notifies when a deployment completes successfully",
+        "channels": [
+          {
+            "type": "email",
+            "enabled": true,
+            "recipients": ["admin@example.com"]
+          },
+          {
+            "type": "slack", 
+            "enabled": true,
+            "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+          }
+        ],
+        "active": true
+      },
+      {
+        "name": "server_down",
+        "description": "Notifies when a server goes down",
+        "channels": [
+          {
+            "type": "email",
+            "enabled": true,
+            "recipients": ["ops@example.com", "admin@example.com"]
+          }
+        ],
+        "active": true
+      }
+    ]
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+---
+
+Returns a collection of alert configurations for the specified stack.
+
+Stack alerts provide notification capabilities for various stack events including deployments, server status changes, and system health monitoring. Each alert can be configured with multiple notification channels.
+
+<RelatedModels models={['Stack', 'Alert']} />
+
+**Available Alert Types:**
+- **deployment_success**: Deployment completed successfully
+- **deployment_failure**: Deployment failed
+- **server_down**: Server became unavailable
+- **server_up**: Server became available
+- **scaling_complete**: Auto-scaling operation completed
+- **backup_complete**: Backup operation completed
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns list of stack alert configurations",
+    403: "Forbidden - OAuth token lacks required `public` scope",
+    404: "Not Found - Stack not found"
+  }}
+/>

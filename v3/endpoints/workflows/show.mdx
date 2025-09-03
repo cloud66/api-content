@@ -1,0 +1,94 @@
+---
+title: Get Workflow
+scope: public
+path: /stacks/:stack_id/formations/:formation_id/workflows/:id
+method: GET
+response: |
+  {
+    "response": {
+      "uid": "workflow-123-abc",
+      "name": "production-deploy",
+      "formation_uid": "formation-456-def",
+      "default": true,
+      "body": "steps:\n  - name: pre-build\n    type: script_step\n    config:\n      command: echo 'Starting deployment'\n  - name: build\n    type: build_step\n    config:\n      dockerfile: Dockerfile\n      context: .\n      args:\n        NODE_ENV: production\n  - name: test\n    type: test_step\n    config:\n      command: npm run test:ci\n      timeout: 300\n  - name: security-scan\n    type: security_step\n    config:\n      scanner: trivy\n      fail_on_critical: true\n  - name: deploy\n    type: deploy_step\n    config:\n      strategy: rolling\n      max_unavailable: 1\n      health_check_timeout: 120\n  - name: post-deploy\n    type: script_step\n    config:\n      command: echo 'Deployment completed successfully'",
+      "version": "3.2.1",
+      "tags": ["production", "ci-cd", "security"],
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-15T18:15:00Z",
+      "created_by": {
+        "id": 123,
+        "email": "devops@example.com"
+      },
+      "last_modified_by": {
+        "id": 456,
+        "email": "admin@example.com"
+      }
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Workflow UID
+  - name: full_content
+    in: query
+    required: false
+    type: string
+    description: Set to "1" to include complete workflow body content
+---
+
+Retrieves detailed information about a specific deployment workflow.
+
+Returns comprehensive details about the specified workflow, including the complete step configuration, version history, and metadata for deployment automation management.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Workflow', 'Formation', 'Stack']} />
+
+**Workflow Details:**
+- **Step Configuration**: Complete YAML workflow definition with all steps
+- **Default Status**: Whether this workflow is the formation's default
+- **Version Tracking**: Workflow version and modification history
+- **Tag Management**: Organization and categorization labels
+- **Access Control**: User permissions and modification tracking
+
+<Callout type="info" title="Permission Required">
+You must have workflow view rights on the formation to access workflow details.
+</Callout>
+
+**Common Step Types:**
+- **build_step**: Build application containers and artifacts
+- **test_step**: Run test suites and validation
+- **security_step**: Security scanning and vulnerability checks
+- **deploy_step**: Application deployment with various strategies
+- **script_step**: Custom scripts and commands
+- **notification_step**: Alert and notification triggers
+
+**Deployment Strategies:**
+- **rolling**: Gradual replacement of instances
+- **blue_green**: Switch between two identical environments
+- **canary**: Gradual traffic shifting to new version
+- **recreate**: Stop all instances then create new ones
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns workflow configuration details",
+    400: "Bad Request - Invalid workflow parameters",
+    403: "Forbidden - OAuth token lacks required `public` scope or insufficient workflow view rights",
+    404: "Not Found - Stack, formation, or workflow not found"
+  }}
+/>

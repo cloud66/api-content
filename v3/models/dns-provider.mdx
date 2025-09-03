@@ -1,0 +1,71 @@
+---
+title: "DNS Provider"
+method: ""
+path: ""
+---
+
+# DNS Provider
+
+Represents a DNS provider configuration used for managing domain names and DNS records in Cloud66 stacks. DNS providers enable automatic DNS management for applications and services deployed on the platform.
+
+<Model>
+<ModelProperty name="uuid" type="string">
+Unique identifier for the DNS provider configuration.
+</ModelProperty>
+
+<ModelProperty name="type" type="string">
+DNS provider type (e.g., "cloudflare", "route53", "digitalocean", etc.).
+</ModelProperty>
+
+<ModelProperty name="key" type="string">
+DNS provider key or identifier used for API authentication.
+</ModelProperty>
+
+<ModelProperty name="display_name" type="string">
+Human-readable display name for the DNS provider configuration.
+</ModelProperty>
+
+<ModelProperty name="created_at" type="string">
+ISO 8601 formatted timestamp indicating when the DNS provider was configured.
+</ModelProperty>
+
+<ModelProperty name="updated_at" type="string">
+ISO 8601 formatted timestamp indicating when the DNS provider configuration was last updated.
+</ModelProperty>
+</Model>
+
+## Supported DNS Providers
+
+Cloud66 supports integration with various DNS providers:
+
+- **Cloudflare** - Full DNS management with CDN capabilities
+- **Amazon Route 53** - AWS-integrated DNS service
+- **DigitalOcean DNS** - DigitalOcean's managed DNS service
+- **Google Cloud DNS** - Google Cloud Platform DNS service
+- **Azure DNS** - Microsoft Azure DNS service
+- **Other providers** - Various additional DNS service providers
+
+## DNS Management Features
+
+DNS providers enable:
+- **Automatic DNS Records** - Automatic creation of A, CNAME, and other DNS records
+- **SSL Certificate Integration** - DNS validation for SSL certificates
+- **Load Balancer Integration** - DNS records pointing to load balancers
+- **Failover Support** - DNS-based failover and health checking
+- **Geographic Routing** - Location-based DNS responses
+
+## Configuration Requirements
+
+Each DNS provider requires specific configuration:
+- **API Credentials** - Authentication tokens or API keys
+- **Domain Access** - Permissions to manage DNS records for specific domains
+- **Provider-Specific Settings** - Configuration options specific to each DNS service
+
+## Use Cases
+
+- **Domain Management** - Centralized DNS record management for applications
+- **SSL Automation** - Automated SSL certificate provisioning with DNS validation
+- **Multi-Region Deployments** - DNS routing for globally distributed applications
+- **Development Environments** - Dynamic DNS records for staging and testing environments
+
+<RelatedModels models={['Stack', 'Service']} />

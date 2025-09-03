@@ -1,0 +1,70 @@
+---
+title: "Workflow"
+method: ""
+path: ""
+---
+
+# Workflow
+
+Represents an automated workflow configuration that defines custom deployment processes and CI/CD pipelines. Workflows allow for complex, multi-step automation beyond the default Cloud66 deployment process.
+
+<Model>
+<ModelProperty name="uid" type="string">
+Unique identifier for the workflow (UUID format).
+</ModelProperty>
+
+<ModelProperty name="name" type="string">
+Human-readable name of the workflow.
+</ModelProperty>
+
+<ModelProperty name="default" type="boolean">
+Indicates whether this is the default workflow for the associated formation or stack.
+</ModelProperty>
+
+<ModelProperty name="tags" type="array">
+Array of tag strings associated with this workflow for organization and filtering.
+</ModelProperty>
+
+<ModelProperty name="body" type="string">
+Workflow definition body containing the actual workflow YAML configuration (only included when full_content=true).
+</ModelProperty>
+
+<ModelProperty name="created_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the workflow was created.
+</ModelProperty>
+
+<ModelProperty name="updated_at_iso" type="string">
+ISO 8601 formatted timestamp indicating when the workflow was last updated.
+</ModelProperty>
+</Model>
+
+## Workflow Configuration
+
+The `body` field contains YAML configuration that defines:
+- **Steps** - Individual tasks and commands to execute
+- **Dependencies** - Step execution order and prerequisites
+- **Conditions** - When and how steps should execute
+- **Environment** - Variables and settings for execution
+- **Notifications** - Alert configurations for workflow events
+
+## Default Workflows
+
+When `default` is `true`, this workflow serves as the primary automation process for deployments. Non-default workflows can be triggered manually or by specific conditions.
+
+## Workflow Execution
+
+Workflows are executed as part of:
+- **Deployment Pipelines** - Automated deployment processes
+- **Manual Triggers** - On-demand workflow execution
+- **Event-Based Triggers** - Triggered by specific stack or formation events
+- **Scheduled Runs** - Time-based workflow execution
+
+## Use Cases
+
+- **Custom Deployment Steps** - Beyond standard Cloud66 deployment process
+- **Integration Testing** - Automated testing during deployments
+- **Database Migrations** - Coordinated database updates
+- **External Service Integration** - Calling external APIs or services
+- **Multi-Environment Promotion** - Coordinating deployments across environments
+
+<RelatedModels models={['Pipeline', 'Formation', 'Stack']} />

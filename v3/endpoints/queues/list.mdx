@@ -1,0 +1,24 @@
+---
+title: "List Queues"
+scope: "redeploy"
+path: "/queues"
+method: "GET"
+response: |
+  [
+    "skycap_render_queue"
+  ]
+---
+
+# List Queues
+
+Returns a list of available background processing queues for the authenticated account. These queues are used for various background processing tasks within the Cloud66 platform.
+
+## Available Queues
+
+- `skycap_render_queue` - Queue for Skycap rendering tasks used in deployment processing
+
+<Callout type="info" title="Background Processing">
+Queues are managed by Sidekiq and handle asynchronous processing of various Cloud66 operations. Agents can poll these queues to retrieve and process tasks.
+</Callout>
+
+<RelatedModels models={['AsyncAction']} />

@@ -1,0 +1,127 @@
+---
+title: "Cloud Reference Data"
+scope: ""
+path: "/reference/clouds"
+method: "GET"
+response: |
+  {
+    "aws": {
+      "sizes": {
+        "t3.micro": "1 vCPU, 1 GB RAM",
+        "t3.small": "1 vCPU, 2 GB RAM",
+        "t3.medium": "2 vCPUs, 4 GB RAM"
+      },
+      "regions": {
+        "us-east-1": "US East (N. Virginia)",
+        "us-west-2": "US West (Oregon)",
+        "eu-west-1": "Europe (Ireland)"
+      }
+    },
+    "googlecloud": {
+      "sizes": {
+        "e2-micro": "1 vCPU, 1 GB RAM",
+        "e2-small": "1 vCPU, 2 GB RAM",
+        "e2-medium": "1 vCPU, 4 GB RAM"
+      },
+      "regions": {
+        "us-central1": "US Central (Iowa)",
+        "europe-west1": "Europe West (Belgium)"
+      }
+    }
+  }
+parameters:
+  - name: cloud
+    in: query
+    required: false
+    type: string
+    description: "Filter by specific cloud provider (aws, azure_rm, digitalocean, googlecloud, hetzner, linode, ovh, vultr)"
+  - name: filter
+    in: query
+    required: false
+    type: string
+    description: "Filter response data (clouds, clouds_full, regions, regions_full, sizes, sizes_full)"
+---
+
+# Cloud Reference Data
+
+Retrieves reference data for cloud providers, including available server sizes, regions, and basic cloud information. This endpoint provides static reference data used for stack configuration and does not require authentication.
+
+## Supported Cloud Providers
+
+- **aws** - Amazon Web Services
+- **azure_rm** - Microsoft Azure Resource Manager
+- **digitalocean** - DigitalOcean
+- **googlecloud** - Google Cloud Platform
+- **hetzner** - Hetzner Cloud
+- **linode** - Linode
+- **ovh** - OVH Cloud
+- **vultr** - Vultr
+
+## Filter Options
+
+### Cloud Information
+- `clouds` - Returns array of cloud provider names
+- `clouds_full` - Returns cloud names with descriptions
+
+### Server Sizes
+- `sizes` - Returns available server sizes (names only)
+- `sizes_full` - Returns server sizes with specifications (CPU, RAM, etc.)
+
+### Regions
+- `regions` - Returns available regions (IDs only)
+- `regions_full` - Returns regions with display names
+
+## Query Examples
+
+### All Cloud Data
+```
+GET /reference/clouds
+```
+Returns complete data for all cloud providers.
+
+### Specific Cloud Provider
+```
+GET /reference/clouds?cloud=aws
+```
+Returns data only for AWS.
+
+### Filter by Data Type
+```
+GET /reference/clouds?filter=sizes_full
+```
+Returns detailed server size information for all clouds.
+
+### Combined Filtering
+```
+GET /reference/clouds?cloud=googlecloud&filter=regions
+```
+Returns only region IDs for Google Cloud.
+
+## Response Formats
+
+### Default Response (All Data)
+When no filters are specified, returns complete sizes and regions data for all or specified cloud providers.
+
+### Single Cloud Response
+When filtering by a specific cloud, the response structure is flattened to show only that cloud's data.
+
+### Filtered Response
+When using data type filters, only the requested data type is returned.
+
+<Callout type="info" title="No Authentication Required">
+This endpoint provides public reference data and does not require authentication or API keys.
+</Callout>
+
+## Error Responses
+
+<ResponseCodes 
+  codes={[400]} 
+  overrides={{
+    400: [
+      "Filter can only be one of: clouds, clouds_full, regions, regions_full, sizes, sizes_full",
+      "Cloud can only be one of: aws, azure_rm, digitalocean, googlecloud, hetzner, linode, ovh, vultr"
+    ]
+  }}
+/>
+
+<RelatedModels models={['Cloud']} />

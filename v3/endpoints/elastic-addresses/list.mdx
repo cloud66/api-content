@@ -1,0 +1,58 @@
+---
+title: List Elastic Addresses
+scope: public
+path: /elastic_addresses
+method: GET
+response: |
+  {
+    "response": [
+      {
+        "id": 123,
+        "uid": "abc123def456",
+        "address": "203.0.113.10",
+        "primary_stack": "my-primary-stack",
+        "secondary_stack": "my-backup-stack",
+        "current_stack": "primary",
+        "status": "active",
+        "cloud": "AWS",
+        "region": "us-east-1",
+        "created_at": "2023-01-15T10:30:00Z",
+        "updated_at": "2023-01-15T10:30:00Z"
+      },
+      {
+        "id": 124,
+        "uid": "def456ghi789",
+        "address": "203.0.113.20", 
+        "primary_stack": "app-prod-cluster",
+        "secondary_stack": "app-backup-cluster",
+        "current_stack": "secondary",
+        "status": "active",
+        "cloud": "DigitalOcean",
+        "region": "nyc3",
+        "created_at": "2023-01-10T14:20:00Z",
+        "updated_at": "2023-01-12T09:15:00Z"
+      }
+    ]
+  }
+parameters: []
+---
+
+Returns all elastic addresses (failover groups) that belong to the authenticated user's account.
+
+Elastic addresses provide high availability by allowing traffic to be switched between primary and secondary stacks during failures or maintenance operations. They are also known as failover groups.
+
+<RelatedModels models={['ElasticAddress', 'Stack']} />
+
+**Key Features:**
+- **High Availability**: Automatic traffic switching during failures
+- **Maintenance Windows**: Manual switching for zero-downtime updates
+- **Multi-Cloud Support**: Works across different cloud providers
+- **Real-time Monitoring**: Status tracking for primary and secondary stacks
+
+<ResponseCodes 
+  codes={[200, 401, 403]}
+  overrides={{
+    200: "Success - Returns list of elastic addresses",
+    403: "Forbidden - OAuth token lacks required `public` scope"
+  }}
+/>

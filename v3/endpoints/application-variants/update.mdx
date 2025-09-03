@@ -1,0 +1,58 @@
+---
+title: Update Rollout Variant
+scope: redeploy
+path: /stacks/:stack_id/application_variants/:id
+method: PUT
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Done"
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Application variant UID
+  - name: operation
+    in: query
+    required: true
+    type: string
+    description: Operation to perform - "commit" to finalize rollout or "percentage" to update canary traffic
+  - name: canary_percentage
+    in: query
+    required: false
+    type: integer
+    description: New traffic percentage (0-100) - required when operation=percentage
+---
+
+Manages rollout variants by committing changes or adjusting canary percentages.
+
+Only applies to rollout variants (blue-green or canary deployments). Use this endpoint to either finalize a rollout by committing it as the new active version, or to adjust the traffic percentage for canary deployments.
+
+<RelatedModels models={['ApplicationVariant', 'Stack']} />
+
+**Operations:**
+- **commit**: Finalize the rollout variant (make it the active version)
+- **percentage**: Update canary traffic percentage (canary deployments only)
+
+**Examples:**
+- Commit a blue-green deployment: `PUT /stacks/:stack_id/application_variants/:id?operation=commit`
+- Update canary percentage: `PUT /stacks/:stack_id/application_variants/:id?operation=percentage&canary_percentage=50`
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Rollout variant updated successfully",
+    400: "Bad Request - Invalid variant UID, non-rollout variant, or invalid operation parameters",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient permissions",
+    404: "Not Found - Stack or variant not found"
+  }}
+/>

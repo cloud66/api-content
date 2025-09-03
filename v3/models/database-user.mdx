@@ -1,0 +1,41 @@
+---
+title: "DatabaseUser"
+method: ""
+path: ""
+---
+
+# DatabaseUser
+
+Database users represent user accounts within database server groups that have access to specific databases. They include authentication credentials and access permissions.
+
+<Model>
+    <ModelProperty name="uid" type="string">
+        The unique identifier of the database user.
+    </ModelProperty>
+    <ModelProperty name="stack_uid" type="string">
+        The unique identifier of the stack that owns this database user.
+    </ModelProperty>
+    <ModelProperty name="server_group_id" type="integer">
+        The ID of the server group that hosts this database user.
+    </ModelProperty>
+    <ModelProperty name="username" type="string">
+        The username for database authentication.
+    </ModelProperty>
+    <ModelProperty name="host" type="string">
+        The host pattern from which the user can connect (e.g., "localhost", "%").
+    </ModelProperty>
+    <ModelProperty name="password" type="string">
+        The password for database authentication (only returned when explicitly requested with appropriate permissions).
+    </ModelProperty>
+    <ModelProperty name="password_hash" type="string">
+        The hashed password (only returned when explicitly requested with appropriate permissions).
+    </ModelProperty>
+    <ModelProperty name="created_at_iso" type="string">
+        The ISO 8601 timestamp when the database user was created.
+    </ModelProperty>
+    <ModelProperty name="updated_at_iso" type="string">
+        The ISO 8601 timestamp when the database user was last updated.
+    </ModelProperty>
+</Model>
+
+<RelatedModels models={['Database', 'ServerGroup', 'Stack']} />

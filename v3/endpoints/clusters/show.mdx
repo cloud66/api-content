@@ -1,0 +1,63 @@
+---
+title: Get Cluster
+scope: public
+path: /clusters/:id
+method: GET
+response: |
+  {
+    "response": {
+      "id": 123,
+      "uid": "5999b763474b0eafa5fafb64bff0ba80",
+      "name": "Production Cluster",
+      "environment": "production",
+      "cloud": "AWS",
+      "region": "us-east-1",
+      "status": 1,
+      "health": 3,
+      "kubernetes_version": "1.28.2",
+      "node_count": 5,
+      "nodes": [
+        {
+          "name": "node-1",
+          "status": "Ready",
+          "instance_type": "m5.large",
+          "capacity": {
+            "cpu": "2",
+            "memory": "8Gi",
+            "pods": "29"
+          }
+        }
+      ],
+      "created_at": "2023-01-15T10:30:00Z",
+      "updated_at": "2023-01-15T11:00:00Z",
+      "created_at_iso": "2023-01-15T10:30:00Z",
+      "updated_at_iso": "2023-01-15T11:00:00Z"
+    }
+  }
+parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Cluster UID
+  - name: show_log
+    in: query
+    required: false
+    type: boolean
+    description: Whether to show log in the response
+---
+
+Returns comprehensive details about the specified Kubernetes cluster.
+
+Includes all associated metadata, node information, and related resources based on user permissions. Optionally includes cluster logs when requested.
+
+<RelatedModels models={['Cluster', 'Node']} />
+
+<ResponseCodes 
+  codes={[200, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns cluster details",
+    403: "Forbidden - OAuth token lacks required `public` scope",
+    404: "Not Found - Cluster not found"
+  }}
+/>

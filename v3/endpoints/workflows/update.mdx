@@ -1,0 +1,114 @@
+---
+title: Update Workflow
+scope: redeploy
+path: /stacks/:stack_id/formations/:formation_id/workflows/:id
+method: PUT
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Workflow updated successfully"
+    }
+  }
+request_body: |
+  {
+    "message": "Add security scanning step to production workflow",
+    "workflow": {
+      "name": "production-deploy-v2",
+      "default": true,
+      "body": "steps:\n  - name: pre-build\n    type: script_step\n    config:\n      command: echo 'Starting secure deployment'\n  - name: build\n    type: build_step\n    config:\n      dockerfile: Dockerfile\n      context: .\n      args:\n        NODE_ENV: production\n  - name: security-scan\n    type: security_step\n    config:\n      scanner: trivy\n      fail_on_critical: true\n      severity_threshold: HIGH\n  - name: test\n    type: test_step\n    config:\n      command: npm run test:ci\n      timeout: 300\n  - name: deploy\n    type: deploy_step\n    config:\n      strategy: rolling\n      max_unavailable: 1\n      health_check_timeout: 180",
+      "tags": ["production", "ci-cd", "security", "enhanced"]
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Workflow UID
+  - name: message
+    in: body
+    required: true
+    type: string
+    description: Commit message describing the workflow changes
+  - name: workflow
+    in: body
+    required: true
+    type: object
+    description: Updated workflow configuration
+    properties:
+      name:
+        type: string
+        description: Workflow name (must remain unique within formation)
+      default:
+        type: boolean
+        description: Whether this workflow should be the formation's default
+      body:
+        type: string
+        description: Updated YAML workflow configuration
+      tags:
+        type: array
+        description: Updated tags for workflow organization
+        items:
+          type: string
+---
+
+Updates an existing deployment workflow with new step configuration and settings.
+
+Modifies the specified workflow with new steps, deployment strategies, or other configuration changes. All workflow updates are versioned and tracked with commit messages for audit purposes.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Workflow', 'Formation', 'Stack']} />
+
+**Update Capabilities:**
+- **Step Configuration**: Add, remove, or modify workflow steps
+- **Default Status**: Change whether workflow is formation's default
+- **Name Updates**: Rename workflow (must remain unique)
+- **Tag Management**: Add, remove, or modify organization tags
+- **Version Control**: All changes create new workflow versions
+
+<Callout type="info" title="Permission Required">
+You must have workflow edit rights on the formation to update workflows.
+</Callout>
+
+**Version Management:**
+- Each update creates a new workflow version
+- Previous versions are retained for rollback capability
+- Commit messages provide change tracking and documentation
+- Version history includes user attribution and timestamps
+
+**Default Workflow Changes:**
+- Setting `default: true` will unset any existing default workflow
+- Only one workflow per formation can be default at a time
+- Changing default status affects which workflow runs automatically
+- Test default changes in non-production environments first
+
+**Step Modification Guidelines:**
+- Preserve step dependencies when reordering
+- Test configuration changes in staging environments
+- Consider impact on existing deployments
+- Document significant changes in commit messages
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404, 422]}
+  overrides={{
+    200: "Success - Workflow updated successfully",
+    400: "Bad Request - Invalid workflow configuration or parameters",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient workflow edit rights",
+    404: "Not Found - Stack, formation, or workflow not found",
+    422: "Unprocessable Entity - Validation errors in workflow configuration"
+  }}
+/>

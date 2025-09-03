@@ -1,0 +1,121 @@
+---
+title: Update Transformation
+scope: redeploy
+path: /stacks/:stack_id/formations/:formation_id/transformations/:id
+method: PUT
+response: |
+  {
+    "response": {
+      "ok": true,
+      "message": "Transformation updated successfully"
+    }
+  }
+request_body: |
+  {
+    "message": "Enhanced security transformation with additional hardening measures",
+    "transformation": {
+      "name": "enhanced-security-hardening",
+      "sequence": 2,
+      "body": "filters:\n  - match:\n      kind: Deployment\n      metadata:\n        labels:\n          security: required\n  - match:\n      kind: StatefulSet\n      metadata:\n        labels:\n          security: required\ntransforms:\n  - op: replace\n    path: /spec/template/spec/securityContext\n    value:\n      runAsNonRoot: true\n      runAsUser: 1000\n      runAsGroup: 3000\n      fsGroup: 2000\n      seccompProfile:\n        type: RuntimeDefault\n  - op: add\n    path: /spec/template/spec/containers/0/securityContext\n    value:\n      allowPrivilegeEscalation: false\n      readOnlyRootFilesystem: true\n      capabilities:\n        drop:\n          - ALL\n        add:\n          - NET_BIND_SERVICE\n  - op: add\n    path: /metadata/annotations/security.cloud66.com~1hardened\n    value: \"true\"",
+      "tags": ["security", "hardening", "compliance", "enhanced"]
+    }
+  }
+parameters:
+  - name: stack_id
+    in: path
+    required: true
+    type: string
+    description: Stack UID
+  - name: formation_id
+    in: path
+    required: true
+    type: string
+    description: Formation UID
+  - name: id
+    in: path
+    required: true
+    type: string
+    description: Transformation UID
+  - name: message
+    in: body
+    required: true
+    type: string
+    description: Commit message describing the transformation changes
+  - name: transformation
+    in: body
+    required: true
+    type: object
+    description: Updated transformation configuration
+    properties:
+      name:
+        type: string
+        description: Transformation name (must remain unique within formation)
+      sequence:
+        type: integer
+        description: Updated execution order
+      body:
+        type: string
+        description: Updated YAML transformation rules and filters
+      tags:
+        type: array
+        description: Updated tags for transformation organization
+        items:
+          type: string
+---
+
+Updates an existing formation transformation with new rules and configuration.
+
+Modifies the specified transformation with new filters, transform operations, sequence order, or other configuration changes. All transformation updates are versioned and tracked with commit messages for audit purposes.
+
+<Callout type="warning" title="Feature Flag Required">
+This endpoint requires the formations feature flag to be enabled on your account. Contact support@cloud66.com if this feature is not available.
+</Callout>
+
+<RelatedModels models={['Transformation', 'Formation', 'Stack']} />
+
+**Update Capabilities:**
+- **Filter Rules**: Modify which resources the transformation targets
+- **Transform Operations**: Add, remove, or modify transformation operations
+- **Sequence Order**: Change execution priority during deployments
+- **Name Updates**: Rename transformation (must remain unique)
+- **Tag Management**: Add, remove, or modify organization tags
+- **Version Control**: All changes create new transformation versions
+
+<Callout type="info" title="Permission Required">
+You must have transformation edit rights on the formation to update transformations.
+</Callout>
+
+**Version Management:**
+- Each update creates a new transformation version
+- Previous versions are retained for rollback capability
+- Commit messages provide change tracking and documentation
+- Version history includes user attribution and timestamps
+
+**Sequence Considerations:**
+- Changing sequence order affects deployment execution
+- Lower numbers execute before higher numbers
+- Consider dependencies when reordering transformations
+- Test sequence changes in non-production environments first
+
+**Path Notation:**
+- Use JSON Pointer notation for field paths (e.g., `/spec/template/spec/containers/0/env`)
+- Special characters in keys must be escaped with `~1` (e.g., `security.cloud66.com~1hardened`)
+- Array indices are zero-based
+- Use `/` for object property separation
+
+**Testing Transformations:**
+- Validate YAML syntax before applying
+- Test in development environments first
+- Consider impact on existing resources
+- Monitor deployment outcomes after changes
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404, 422]}
+  overrides={{
+    200: "Success - Transformation updated successfully",
+    400: "Bad Request - Invalid transformation configuration or parameters",
+    403: "Forbidden - OAuth token lacks required `redeploy` scope or insufficient transformation edit rights",
+    404: "Not Found - Stack, formation, or transformation not found",
+    422: "Unprocessable Entity - Validation errors in transformation configuration"
+  }}
+/>
