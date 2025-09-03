@@ -12,7 +12,12 @@ response: |
         "created_at_iso": "2013-06-19T11:08:03Z",
         "updated_at_iso": "2014-02-20T12:55:58Z",
         "stack_count": 2,
-        "used_clouds": ["digitalocean","rackspace"]
+        "used_clouds": ["digitalocean","rackspace"],
+        "current_account": true,
+        "friendly_name": "My Company Account",
+        "unmanaged_servers": null,
+        "server_registration_script": "curl -sSL https://get.cloud66.com | bash",
+        "configstore_namespace": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
       }
     ],
     "count":1,
@@ -27,4 +32,16 @@ response: |
   }
 ---
 
-Get a list of accounts that caller belongs to.
+Lists all accounts that the current authenticated user has access to.
+
+This endpoint returns a paginated list of accounts with their associated metadata, including stack counts, cloud providers used, and account status information.
+
+<RelatedModels models={['Account', 'Pagination']} />
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403]}
+  overrides={{
+    200: "Success - Returns paginated list of accounts",
+    403: "Forbidden - OAuth token lacks required `users` scope"
+  }}
+/>

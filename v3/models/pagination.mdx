@@ -1,0 +1,27 @@
+---
+title: "Pagination"
+method: ""
+path: ""
+---
+
+# Pagination
+
+Pagination metadata returned with list responses to help navigate through large result sets.
+
+<Model>
+    <ModelProperty name="current" type="integer">
+        The current page number (1-based).
+    </ModelProperty>
+    <ModelProperty name="next" type="integer | null">
+        The next page number, or null if this is the last page.
+    </ModelProperty>
+    <ModelProperty name="prev" type="integer | null">
+        The previous page number, or null if this is the first page.
+    </ModelProperty>
+    <ModelProperty name="count" type="integer">
+        The total number of items across all pages.
+    </ModelProperty>
+    <ModelProperty name="pages" type="integer">
+        The total number of pages available.
+    </ModelProperty>
+</Model>

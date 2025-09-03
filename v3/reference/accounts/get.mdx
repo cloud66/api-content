@@ -12,7 +12,18 @@ response: |
         "created_at_iso": "2013-06-19T11:08:03Z",
         "updated_at_iso": "2014-02-20T12:55:58Z",
         "stack_count": 2,
-        "used_clouds": ["digitalocean","rackspace"]
+        "used_clouds": ["digitalocean","rackspace"],
+        "current_account": true,
+        "friendly_name": "My Company Account",
+        "unmanaged_servers": [
+          {
+            "id": "i-0123456789abcdef0",
+            "name": "unmanaged-server-1",
+            "vendor": "aws"
+          }
+        ],
+        "server_registration_script": "curl -sSL https://get.cloud66.com | bash",
+        "configstore_namespace": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
       }
   }
 parameters:
@@ -21,6 +32,29 @@ parameters:
     data_type: integer
     description: The account ID
     sample_value: "1"
+  - name: include_servers
+    presence: optional
+    data_type: boolean
+    description: Include unmanaged servers in the response (only available for your primary account)
+    sample_value: "true"
 ---
 
-Get information about an account.
+Retrieves detailed information for a specific account.
+
+This endpoint returns comprehensive details about a single account, including optional unmanaged server information when explicitly requested.
+
+<RelatedModels models={['Account']} />
+
+<Callout type="info" title="Unmanaged Servers">
+The `unmanaged_servers` field is only populated when the `include_servers` parameter is set to true and only for your primary account.
+</Callout>
+
+<ResponseCodes 
+  codes={[200, 400, 401, 403, 404]}
+  overrides={{
+    200: "Success - Returns account details",
+    400: "Bad Request - Invalid request parameters or account is restricted",
+    403: "Forbidden - OAuth token lacks required `users` scope or user lacks account access",
+    404: "Not Found - Account doesn't exist or user lacks access"
+  }}
+/>

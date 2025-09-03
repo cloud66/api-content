@@ -1,0 +1,21 @@
+---
+title: "Error"
+method: ""
+path: ""
+---
+
+# Error
+
+Standard error response format returned by the API when requests fail.
+
+<Model>
+    <ModelProperty name="error" type="string">
+        A human-readable error message describing what went wrong.
+    </ModelProperty>
+    <ModelProperty name="error_code" type="integer">
+        A numeric error code for programmatic error handling.
+    </ModelProperty>
+    <ModelProperty name="details" type="object | null">
+        Additional error details, if available. May contain validation errors or other contextual information.
+    </ModelProperty>
+</Model>
