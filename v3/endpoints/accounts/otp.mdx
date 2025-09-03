@@ -14,11 +14,11 @@ response: |
 
 Generates a one-time password (OTP) for client authentication.
 
-This endpoint creates a temporary authentication token that can be used by Cloud 66 clients for secure API access. The OTP has a limited lifespan and is intended for single-use authentication scenarios.
+This endpoint creates a temporary authentication token that can be used by Cloud 66 clients for secure web access, exclusively for the calling user. The OTP has a limited lifespan and is intended for single-use authentication scenarios.
 
 <RelatedModels models={['Account']} />
 
-The generated OTP can be used by Cloud 66 command-line tools and other clients to authenticate with the API without requiring the user to enter their credentials repeatedly.
+The generated OTP can be used by Cloud 66 command-line tools and other clients to authenticate with the web dashboard.
 
 <ResponseCodes 
   codes={[200, 400, 401, 403]}
