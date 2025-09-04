@@ -1,37 +1,27 @@
 ---
 title: Deploy Started
 event_type: stack.deploy.started
-category: Stack Events
+category: stack
+description: Triggered when a deployment begins
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.deploy.started",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "deploy_context": {
+      "id": 158,
+      "triggered_by": "Cloudia Sixton",
+      "triggered_via": "web",
+      "started_at": "2024-01-01T10:00:00Z",
+      "git_hash": "abc123def456...",
+      "deploy_session": "def456ghi789...",
+      "deploy_type": "build",
+      "is_head": true,
+      "is_live": true
+    }
+  }
 ---
 
-# Deploy Started
-
-Triggered when a deployment begins.
-
-## Event Data
-
-- **Stack data**: Current stack information
-- **Deploy context**: Start details (no finished_at timestamp yet)
-
-## Example Payload
-
-```json
-{
-  "timestamp": 1640995200,
-  "event_type": "stack.deploy.started",
-  "uid": "abc123def456",
-  "name": "My Application",
-  "environment": "production",
-  "deploy_context": {
-    "id": 158,
-    "triggered_by": "Cloudia Sixton",
-    "triggered_via": "web",
-    "started_at": "2024-01-01T10:00:00Z",
-    "git_hash": "abc123def456...",
-    "deploy_session": "def456ghi789...",
-    "deploy_type": "build",
-    "is_head": true,
-    "is_live": true
-  }
-}
-```
+This webhook is sent when a deployment begins. The payload includes stack information and deployment context with start details.

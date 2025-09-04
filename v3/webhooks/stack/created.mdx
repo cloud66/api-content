@@ -1,32 +1,22 @@
 ---
 title: Stack Created
 event_type: stack.created
-category: Stack Events
+category: stack
+description: Triggered when a new stack is created
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.created",
+    "uid": "abc123def456",
+    "name": "Awesome Stack",
+    "git": "https://github.com/cloud66-samples/rails-mysql.git",
+    "environment": "production",
+    "cloud": "aws",
+    "status": 0,
+    "health": 3,
+    "created_at": "2024-01-01T10:00:00Z",
+    "updated_at": "2024-01-01T10:00:00Z"
+  }
 ---
 
-# Stack Created
-
-Triggered when a new stack is created.
-
-## Event Data
-
-- **Stack data**: Complete stack information
-- **Initial deploy context**: Deployment setup details
-
-## Example Payload
-
-```json
-{
-  "timestamp": 1640995200,
-  "event_type": "stack.created",
-  "uid": "abc123def456",
-  "name": "Awesome Stack",
-  "git": "https://github.com/cloud66-samples/rails-mysql.git",
-  "environment": "production",
-  "cloud": "aws",
-  "status": 0,
-  "health": 3,
-  "created_at": "2024-01-01T10:00:00Z",
-  "updated_at": "2024-01-01T10:00:00Z"
-}
-```
+This webhook is sent when a new stack is created. The payload includes complete stack information and deployment setup details.

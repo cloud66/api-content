@@ -1,26 +1,16 @@
 ---
 title: Redeploy Hook Failed
 event_type: stack.redeploy.hook.fail
-category: Stack Events
+category: stack
+description: Triggered when redeployment hooks fail to execute
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.redeploy.hook.fail",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "reason": "redeployment failed because of an error"
+  }
 ---
 
-# Redeploy Hook Failed
-
-Triggered when redeployment hooks fail to execute.
-
-## Event Data
-
-- **Stack data**: Current stack information
-- **Reason**: Description of the failure
-
-## Example Payload
-
-```json
-{
-  "timestamp": 1640995200,
-  "event_type": "stack.redeploy.hook.fail",
-  "uid": "abc123def456",
-  "name": "My Application",
-  "reason": "redeployment failed because of an error"
-}
-```
+This webhook is sent when redeployment hooks fail to execute. The payload includes stack information and the failure reason.

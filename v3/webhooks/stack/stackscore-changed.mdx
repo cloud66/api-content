@@ -1,37 +1,27 @@
 ---
 title: Stack Score Changed
 event_type: stack.stackscore.changed
-category: Stack Events
----
-
-# Stack Score Changed
-
-Triggered when the stack score changes.
-
-## Event Data
-
-- **Stack data**: Current stack information
-- **Diff object**: Details of what changed in the score
-
-## Example Payload
-
-```json
-{
-  "timestamp": 1640995200,
-  "event_type": "stack.stackscore.changed",
-  "uid": "abc123def456",
-  "name": "My Application",
-  "diff": {
-    "backups": {
-      "change": "up",
-      "from": "b",
-      "to": "a"
-    },
-    "security": {
-      "change": "down", 
-      "from": "a",
-      "to": "b"
+category: stack
+description: Triggered when the stack score changes
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.stackscore.changed",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "diff": {
+      "backups": {
+        "change": "up",
+        "from": "b",
+        "to": "a"
+      },
+      "security": {
+        "change": "down", 
+        "from": "a",
+        "to": "b"
+      }
     }
   }
-}
-```
+---
+
+This webhook is sent when the stack score changes. The payload includes stack information and a diff object with details of what changed in the score.
