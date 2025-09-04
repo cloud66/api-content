@@ -1,0 +1,36 @@
+---
+title: "ActiveProtect Action"
+method: ""
+path: ""
+---
+
+Fail2ban actions represent security events where IP addresses are banned or monitored due to suspicious activity. These actions are automatically generated when fail2ban detects attack patterns such as brute force login attempts.
+
+<Model>
+    <ModelProperty name="server" type="string">
+        The UID of the server where the fail2ban action occurred.
+    </ModelProperty>
+    <ModelProperty name="address" type="string">
+        The IP address that triggered the fail2ban action.
+    </ModelProperty>
+    <ModelProperty name="country" type="string">
+        The country name associated with the IP address. May be null for private or internal IP addresses.
+    </ModelProperty>
+    <ModelProperty name="country_code" type="string">
+        The ISO country code for the IP address. May be null for private or internal IP addresses.
+    </ModelProperty>
+    <ModelProperty name="attack" type="string">
+        The type of attack that triggered the ban (e.g., SSH, HTTP, FTP).
+    </ModelProperty>
+    <ModelProperty name="port" type="integer">
+        The network port involved in the attack. May be null if not applicable.
+    </ModelProperty>
+    <ModelProperty name="banned" type="boolean">
+        Whether the IP address is currently banned by fail2ban.
+    </ModelProperty>
+    <ModelProperty name="action_date" type="datetime">
+        The timestamp when the action occurred, in ISO 8601 format.
+    </ModelProperty>
+</Model>
+
+<RelatedModels models={['Server']} />

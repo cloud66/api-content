@@ -2,26 +2,50 @@
 title: ActiveProtect Block
 event_type: active.protect.block
 category: active-protect
-models: ['server', 'fail2ban_action']
+models: ['server', 'activeprotect_action']
 description: Triggered when ActiveProtect blocks an IP address due to suspicious activity
 payload: |
   {
     "timestamp": 1640995200,
     "event_type": "active.protect.block",
     "server": {
+      "uid": "5acd43412ea412e32367d5e6a4a625e5",
+      "vendor_uid": "i-0123456789abcdef0",
       "name": "Meerkat",
-      "uid": "123123123123123123",
-      "server_type": "MySQL Server"
+      "address": "52.74.113.182",
+      "distro": "ubuntu",
+      "distro_version": "20.04",
+      "dns_record": "meerkat.mystack.c66.me",
+      "user_name": "ubuntu",
+      "server_type": "Cloud (AWS)",
+      "server_roles": ["web", "docker"],
+      "server_group_id": 128,
+      "stack_uid": "5acd43412ea412e32367d5e6a4a625e5",
+      "has_agent": true,
+      "params": {},
+      "created_at": "2024-01-01T10:00:00Z",
+      "updated_at": "2024-01-01T12:30:45Z",
+      "region": "us-east-1",
+      "availability_zone": "us-east-1a",
+      "ext_ipv4": "52.74.113.182",
+      "int_ipv4": "10.0.1.45",
+      "ext_ipv6": null,
+      "int_ipv6": null,
+      "health_state": 0,
+      "personal_key": false,
+      "has_deploy_gateway": false,
+      "deploy_gateway_address": null,
+      "deploy_gateway_user_name": null
     },
-    "fail2ban_action": {
-      "action_date": "2024-01-01T12:30:45Z",
-      "banned": true,
-      "address": "1.2.3.4",
-      "attack": "SSH",
+    "activeprotect_action": {
+      "server": "5acd43412ea412e32367d5e6a4a625e5",
+      "address": "203.0.113.45",
       "country": "Thailand",
-      "country_code": "th",
+      "country_code": "TH",
+      "attack": "SSH",
       "port": 22,
-      "created_at": "2024-01-01T12:30:45Z"
+      "banned": true,
+      "action_date": "2024-01-01T12:30:45Z"
     }
   }
 ---

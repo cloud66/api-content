@@ -1,0 +1,27 @@
+---
+title: "Watched File"
+method: ""
+path: ""
+---
+
+Watched files represent files that are being monitored for changes on your servers. Cloud66 tracks these files for integrity monitoring and can alert you when important configuration or application files are modified.
+
+<Model>
+    <ModelProperty name="server" type="string">
+        The UID of the server where the file is being monitored.
+    </ModelProperty>
+    <ModelProperty name="file_path" type="string">
+        The absolute path to the monitored file on the server.
+    </ModelProperty>
+    <ModelProperty name="is_changed" type="boolean">
+        Whether the file has been modified since the last check. Changes are detected through file modification time, size, or checksum comparison.
+    </ModelProperty>
+    <ModelProperty name="created_at" type="datetime">
+        The date and time when monitoring for this file was set up, in ISO 8601 format.
+    </ModelProperty>
+    <ModelProperty name="updated_at" type="datetime">
+        The date and time of the last status check for this file, in ISO 8601 format.
+    </ModelProperty>
+</Model>
+
+<RelatedModels models={['Server']} />

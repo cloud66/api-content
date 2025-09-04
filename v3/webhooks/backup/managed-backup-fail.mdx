@@ -2,16 +2,39 @@
 title: Managed Backup Failure
 event_type: managed_backup.fail
 category: backup
-models: ['backup']
+models: ['stack', 'backup']
 description: Triggered when a managed backup operation fails
 payload: |
   {
     "timestamp": 1640995200,
     "event_type": "managed_backup.fail",
-    "uid": "abc123def456",
-    "name": "My Application",
-    "environment": "production",
-    "backup_result": "Unable to determine database name on which backup can be restored."
+    "stack": {
+      "uid": "abc123def456",
+      "name": "My Application",
+      "environment": "production",
+      "cloud": "aws",
+      "status": 1,
+      "health": 3,
+      "created_at": "2024-01-01T10:00:00Z",
+      "updated_at": "2024-01-01T10:00:00Z"
+    },
+    "backup": {
+      "id": 42,
+      "server_uid": "server_abc123",
+      "db_type": "postgresql",
+      "database_name": "postgres_production",
+      "backup_date_iso": "2024-01-01T12:00:00Z",
+      "backup_status": 1,
+      "backup_result": "Unable to determine database name on which backup can be restored.",
+      "restore_status": null,
+      "restore_result": null,
+      "created_at_iso": "2024-01-01T12:00:00Z",
+      "updated_at_iso": "2024-01-01T12:00:00Z",
+      "verify_status": null,
+      "verify_result": null,
+      "storage_path": null,
+      "backup_size": null
+    }
   }
 ---
 
