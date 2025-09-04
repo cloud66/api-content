@@ -2,6 +2,20 @@
 title: "ElasticAddress"
 method: ""
 path: ""
+example: |
+  {
+    "uid": "elastic-abc123def456",
+    "address": "192.168.1.100",
+    "current_stack": "primary",
+    "primary_stack_uid": "stack-primary-123",
+    "primary_stack_name": "my-app-prod",
+    "secondary_stack_uid": "stack-secondary-456",
+    "secondary_stack_name": "my-app-prod-backup",
+    "busy_toggling": false,
+    "readonly": false,
+    "created_at": "2023-01-15T10:30:00Z",
+    "updated_at": "2024-01-10T09:45:00Z"
+  }
 ---
 Elastic addresses (also known as failover groups) provide high availability by allowing IP addresses to be moved between primary and secondary stacks during failover operations. They enable zero-downtime maintenance and automatic disaster recovery.
 

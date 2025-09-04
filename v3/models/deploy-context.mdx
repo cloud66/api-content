@@ -2,6 +2,31 @@
 title: "DeployContext"
 method: ""
 path: ""
+example: |
+  {
+    "id": 78901,
+    "stack_id": 12345,
+    "uid": "dc-a1b2c3d4e5f6",
+    "type": "kubernetes",
+    "created_at": "2024-02-15T09:30:00Z",
+    "updated_at": "2024-02-15T10:15:00Z",
+    "apply_infrastructure_upgrades": true,
+    "apply_security_upgrades": true,
+    "async_action_id": 55667,
+    "authorized_by": "user-456",
+    "auto_update_docker_versions": true,
+    "deploy_strategy": "rolling",
+    "deploy_type": "redeploy",
+    "deployment_profile_id": 123,
+    "force_infrastructure_upgrades": false,
+    "github_deployment_id": 789012,
+    "reboot_servers": false,
+    "triggered_by": "john@example.com",
+    "triggered_via": "webhook",
+    "is_advanced": false,
+    "scaler_id": 334,
+    "take_server_snapshots": true
+  }
 ---
 
 # DeployContext

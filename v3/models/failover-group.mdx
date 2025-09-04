@@ -2,6 +2,20 @@
 title: "Failover Group"
 method: ""
 path: ""
+example: |
+  {
+    "uid": "failover-group-789xyz",
+    "address": "production-app.mycompany.com",
+    "current_stack": "primary",
+    "primary_stack_uid": "stack-primary-abc123",
+    "primary_stack_name": "production-web-app",
+    "secondary_stack_uid": "stack-secondary-def456",
+    "secondary_stack_name": "production-web-app-backup",
+    "busy_toggling": false,
+    "readonly": false,
+    "created_at": "2023-01-15T10:30:00Z",
+    "updated_at": "2024-01-05T16:45:00Z"
+  }
 ---
 
 Failover groups (formerly elastic addresses) provide high availability by managing automatic failover between primary and secondary stacks. They control traffic routing to ensure continuous service availability.

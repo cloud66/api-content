@@ -2,6 +2,20 @@
 title: "Gateway"
 method: ""
 path: ""
+example: |
+  {
+    "id": 567,
+    "name": "production-gateway",
+    "username": "gateway-user",
+    "address": "gateway.example.com",
+    "private_ip": "10.0.1.100",
+    "ttl": "2024-02-16T14:30:00Z",
+    "content": "Host production-gateway\n  HostName gateway.example.com\n  User gateway-user...",
+    "created_at_iso": "2024-01-15T10:30:00Z",
+    "updated_at_iso": "2024-02-15T12:45:00Z",
+    "created_by": "admin@example.com",
+    "updated_by": "admin@example.com"
+  }
 ---
 
 Gateways provide secure access points for connecting to your infrastructure. They act as bastion hosts or jump servers for SSH access to your servers.

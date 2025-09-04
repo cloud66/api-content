@@ -2,6 +2,29 @@
 title: "Stack Setting"
 method: ""
 path: ""
+example: |
+  {
+    "id": 78901,
+    "user": "admin@example.com",
+    "resource_type": "stack",
+    "action": "update_settings",
+    "resource_id": "stack-550e8400-e29b-41d4-a716",
+    "started_via": "api",
+    "started_at": "2024-02-15T10:30:00Z",
+    "finished_at": "2024-02-15T10:32:45Z",
+    "finished_success": true,
+    "finished_message": "Stack settings updated successfully",
+    "finished_result": {
+      "updated_settings": ["maintenance_mode", "load_balancer_timeout"],
+      "values_changed": 2
+    },
+    "metadata": {
+      "settings_updated": {
+        "maintenance_mode": false,
+        "load_balancer_timeout": 30
+      }
+    }
+  }
 ---
 Stack settings operations return async action responses that track the progress and result of configuration changes to your stack settings.
 

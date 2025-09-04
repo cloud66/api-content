@@ -2,6 +2,34 @@
 title: "Container"
 method: ""
 path: ""
+example: |
+  {
+    "uid": "container-abc123def456",
+    "name": "web-app-container",
+    "server_uid": "server-789xyz",
+    "server_name": "web-server-01",
+    "service_name": "web",
+    "image": "myapp/web:v1.2.3",
+    "command": "bundle exec puma -C config/puma.rb",
+    "started_at": "2024-01-15T10:30:00Z",
+    "ports": [
+      {
+        "container": 3000,
+        "http": 80,
+        "https": 443
+      }
+    ],
+    "private_ip": "10.0.1.15",
+    "docker_ip": "172.17.0.2",
+    "health_state": 1,
+    "health_message": "Container is running normally",
+    "health_source": "docker",
+    "capture_output": true,
+    "restart_on_deploy": true,
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-15T10:35:00Z",
+    "status": "running"
+  }
 ---
 
 Containers represent Docker containers running on your servers, managed by Cloud 66. They contain information about the container's configuration, network settings, and health status.

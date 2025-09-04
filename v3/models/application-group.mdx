@@ -2,6 +2,30 @@
 title: "ApplicationGroup"
 method: ""
 path: ""
+example: |
+  {
+    "id": 5678,
+    "name": "Production Apps",
+    "account_id": 12345,
+    "created_at": "2023-01-15T10:30:00Z",
+    "updated_at": "2024-02-20T14:45:00Z",
+    "rules": [
+      {
+        "type": "environment",
+        "value": "production"
+      },
+      {
+        "type": "tag",
+        "value": "web-app"
+      }
+    ],
+    "stacks": [
+      {
+        "uid": "abc123def456",
+        "name": "my-web-app"
+      }
+    ]
+  }
 ---
 
 Application groups are logical collections of related stacks that can be managed together for configuration and monitoring purposes. They enable bulk operations like alert configuration across multiple stacks that share common characteristics.

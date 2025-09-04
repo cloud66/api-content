@@ -2,6 +2,17 @@
 title: "ActiveProtect Action"
 method: ""
 path: ""
+example: |
+  {
+    "server": "550e8400-e29b-41d4-a716-446655440000",
+    "address": "192.168.1.45",
+    "country": "United States",
+    "country_code": "US",
+    "attack": "SSH",
+    "port": 22,
+    "banned": true,
+    "action_date": "2024-02-15T14:23:41Z"
+  }
 ---
 
 Fail2ban actions represent security events where IP addresses are banned or monitored due to suspicious activity. These actions are automatically generated when fail2ban detects attack patterns such as brute force login attempts.

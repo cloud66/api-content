@@ -2,6 +2,46 @@
 title: "User"
 method: ""
 path: ""
+example: |
+  {
+    "id": 12345,
+    "email": "john@example.com",
+    "primary_account_id": 67890,
+    "accounts": [
+      {
+        "id": 67890,
+        "role": "owner",
+        "name": "Production Team"
+      },
+      {
+        "id": 98765,
+        "role": "admin",
+        "name": "Development Team"
+      }
+    ],
+    "locked": false,
+    "access_profile": {
+      "account_profile": "admin",
+      "stack_profiles": ["deployment", "monitoring"],
+      "acls": ["read", "write", "deploy"]
+    },
+    "uses_tfa": true,
+    "timezone": "America/New_York",
+    "has_valid_phone": true,
+    "developer_program": false,
+    "github_login": true,
+    "last_login": "2024-02-15T09:30:00Z",
+    "devices": [
+      {
+        "id": "device-123",
+        "name": "MacBook Pro",
+        "trusted": true
+      }
+    ],
+    "created_at": "2023-06-15T10:30:00Z",
+    "updated_at": "2024-02-15T09:30:00Z",
+    "cloud_status": "connected"
+  }
 ---
 Users represent individual user accounts in Cloud 66. Users can belong to multiple accounts with different roles and permissions.
 

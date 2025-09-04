@@ -2,6 +2,32 @@
 title: "Service"
 method: ""
 path: ""
+example: |
+  {
+    "name": "web",
+    "containers": [
+      {
+        "id": "container-123",
+        "status": "running",
+        "server_uid": "550e8400-e29b-41d4-a716-446655440001"
+      },
+      {
+        "id": "container-124",
+        "status": "running",
+        "server_uid": "550e8400-e29b-41d4-a716-446655440002"
+      }
+    ],
+    "source_type": "git",
+    "git_ref": "main",
+    "image_name": "myapp/web",
+    "image_uid": "sha256:1234567890abcdef",
+    "image_tag": "latest",
+    "command": "bundle exec rails server -b 0.0.0.0 -p 3000",
+    "build_command": "bundle install && npm install && npm run build",
+    "deploy_command": "bundle exec rake db:migrate",
+    "wrap_command": null,
+    "desired_count": 3
+  }
 ---
 
 Services represent containerized applications or microservices running in your stack. They define the Docker images, commands, and configurations for your application components.

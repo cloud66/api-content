@@ -2,6 +2,23 @@
 title: "ApplicationVariant"
 method: ""
 path: ""
+example: |
+  {
+    "name": "canary",
+    "uid": "variant-456def789",
+    "namespace": "my-app-canary",
+    "traffic_percentage": 10,
+    "traffic_split_name": "main-canary-split",
+    "status": "canary",
+    "git_hash": "a1b2c3d4e5f6",
+    "deploy_session": "deploy-session-123",
+    "dns_record": [
+      "canary.myapp.com",
+      "test.myapp.com"
+    ],
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-15T10:45:00Z"
+  }
 ---
 
 

@@ -2,6 +2,23 @@
 title: "Notification"
 method: ""
 path: ""
+example: |
+  {
+    "alert_name": "deployment_failure",
+    "subscriptions": [
+      {
+        "type": "email",
+        "target": "team@example.com",
+        "enabled": true
+      },
+      {
+        "type": "slack",
+        "target": "#alerts",
+        "enabled": true,
+        "webhook_url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+      }
+    ]
+  }
 ---
 
 Notifications represent alert configurations and subscriptions for various events in your Cloud 66 infrastructure. They allow you to receive alerts about important system events and status changes.

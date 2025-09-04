@@ -2,6 +2,26 @@
 title: "Backup"
 method: ""
 path: ""
+example: |
+  {
+    "id": 54321,
+    "server_uid": "server-abc123",
+    "db_type": "postgresql",
+    "database_name": "myapp_production",
+    "file_base": "backup_20240115_103000",
+    "backup_date_iso": "2024-01-15T10:30:00Z",
+    "backup_status": 0,
+    "backup_result": "Backup completed successfully",
+    "restore_status": 0,
+    "restore_result": "Not restored",
+    "created_at_iso": "2024-01-15T10:30:00Z",
+    "updated_at_iso": "2024-01-15T10:35:00Z",
+    "verify_status": 0,
+    "verify_result": "Backup verified successfully",
+    "storage_path": "/backups/postgresql/myapp_production/",
+    "skip_tables": "temp_logs,cache_data",
+    "backup_size": 1024000000
+  }
 ---
 
 Backups represent database backup snapshots that are managed by Cloud 66. These backups can be created automatically on a schedule or manually, and support various database types including MySQL, PostgreSQL, Redis, and MongoDB.

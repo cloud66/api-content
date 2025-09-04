@@ -2,6 +2,34 @@
 title: "Cloud"
 method: ""
 path: ""
+example: |
+  {
+    "name": "aws",
+    "key_name": "aws_access_key",
+    "display_name": "Amazon Web Services",
+    "regions": [
+      "us-east-1",
+      "us-west-2",
+      "eu-west-1",
+      "ap-southeast-1"
+    ],
+    "server_sizes": [
+      {
+        "id": "t3.micro",
+        "name": "t3.micro (1 vCPU, 1GB RAM)"
+      },
+      {
+        "id": "t3.small",
+        "name": "t3.small (1 vCPU, 2GB RAM)"
+      },
+      {
+        "id": "t3.medium",
+        "name": "t3.medium (2 vCPU, 4GB RAM)"
+      }
+    ],
+    "default_size": "t3.small",
+    "default_region": "us-east-1"
+  }
 ---
 
 

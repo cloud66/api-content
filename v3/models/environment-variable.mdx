@@ -2,6 +2,27 @@
 title: "Environment Variable"
 method: ""
 path: ""
+example: |
+  {
+    "id": 7890,
+    "key": "DATABASE_URL",
+    "value": "postgresql://user:pass@localhost:5432/myapp_prod",
+    "readonly": false,
+    "created_at": "2023-01-15T10:30:00Z",
+    "updated_at": "2024-01-10T14:20:00Z",
+    "is_password": true,
+    "is_generated": false,
+    "history": [
+      {
+        "value": "postgresql://user:pass@localhost:5432/myapp_prod",
+        "created_at": "2024-01-10T14:20:00Z"
+      },
+      {
+        "value": "postgresql://user:oldpass@localhost:5432/myapp_prod",
+        "created_at": "2023-01-15T10:30:00Z"
+      }
+    ]
+  }
 ---
 
 Environment variables are configuration values that can be set for your stacks. They can be used to store application settings, API keys, and other configuration data that your application needs.

@@ -2,6 +2,36 @@
 title: "Deployment"
 method: ""
 path: ""
+example: |
+  {
+    "id": 456789,
+    "triggered_by": "john@example.com",
+    "triggered_via": {
+      "code": "web",
+      "meaning": "Web Interface"
+    },
+    "started_at": "2024-02-15T14:30:00Z",
+    "finished_at": "2024-02-15T14:45:30Z",
+    "outcome": {
+      "code": "success",
+      "meaning": "Successful"
+    },
+    "git_hash": "a1b2c3d4e5f6789012345678901234567890abcd",
+    "git_ref": "main",
+    "deploy_session": "deploy-session-uuid-12345",
+    "deploy_type": {
+      "code": "redeploy",
+      "meaning": "Redeploy"
+    },
+    "is_head": true,
+    "is_live": true,
+    "reverted": false,
+    "reverted_by": null,
+    "reverted_at": null,
+    "is_deploying": false,
+    "commit_url": "https://github.com/example/repo/commit/a1b2c3d4e5f6789012345678901234567890abcd",
+    "snapshot_uuid": "550e8400-e29b-41d4-a716-446655440000"
+  }
 ---
 
 Deployments represent the deployment history and operations for your stacks. Each deployment tracks the git commit, trigger source, outcome, and timing information.

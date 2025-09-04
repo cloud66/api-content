@@ -2,6 +2,17 @@
 title: "Process"
 method: ""
 path: ""
+example: |
+  {
+    "md5": "a1b2c3d4e5f6789012345678901234567890abcd",
+    "name": "web",
+    "command": "bundle exec puma -C config/puma.rb",
+    "servers": {
+      "web-server-01": 2,
+      "web-server-02": 2,
+      "web-server-03": 1
+    }
+  }
 ---
 
 Processes are background processes that are running on your servers and are managed by Cloud 66.

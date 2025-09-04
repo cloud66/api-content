@@ -2,6 +2,23 @@
 title: "Alert"
 method: ""
 path: ""
+example: |
+  {
+    "alert_name": "deployment_failed",
+    "subscriptions": [
+      {
+        "channel": "email"
+      },
+      {
+        "channel": "slack",
+        "slack_url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+      },
+      {
+        "channel": "webhook",
+        "webhook_url": "https://api.example.com/alerts"
+      }
+    ]
+  }
 ---
 
 Alert configuration objects define notification settings for various events within Cloud66. Alerts can be configured at the stack level or application group level, with support for multiple notification channels.
