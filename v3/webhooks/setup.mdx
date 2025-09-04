@@ -1,0 +1,338 @@
+---
+title: Webhook Setup & Configuration
+---
+
+# Webhook Setup & Configuration
+
+This guide explains how to configure webhooks for your Cloud66 stacks and manage webhook subscriptions through the API.
+
+## Configuration Overview
+
+Webhooks are configured through alert subscriptions, which determine:
+- **Which events** trigger webhooks
+- **Where webhooks are sent** (your endpoint URLs)
+- **Who receives them** (user or team-based)
+- **What scope** they apply to (stack-level or account-level)
+
+## Setting Up Webhook Endpoints
+
+### 1. Create Your Webhook Endpoint
+
+Your webhook endpoint should accept HTTP POST requests with JSON payloads:
+
+```javascript
+// Node.js/Express example
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/webhooks/cloud66', (req, res) => {
+  const webhook = req.body;
+  
+  // Validate webhook
+  if (!webhook.timestamp || !webhook.event_type) {
+    return res.status(400).send('Invalid webhook payload');
+  }
+  
+  // Process webhook
+  console.log(`Received ${webhook.event_type} at ${new Date(webhook.timestamp * 1000)}`);
+  
+  // Respond with 200 to acknowledge receipt
+  res.status(200).send('OK');
+});
+
+app.listen(3000, () => {
+  console.log('Webhook server running on port 3000');
+});
+```
+
+### 2. Secure Your Endpoint
+
+Implement basic security measures:
+
+```javascript
+// Add request validation
+app.post('/webhooks/cloud66', (req, res) => {
+  // Verify content type
+  if (req.get('Content-Type') !== 'application/json') {
+    return res.status(400).send('Invalid content type');
+  }
+  
+  // Verify webhook age (prevent replay attacks)
+  const webhook = req.body;
+  const age = Date.now() - (webhook.timestamp * 1000);
+  if (age > 300000) { // 5 minutes
+    return res.status(400).send('Webhook too old');
+  }
+  
+  // Process webhook
+  processWebhook(webhook);
+  res.status(200).send('OK');
+});
+```
+
+## Configuring Webhook Subscriptions
+
+### Using Stack Alerts API
+
+Configure webhooks for stack-level events using the [Stack Alerts API](/v3/endpoints/stack-alerts):
+
+```bash
+curl -X PUT "https://app.cloud66.com/api/3/stacks/{stack_id}/alerts" \
+  -H "Authorization: Bearer {api_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "alerts": {
+      "deployment_success": {
+        "channels": [
+          {
+            "type": "webhook",
+            "enabled": true,
+            "webhook_url": "https://your-domain.com/webhooks/cloud66"
+          }
+        ],
+        "active": true
+      },
+      "server_down": {
+        "channels": [
+          {
+            "type": "webhook", 
+            "enabled": true,
+            "webhook_url": "https://your-domain.com/webhooks/cloud66"
+          }
+        ],
+        "active": true
+      }
+    }
+  }'
+```
+
+### Using Application Groups API
+
+Configure webhooks for multiple stacks using [Application Groups](/v3/endpoints/application-groups):
+
+```bash
+curl -X PUT "https://app.cloud66.com/api/3/application_groups/{group_id}/alerts" \
+  -H "Authorization: Bearer {api_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "alerts": {
+      "deployment_success": {
+        "channels": [
+          {
+            "type": "webhook",
+            "enabled": true,
+            "webhook_url": "https://your-domain.com/webhooks/deployments"
+          }
+        ],
+        "active": true
+      }
+    }
+  }'
+```
+
+## Event Subscription Patterns
+
+### Subscribe to All Stack Events
+```json
+{
+  "alerts": {
+    "deployment_success": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "..."}], "active": true },
+    "deployment_failure": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "..."}], "active": true },
+    "server_down": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "..."}], "active": true },
+    "server_back": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "..."}], "active": true },
+    "backup_failure": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "..."}], "active": true }
+  }
+}
+```
+
+### Subscribe to Critical Events Only
+```json
+{
+  "alerts": {
+    "deployment_failure": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://alerts.company.com/critical"}], "active": true },
+    "server_down": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://alerts.company.com/critical"}], "active": true },
+    "backup_failure": { "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://alerts.company.com/critical"}], "active": true }
+  }
+}
+```
+
+### Route Events to Different Endpoints
+```json
+{
+  "alerts": {
+    "deployment_success": { 
+      "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://ci.company.com/webhooks"}], 
+      "active": true 
+    },
+    "server_down": { 
+      "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://monitoring.company.com/webhooks"}], 
+      "active": true 
+    },
+    "payment_failure": { 
+      "channels": [{"type": "webhook", "enabled": true, "webhook_url": "https://billing.company.com/webhooks"}], 
+      "active": true 
+    }
+  }
+}
+```
+
+## Testing Webhooks
+
+### Test Endpoint Connectivity
+Before configuring webhooks, verify your endpoint is accessible:
+
+```bash
+# Test your webhook endpoint
+curl -X POST "https://your-domain.com/webhooks/cloud66" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timestamp": 1640995200,
+    "event_type": "test.webhook",
+    "message": "Test webhook payload"
+  }'
+```
+
+### Validate Event Processing
+Create a test endpoint to validate webhook processing:
+
+```javascript
+app.post('/webhooks/test', (req, res) => {
+  const webhook = req.body;
+  
+  console.log('=== WEBHOOK TEST ===');
+  console.log('Event Type:', webhook.event_type);
+  console.log('Timestamp:', new Date(webhook.timestamp * 1000));
+  console.log('Full Payload:', JSON.stringify(webhook, null, 2));
+  console.log('==================');
+  
+  res.status(200).json({
+    status: 'received',
+    event_type: webhook.event_type,
+    processed_at: new Date().toISOString()
+  });
+});
+```
+
+## Production Best Practices
+
+### Endpoint Requirements
+- **HTTPS Only**: Use HTTPS URLs for all webhook endpoints
+- **Fast Response**: Respond within 30 seconds to avoid timeouts
+- **Idempotency**: Handle duplicate webhooks gracefully
+- **Error Handling**: Return appropriate HTTP status codes
+
+### Security Considerations
+```javascript
+// Implement webhook verification
+function verifyWebhook(req) {
+  // Verify HTTPS
+  if (req.protocol !== 'https') {
+    throw new Error('Webhooks must use HTTPS');
+  }
+  
+  // Verify User-Agent (optional)
+  const userAgent = req.get('User-Agent');
+  if (!userAgent || !userAgent.includes('Cloud66')) {
+    console.warn('Unexpected User-Agent:', userAgent);
+  }
+  
+  // Verify payload structure
+  const webhook = req.body;
+  if (!webhook.timestamp || !webhook.event_type) {
+    throw new Error('Invalid webhook structure');
+  }
+  
+  return true;
+}
+```
+
+### Error Handling
+```javascript
+app.post('/webhooks/cloud66', async (req, res) => {
+  try {
+    verifyWebhook(req);
+    await processWebhook(req.body);
+    res.status(200).send('OK');
+  } catch (error) {
+    console.error('Webhook processing error:', error);
+    
+    // Return appropriate status codes
+    if (error.message.includes('Invalid')) {
+      res.status(400).send('Bad Request');
+    } else {
+      res.status(500).send('Internal Server Error');
+    }
+  }
+});
+```
+
+### Monitoring & Logging
+```javascript
+// Log all webhook events
+function logWebhook(webhook) {
+  const logData = {
+    timestamp: new Date(webhook.timestamp * 1000),
+    event_type: webhook.event_type,
+    stack_name: webhook.name || 'N/A',
+    environment: webhook.environment || 'N/A',
+    processed_at: new Date()
+  };
+  
+  console.log('Webhook processed:', JSON.stringify(logData));
+  
+  // Store in database or send to logging service
+  // await saveWebhookLog(logData);
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Webhook not received**
+   - Verify endpoint URL is accessible from internet
+   - Check firewall settings
+   - Ensure endpoint responds within 30 seconds
+
+2. **Invalid payload errors**
+   - Verify Content-Type is application/json
+   - Check JSON parsing in your endpoint
+   - Validate required fields (timestamp, event_type)
+
+3. **Duplicate webhooks**
+   - Implement idempotency using timestamp + event_type
+   - Store processed webhook IDs to avoid duplicates
+
+### Debugging Webhook Delivery
+
+```javascript
+// Debug webhook processing
+app.post('/webhooks/debug', (req, res) => {
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  console.log('Query:', req.query);
+  
+  res.status(200).json({
+    received: true,
+    headers: req.headers,
+    body: req.body
+  });
+});
+```
+
+<Callout type="warning" title="No Automatic Retries">
+Cloud66 does not automatically retry failed webhook deliveries. Ensure your endpoints are highly available and implement proper error handling.
+</Callout>
+
+<Callout type="info" title="Multiple Webhooks">
+You can configure different webhook URLs for different event types, allowing you to route events to specialized systems (monitoring, CI/CD, billing, etc.).
+</Callout>
+
+## Next Steps
+
+1. **[Review available events](/v3/webhooks/events)** - Choose which events to subscribe to
+2. **[Understand payload structure](/v3/webhooks/payload-structure)** - Learn about webhook data format
+3. **[Explore event categories](/v3/webhooks/stack-events)** - Dive deeper into specific event types
+4. **Test your integration** - Start with a few events and expand gradually

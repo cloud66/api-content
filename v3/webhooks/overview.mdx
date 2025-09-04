@@ -1,0 +1,65 @@
+---
+title: Webhooks Overview
+---
+
+# Webhooks
+
+Webhooks are HTTP callbacks that Cloud66 sends to your specified endpoints when certain events occur in your infrastructure. They provide a real-time way to receive notifications about important changes to your stacks, servers, deployments, and other resources.
+
+## How Webhooks Work
+
+When a subscribed event occurs (such as a deployment completion or server issue), Cloud66 sends an HTTP POST request to your configured webhook URL with a JSON payload containing details about the event.
+
+### HTTP Delivery Specifications
+
+- **Method**: POST with `application/json` content-type
+- **Timeout**: 30 seconds (configurable)
+- **SSL**: HTTPS is supported with verification disabled
+- **Authentication**: No authentication headers are automatically included - implement endpoint-level authentication as needed
+- **Retry Logic**: Failed deliveries are logged but **not retried automatically**
+
+<Callout type="warning" title="No Automatic Retries">
+Webhook deliveries that fail are not automatically retried. Ensure your webhook endpoints are highly available and implement proper error handling.
+</Callout>
+
+### Payload Structure
+
+All webhook payloads include:
+
+- `timestamp` (integer): Unix timestamp when the event occurred
+- `event_type` (string): Event identifier (e.g., "stack.provision.ok", "server.stopped")
+- **Event-specific data**: Relevant model data using the same format as the Cloud66 API
+
+## Event Categories
+
+Cloud66 webhooks cover 58 different event types organized into these categories:
+
+- **[Stack Events](/v3/webhooks/stack-events)**: Deployment, provisioning, updates, and configuration changes
+- **[Infrastructure Events](/v3/webhooks/infrastructure-events)**: Server status, container monitoring, and system health
+- **[Build Events](/v3/webhooks/build-events)**: Service builds and cloud resource operations
+- **[Security Events](/v3/webhooks/security-events)**: SSL certificates, authentication, and security monitoring
+- **[Database Events](/v3/webhooks/database-events)**: Backup operations and database replication
+- **[Account Events](/v3/webhooks/account-events)**: Billing and account status changes
+- **[Job Events](/v3/webhooks/job-events)**: Scheduled jobs and autoscaling operations
+
+## Use Cases
+
+Webhooks are commonly used for:
+
+- **CI/CD Integration**: Trigger downstream processes after successful deployments
+- **Monitoring & Alerting**: Forward events to monitoring systems like DataDog, New Relic, or PagerDuty
+- **Slack/Teams Notifications**: Send formatted notifications to team chat channels
+- **Audit Logging**: Record infrastructure changes in external systems
+- **Automated Response**: Trigger remediation scripts for infrastructure issues
+- **Dashboard Updates**: Keep external dashboards in sync with Cloud66 state
+
+## Getting Started
+
+1. **[Set up webhook subscriptions](/v3/webhooks/setup)** - Configure which events to receive and where to send them
+2. **[Review event types](/v3/webhooks/events)** - Browse the complete catalog of available webhook events
+3. **[Understand payload structure](/v3/webhooks/payload-structure)** - Learn about the data included in webhook payloads
+4. **Test your endpoint** - Use the webhook testing features to validate your integration
+
+<Callout type="info" title="Related API Endpoints">
+Webhooks are configured through the [Stack Alerts API](/v3/endpoints/stack-alerts) and [Application Group Alerts API](/v3/endpoints/application-groups). You can also manage webhook subscriptions programmatically using these endpoints.
+</Callout>

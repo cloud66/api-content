@@ -1,5 +1,6 @@
 folders:
   - getting-started
   - endpoints
+  - webhooks
   - models
   - sdks

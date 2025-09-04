@@ -1,0 +1,175 @@
+---
+title: Infrastructure Events
+---
+
+# Infrastructure Events
+
+Infrastructure events are webhooks triggered by changes to your servers, containers, processes, and other infrastructure components.
+
+## Server Events
+
+### `server.stopped`
+Triggered when a server stops responding or goes offline.
+
+**Payload includes:**
+- Server information (name, IP, status)
+- Stack details the server belongs to
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "server.stopped",
+  "uid": "123123123123123123",
+  "name": "Meerkat",
+  "address": "192.168.1.10",
+  "server_type": "Rails Server",
+  "server_roles": ["rails", "web"],
+  "stack": {
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production"
+  }
+}
+```
+
+### `server.backon`
+Triggered when a previously offline server comes back online.
+
+**Payload structure:** Same as `server.stopped` but indicates the server is now responding.
+
+### `server.ip.change.fail`
+Triggered when an IP address change operation fails for a server.
+
+**Payload includes:**
+- Server information
+- `new_ext_ipv4`: The IP address that failed to be assigned
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "server.ip.change.fail",
+  "uid": "123123123123123123",
+  "name": "Meerkat",
+  "new_ext_ipv4": "111.111.111.111",
+  "stack": {
+    "uid": "abc123def456",
+    "name": "My Application"
+  }
+}
+```
+
+## Container & Process Events
+
+### `container.down`
+Triggered when a container stops running or becomes unresponsive.
+
+**Payload includes:**
+- Container details (name, image, ports)
+- Server information where the container was running
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "container.down",
+  "container_id": "abc123def456789...",
+  "name": "web.lovable-tame-impala",
+  "service_name": "web",
+  "image": "nginx",
+  "ports": [
+    {
+      "container": 80,
+      "http": 80,
+      "https": 443
+    }
+  ],
+  "server": {
+    "name": "Meerkat",
+    "uid": "123123123123123123"
+  }
+}
+```
+
+### `process.down`
+Triggered when a monitored process stops running.
+
+**Payload includes:**
+- Process information
+- Server details
+
+### `web.process.started`
+Triggered when a web process starts successfully.
+
+**Payload includes:**
+- Stack UID
+- Server UID where the process started
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "web.process.started",
+  "stack": "abc123def456",
+  "server": "123123123123123123"
+}
+```
+
+### `web.process.stopped`
+Triggered when a web process stops.
+
+**Payload structure:** Same as `web.process.started`
+
+### `web.process.unknown`
+Triggered when a web process status cannot be determined.
+
+**Payload structure:** Same as `web.process.started`
+
+## Disk Space Events
+
+### `free.disk.space.alert`
+Triggered when disk space falls below the configured threshold.
+
+**Payload includes:**
+- Server UID experiencing the disk space issue
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "free.disk.space.alert",
+  "server": "123123123123123123"
+}
+```
+
+### `free.disk.space.normal`
+Triggered when disk space returns to normal levels after an alert.
+
+**Payload structure:** Same as `free.disk.space.alert`
+
+## Common Use Cases
+
+### Server Monitoring
+- **Alerting**: Send notifications when servers go offline
+- **Automated Response**: Trigger server restart or failover procedures
+- **Monitoring Integration**: Forward events to monitoring systems
+
+### Container Management
+- **Auto-scaling**: Trigger container replacement when containers go down
+- **Health Monitoring**: Track container health across your infrastructure
+- **Log Aggregation**: Correlate container events with application logs
+
+### Capacity Planning
+- **Disk Space Alerts**: Get notified before running out of disk space
+- **Resource Monitoring**: Track infrastructure health metrics
+- **Preventive Maintenance**: Schedule maintenance based on resource usage
+
+## Event Relationships
+
+Infrastructure events are often related and may occur in sequence:
+
+1. `server.stopped` → Server goes offline
+2. `container.down` → Containers on that server stop
+3. `web.process.stopped` → Web processes become unavailable
+4. `server.backon` → Server comes back online
+5. `web.process.started` → Services resume
+
+Understanding these relationships helps with building robust monitoring and response systems.
+
+<RelatedModels models={['Server', 'Container', 'Stack']} />

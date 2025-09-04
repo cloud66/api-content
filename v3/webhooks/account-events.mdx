@@ -1,0 +1,182 @@
+---
+title: Account & Billing Events
+---
+
+# Account & Billing Events
+
+Account and billing events are webhooks triggered by payment processing, billing operations, and account status changes.
+
+## Payment Events
+
+### `payment.done`
+Triggered when a payment is successfully processed.
+
+**Payload includes:**
+- Charged amount information
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "payment.done",
+  "charged_amount": "$9.00"
+}
+```
+
+### `payment.fail`
+Triggered when a payment fails to process.
+
+**Payload includes:**
+- Charged amount that failed
+- Reason for payment failure
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "payment.fail",
+  "charged_amount": "$9.00",
+  "reason": "Your credit card company is not accessible"
+}
+```
+
+## Account Status Events
+
+### `account.suspended`
+Triggered when an account is suspended due to billing issues, policy violations, or other reasons.
+
+**Payload includes:**
+- Account name that was suspended
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "account.suspended",
+  "account_name": "Awesome Account"
+}
+```
+
+## Common Use Cases
+
+### Billing Management
+- **Payment Notifications**: Track successful payments for accounting records
+- **Failed Payment Alerts**: Immediate notification when payments fail
+- **Automated Billing**: Trigger billing system updates and invoice generation
+- **Financial Reporting**: Feed payment events into financial tracking systems
+
+### Account Administration
+- **Suspension Alerts**: Notify administrators when accounts are suspended
+- **Service Management**: Automatically disable services for suspended accounts
+- **Customer Communication**: Trigger customer notifications about account status
+- **Compliance Tracking**: Maintain records for billing and account compliance
+
+### Business Intelligence
+- **Revenue Tracking**: Monitor payment success rates and amounts
+- **Customer Health**: Identify accounts with payment issues
+- **Churn Analysis**: Track account suspensions and reactivations
+- **Financial Forecasting**: Use payment patterns for revenue projections
+
+## Event Response Workflows
+
+### Payment Success
+```json
+{
+  "event_type": "payment.done",
+  "charged_amount": "$29.00"
+}
+```
+**Typical responses:**
+- Update billing system with successful payment
+- Generate receipt for customer
+- Update account status to "active"
+- Trigger monthly usage report
+
+### Payment Failure
+```json
+{
+  "event_type": "payment.fail",
+  "charged_amount": "$29.00",
+  "reason": "Card expired"
+}
+```
+**Typical responses:**
+- Send payment failure notification to customer
+- Trigger retry logic after grace period
+- Update account status to "payment required"
+- Escalate to customer success team
+
+### Account Suspension
+```json
+{
+  "event_type": "account.suspended",
+  "account_name": "Customer Account"
+}
+```
+**Typical responses:**
+- Disable stack operations and deployments
+- Send account suspension notification
+- Trigger customer support workflow
+- Begin service wind-down procedures
+
+## Integration Patterns
+
+### Accounting Systems
+```javascript
+// Example: Forward payment events to QuickBooks
+function handlePaymentEvent(webhook) {
+  if (webhook.event_type === 'payment.done') {
+    createInvoiceEntry(webhook.charged_amount);
+    updateCustomerBalance(webhook.charged_amount);
+  }
+}
+```
+
+### Customer Communication
+```javascript
+// Example: Send email notifications
+function handleAccountEvent(webhook) {
+  switch (webhook.event_type) {
+    case 'payment.fail':
+      sendPaymentFailureEmail(webhook.reason);
+      schedulePaymentRetry();
+      break;
+    case 'account.suspended':
+      sendAccountSuspensionNotice();
+      disableStackAccess();
+      break;
+  }
+}
+```
+
+### Business Metrics
+```javascript
+// Example: Update business dashboards
+function updateMetrics(webhook) {
+  if (webhook.event_type === 'payment.done') {
+    incrementRevenue(parseAmount(webhook.charged_amount));
+    updatePaymentSuccessRate();
+  }
+}
+```
+
+## Monitoring Considerations
+
+### Payment Processing
+- Monitor payment success/failure rates
+- Track payment method performance
+- Alert on unusual payment patterns
+- Maintain PCI compliance for payment data
+
+### Account Health
+- Monitor account suspension rates
+- Track customer payment behavior
+- Identify at-risk accounts early
+- Maintain customer satisfaction metrics
+
+<Callout type="info" title="Billing Webhook Scope">
+Billing events are scoped at the account level and will be sent to all webhook endpoints configured for account-level events.
+</Callout>
+
+<Callout type="warning" title="Sensitive Financial Data">
+Payment webhooks may contain sensitive financial information. Ensure your webhook endpoints use HTTPS and implement proper authentication and logging practices.
+</Callout>
+
+<RelatedModels models={['Account', 'User']} />

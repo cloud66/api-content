@@ -1,0 +1,110 @@
+---
+title: Webhook Events
+---
+
+# Webhook Events
+
+This page provides a complete catalog of all webhook events available in Cloud66. Each event includes the event type string, description, and links to relevant model documentation for payload structure.
+
+## Event Categories
+
+### Stack Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `stack.created` | New stack has been created | [Stack](/v3/models/stack) |
+| `stack.provision.ok` | Stack provisioning completed successfully | [Stack](/v3/models/stack), Deploy Context |
+| `stack.provision.fail` | Stack provisioning failed | [Stack](/v3/models/stack), Deploy Context |
+| `stack.redeploy.ok` | Stack redeployment completed successfully | [Stack](/v3/models/stack), Deploy Context |
+| `stack.redeploy.fail` | Stack redeployment failed | [Stack](/v3/models/stack), Deploy Context |
+| `stack.deploy.started` | Stack deployment has started | [Stack](/v3/models/stack), Deploy Context |
+| `stack.stackscore.changed` | Stack score has changed | [Stack](/v3/models/stack), Score Diff |
+| `stack.redeploy.hook.fail` | Redeployment hook execution failed | [Stack](/v3/models/stack), Reason |
+| `application.update.pending` | Application update is pending | [Stack](/v3/models/stack) |
+| `application.update.started` | Application update has started | [Stack](/v3/models/stack) |
+| `application.update.succeeded` | Application update completed successfully | [Stack](/v3/models/stack) |
+| `application.update.failed` | Application update failed | [Stack](/v3/models/stack) |
+| `application.health_check.failed` | Application health check failed | [Stack](/v3/models/stack) |
+| `application.integration.configured` | Integration configured for application | [Stack](/v3/models/stack), Integration Name |
+| `application.integration.removed` | Integration removed from application | [Stack](/v3/models/stack), Integration Name |
+
+### Infrastructure Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `server.stopped` | Server has stopped responding | Agent, [Server](/v3/models/server) |
+| `server.backon` | Server is back online | Agent, [Server](/v3/models/server) |
+| `server.ip.change.fail` | Server IP change operation failed | Agent, New IP Address |
+| `container.down` | Container is down or not responding | [Container](/v3/models/container) |
+| `process.down` | Process is down or not responding | Process |
+| `web.process.started` | Web process has started | [Stack](/v3/models/stack), [Server](/v3/models/server) |
+| `web.process.stopped` | Web process has stopped | [Stack](/v3/models/stack), [Server](/v3/models/server) |
+| `web.process.unknown` | Web process status is unknown | [Stack](/v3/models/stack), [Server](/v3/models/server) |
+| `free.disk.space.alert` | Disk space is running low | [Server](/v3/models/server) |
+| `free.disk.space.normal` | Disk space has returned to normal | [Server](/v3/models/server) |
+
+### Build & Service Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `service.build.ok` | Service build completed successfully | [Stack](/v3/models/stack), [Service](/v3/models/service), Build Outcome, Image |
+| `service.build.fail` | Service build failed | [Stack](/v3/models/stack), [Service](/v3/models/service), Build Outcome |
+| `cloud_object.delete.ok` | Cloud object deletion completed successfully | Cloud Object Delete Queue |
+| `cloud_object.delete.fail` | Cloud object deletion failed | Cloud Object Delete Queue |
+
+### Security & Authentication Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `ssl_certificate.install.ok` | SSL certificate installed successfully | [SSL Certificate](/v3/models/ssl-certificate) |
+| `ssl_certificate.install.fail` | SSL certificate installation failed | [SSL Certificate](/v3/models/ssl-certificate) |
+| `ssl_certificate.expire.soon` | SSL certificate is expiring soon | [SSL Certificate](/v3/models/ssl-certificate) |
+| `app.auth` | OAuth application authorized | [User](/v3/models/user), Application UID |
+| `app.deauth` | OAuth application deauthorized | [User](/v3/models/user), Application UID |
+| `active.protect.block` | Active Protect blocked an IP address | [Server](/v3/models/server), Fail2ban Action |
+| `active.protect.change` | Active Protect detected file changes | [Server](/v3/models/server), Watched File |
+| `ssh_key.downloaded` | SSH key was downloaded | [Stack](/v3/models/stack), [Server](/v3/models/server), User Email |
+
+### Database & Backup Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `managed_backup.fail` | Managed backup operation failed | [Stack](/v3/models/stack), Backup Result |
+| `backup.verification.failed` | Backup verification failed | [Stack](/v3/models/stack), [Backup](/v3/models/backup) |
+| `db.slave.ok` | Database slave is functioning correctly | [Server](/v3/models/server), Database Type |
+| `db.slave.failed` | Database slave operation failed | [Server](/v3/models/server), Database Type, Detail |
+
+### Account & Billing Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `payment.done` | Payment processed successfully | Charged Amount |
+| `payment.fail` | Payment processing failed | Charged Amount, Reason |
+| `account.suspended` | Account has been suspended | Account Name |
+
+### Job & Automation Events
+
+| Event Type | Description | Payload Models |
+|------------|-------------|----------------|
+| `job.fail` | Scheduled job execution failed | [Job](/v3/models/job), Run Data |
+| `job.backon` | Scheduled job is back to normal | [Job](/v3/models/job) |
+| `autoscaling.failed` | Autoscaling operation failed | [Stack](/v3/models/stack), Scaler |
+| `autoscaling.actions` | Autoscaling action performed | [Stack](/v3/models/stack), Scaler, Action Message |
+
+## Payload Examples
+
+Each webhook includes a standard structure with event-specific data. For detailed payload examples, see:
+
+- **[Payload Structure](/v3/webhooks/payload-structure)** - Common fields and data format
+- **Category-specific pages** - Detailed examples for each event type
+
+## Filtering Events
+
+You can subscribe to specific events using the [Stack Alerts](/v3/endpoints/stack-alerts) or [Application Group Alerts](/v3/endpoints/application-groups) endpoints. Events are organized by entity (Stack, Account, etc.) and can be configured per user or team.
+
+<Callout type="info" title="Event Scoping">
+Most events are scoped to specific entities:
+- **Stack events**: Scoped to individual stacks
+- **Account events**: Scoped to the account level
+- **Server/Infrastructure events**: Usually scoped to stacks containing the affected servers
+</Callout>
