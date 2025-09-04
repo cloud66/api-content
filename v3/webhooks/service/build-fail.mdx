@@ -2,21 +2,83 @@
 title: Service Build Failure
 event_type: service.build.fail
 category: service
-models: ['stack', 'service', 'image']
+models:
+  - stack
+  - service
+  - image
 description: Triggered when a service build fails
-payload: |
+payload: |-
   {
-    "timestamp": 1640995200,
+    "timestamp": 1757011079,
     "event_type": "service.build.fail",
-    "uid": "abc123def456",
-    "name": "My Application",
+    "stack": {
+      "uid": "stack-550e8400-e29b-41d4-a716",
+      "name": "my-production-app",
+      "account_id": 12345,
+      "git": "git@github.com:mycompany/myapp.git",
+      "git_branch": "main",
+      "environment": "production",
+      "cloud": "aws",
+      "fqdn": "myapp.example.com",
+      "language": "ruby",
+      "framework": "rails",
+      "status": 1,
+      "health": 3,
+      "last_activity": "2024-02-15 14:30:00 UTC",
+      "last_activity_iso": "2024-02-15T14:30:00Z",
+      "maintenance_mode": false,
+      "has_loadbalancer": true,
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-02-15T14:30:00Z",
+      "deploy_directory": "/var/deploy/myapp",
+      "cloud_status": "deployed",
+      "backend": "kubernetes",
+      "version": "4",
+      "revision": "42",
+      "is_busy": false,
+      "account_name": "Production Team (team@example.com)",
+      "is_cluster": false,
+      "is_inside_cluster": true,
+      "cluster_name": "production-cluster",
+      "application_address": "https://myapp.example.com",
+      "configstore_namespace": "550e8400-e29b-41d4-a716-446655440000",
+      "namespaces": [
+        "myapp-production",
+        "myapp-staging"
+      ],
+      "considerations": {
+        "warnings": [],
+        "notices": [
+          "Stack is healthy"
+        ]
+      },
+      "redeploy_hook": "https://hooks.cloud66.com/stacks/redeploy/abc123def456"
+    },
     "service": {
       "name": "web",
-      "image_name": "nginx",
+      "containers": [
+        {
+          "id": "container-123",
+          "status": "running",
+          "server_uid": "550e8400-e29b-41d4-a716-446655440001"
+        },
+        {
+          "id": "container-124",
+          "status": "running",
+          "server_uid": "550e8400-e29b-41d4-a716-446655440002"
+        }
+      ],
       "source_type": "git",
-      "git_ref": "master"
-    },
-    "build_outcome": "failed"
+      "git_ref": "main",
+      "image_name": "myapp/web",
+      "image_uid": "sha256:1234567890abcdef",
+      "image_tag": "latest",
+      "command": "bundle exec rails server -b 0.0.0.0 -p 3000",
+      "build_command": "bundle install && npm install && npm run build",
+      "deploy_command": "bundle exec rake db:migrate",
+      "wrap_command": null,
+      "desired_count": 3
+    }
   }
 ---
 

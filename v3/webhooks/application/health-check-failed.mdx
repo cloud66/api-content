@@ -2,7 +2,54 @@
 title: Application Health Check Failed
 event_type: application.health_check.failed
 category: Stack Events
-models: ['stack']
+models:
+  - stack
+payload: |-
+  {
+    "timestamp": 1757011079,
+    "event_type": "application.health_check.failed",
+    "uid": "stack-550e8400-e29b-41d4-a716",
+    "name": "my-production-app",
+    "account_id": 12345,
+    "git": "git@github.com:mycompany/myapp.git",
+    "git_branch": "main",
+    "environment": "production",
+    "cloud": "aws",
+    "fqdn": "myapp.example.com",
+    "language": "ruby",
+    "framework": "rails",
+    "status": 1,
+    "health": 3,
+    "last_activity": "2024-02-15 14:30:00 UTC",
+    "last_activity_iso": "2024-02-15T14:30:00Z",
+    "maintenance_mode": false,
+    "has_loadbalancer": true,
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-02-15T14:30:00Z",
+    "deploy_directory": "/var/deploy/myapp",
+    "cloud_status": "deployed",
+    "backend": "kubernetes",
+    "version": "4",
+    "revision": "42",
+    "is_busy": false,
+    "account_name": "Production Team (team@example.com)",
+    "is_cluster": false,
+    "is_inside_cluster": true,
+    "cluster_name": "production-cluster",
+    "application_address": "https://myapp.example.com",
+    "configstore_namespace": "550e8400-e29b-41d4-a716-446655440000",
+    "namespaces": [
+      "myapp-production",
+      "myapp-staging"
+    ],
+    "considerations": {
+      "warnings": [],
+      "notices": [
+        "Stack is healthy"
+      ]
+    },
+    "redeploy_hook": "https://hooks.cloud66.com/stacks/redeploy/abc123def456"
+  }
 ---
 
 Triggered when application health checks fail.

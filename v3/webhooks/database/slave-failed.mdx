@@ -2,20 +2,47 @@
 title: Database Slave Failed
 event_type: db.slave.failed
 category: database
-models: ['server']
+models:
+  - server
 description: Triggered when database replication fails or falls behind the master
-payload: |
+payload: |-
   {
-    "timestamp": 1640995200,
+    "timestamp": 1757011079,
     "event_type": "db.slave.failed",
-    "server": {
-      "name": "Meerkat",
-      "uid": "123123123123123123",
-      "server_type": "MySQL Server",
-      "address": "192.168.1.15"
+    "uid": "550e8400-e29b-41d4-a716-446655440001",
+    "vendor_uid": "i-0123456789abcdef0",
+    "name": "web-server-01",
+    "address": "203.0.113.10",
+    "distro": "ubuntu",
+    "distro_version": "20.04",
+    "dns_record": "web-01.example.com",
+    "user_name": "cloud66",
+    "server_type": "aws",
+    "server_roles": [
+      "web",
+      "docker"
+    ],
+    "server_group_id": 123,
+    "stack_uid": "stack-550e8400-e29b-41d4-a716",
+    "has_agent": true,
+    "params": {
+      "size": "t3.medium",
+      "region": "us-east-1",
+      "subnet": "subnet-12345"
     },
-    "db_type": "mysql",
-    "detail": "No longer is slave"
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-02-15T14:20:00Z",
+    "region": "us-east-1",
+    "availability_zone": "us-east-1a",
+    "ext_ipv4": "203.0.113.10",
+    "int_ipv4": "10.0.1.100",
+    "ext_ipv6": "2001:db8::1",
+    "int_ipv6": "fd00::1",
+    "health_state": 1,
+    "personal_key": false,
+    "has_deploy_gateway": false,
+    "deploy_gateway_address": null,
+    "deploy_gateway_user_name": null
   }
 ---
 

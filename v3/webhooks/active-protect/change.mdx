@@ -2,47 +2,56 @@
 title: ActiveProtect Change
 event_type: active.protect.change
 category: active-protect
-models: ['server', 'watched-file']
+models:
+  - server
+  - watched-file
 description: Triggered when ActiveProtect detects unauthorized file changes on your servers
-payload: |
+payload: |-
   {
-    "timestamp": 1640995200,
+    "timestamp": 1757011079,
     "event_type": "active.protect.change",
     "server": {
-      "uid": "5acd43412ea412e32367d5e6a4a625e5",
+      "uid": "550e8400-e29b-41d4-a716-446655440001",
       "vendor_uid": "i-0123456789abcdef0",
-      "name": "Meerkat",
-      "address": "52.74.113.182",
+      "name": "web-server-01",
+      "address": "203.0.113.10",
       "distro": "ubuntu",
       "distro_version": "20.04",
-      "dns_record": "meerkat.mystack.c66.me",
-      "user_name": "ubuntu",
-      "server_type": "Cloud (AWS)",
-      "server_roles": ["web", "docker"],
-      "server_group_id": 128,
-      "stack_uid": "5acd43412ea412e32367d5e6a4a625e5",
+      "dns_record": "web-01.example.com",
+      "user_name": "cloud66",
+      "server_type": "aws",
+      "server_roles": [
+        "web",
+        "docker"
+      ],
+      "server_group_id": 123,
+      "stack_uid": "stack-550e8400-e29b-41d4-a716",
       "has_agent": true,
-      "params": {},
-      "created_at": "2024-01-01T10:00:00Z",
-      "updated_at": "2024-01-01T12:30:45Z",
+      "params": {
+        "size": "t3.medium",
+        "region": "us-east-1",
+        "subnet": "subnet-12345"
+      },
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-02-15T14:20:00Z",
       "region": "us-east-1",
       "availability_zone": "us-east-1a",
-      "ext_ipv4": "52.74.113.182",
-      "int_ipv4": "10.0.1.45",
-      "ext_ipv6": null,
-      "int_ipv6": null,
-      "health_state": 0,
+      "ext_ipv4": "203.0.113.10",
+      "int_ipv4": "10.0.1.100",
+      "ext_ipv6": "2001:db8::1",
+      "int_ipv6": "fd00::1",
+      "health_state": 1,
       "personal_key": false,
       "has_deploy_gateway": false,
       "deploy_gateway_address": null,
       "deploy_gateway_user_name": null
     },
     "watched_file": {
-      "server": "5acd43412ea412e32367d5e6a4a625e5",
+      "server": "550e8400-e29b-41d4-a716-446655440001",
       "file_path": "/etc/nginx/nginx.conf",
-      "is_changed": true,
-      "created_at": "2024-01-01T10:15:30Z",
-      "updated_at": "2024-01-01T12:30:45Z"
+      "is_changed": false,
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-02-15T14:25:00Z"
     }
   }
 ---

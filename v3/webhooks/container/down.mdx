@@ -2,27 +2,38 @@
 title: Container Down
 event_type: container.down
 category: container
-models: ['container']
+models:
+  - container
 description: Triggered when a container stops running or becomes unresponsive
-payload: |
+payload: |-
   {
-    "timestamp": 1640995200,
+    "timestamp": 1757011079,
     "event_type": "container.down",
-    "container_id": "abc123def456789...",
-    "name": "web.lovable-tame-impala",
+    "uid": "container-abc123def456",
+    "name": "web-app-container",
+    "server_uid": "server-789xyz",
+    "server_name": "web-server-01",
     "service_name": "web",
-    "image": "nginx",
+    "image": "myapp/web:v1.2.3",
+    "command": "bundle exec puma -C config/puma.rb",
+    "started_at": "2024-01-15T10:30:00Z",
     "ports": [
       {
-        "container": 80,
+        "container": 3000,
         "http": 80,
         "https": 443
       }
     ],
-    "server": {
-      "name": "Meerkat",
-      "uid": "123123123123123123"
-    }
+    "private_ip": "10.0.1.15",
+    "docker_ip": "172.17.0.2",
+    "health_state": 1,
+    "health_message": "Container is running normally",
+    "health_source": "docker",
+    "capture_output": true,
+    "restart_on_deploy": true,
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-15T10:35:00Z",
+    "status": "running"
   }
 ---
 
