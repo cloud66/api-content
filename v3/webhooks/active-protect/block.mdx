@@ -1,8 +1,9 @@
 ---
-title: Active Protect Block
+title: ActiveProtect Block
 event_type: active.protect.block
 category: active-protect
-description: Triggered when Active Protect blocks an IP address due to suspicious activity
+models: ['server', 'fail2ban_action']
+description: Triggered when ActiveProtect blocks an IP address due to suspicious activity
 payload: |
   {
     "timestamp": 1640995200,
@@ -25,4 +26,4 @@ payload: |
   }
 ---
 
-This webhook is sent when Active Protect blocks an IP address due to suspicious activity. The payload includes server information where the block occurred and details about the blocked activity.
+This webhook is sent when ActiveProtect blocks an IP address due to suspicious activity. The payload includes server information where the block occurred and details about the blocked activity.

@@ -1,8 +1,9 @@
 ---
-title: Active Protect Change
+title: ActiveProtect Change
 event_type: active.protect.change
 category: active-protect
-description: Triggered when Active Protect detects unauthorized file changes on your servers
+models: ['server', 'watched_file']
+description: Triggered when ActiveProtect detects unauthorized file changes on your servers
 payload: |
   {
     "timestamp": 1640995200,
@@ -21,4 +22,4 @@ payload: |
   }
 ---
 
-This webhook is sent when Active Protect detects unauthorized file changes on your servers. The payload includes server information and file change details.
+This webhook is sent when ActiveProtect detects unauthorized file changes on your servers. The payload includes server information and file change details.
