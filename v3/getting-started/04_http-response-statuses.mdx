@@ -2,19 +2,23 @@
 title: Standard HTTP Response Statuses
 ---
 
+import { ResponseCodes } from '@/components/MDX/ResponseCodes'
+
 # Standard HTTP Response Statuses
 
 Requests made using the Cloud 66 API can return any of the following response status codes.
 
-| Code | Message         | Description                                                                                                                |
-|------|-----------------|----------------------------------------------------------------------------------------------------------------------------|
-| 200  | ok              | The request completed successfully.                                                                                        |
-| 400  | bad_request     | The system cannot parse the request syntax. It might be missing required parameters or include an invalid value.           |
-| 401  | unauthenticated | No authentication token was passed in the request.                                                                         |
-| 402  | trial_expired   | The user's Cloud 66 trial period has expired.                                                                              |
-| 403  | forbidden       | The user does not have the scope required to submit this request.                                                          |
-| 404  | not_found       | The system cannot find a response for this request URI.                                                                    |
-| 408  | time_out        | The system did not return a response before the server timed out.                                                          |
-| 409  | conflict        | The system did not return a response because there is a current conflict with the resource.                                |
-| 503  | not_implemented | This resource is not actively implemented in this version of the Cloud 66 API.                                             |
-| 503  | throttled       | The user has reached or exceeded the maximum rate limit and must wait until the next hourly interval to retry the request. |
+<ResponseCodes 
+  codes={[200, 400, 401, 402, 403, 404, 408, 409, 503]}
+  overrides={{
+    200: 'The request completed successfully.',
+    400: 'The system cannot parse the request syntax. It might be missing required parameters or include an invalid value.',
+    401: 'No authentication token was passed in the request.',
+    402: 'The user\'s Cloud 66 trial period has expired.',
+    403: 'The user does not have the scope required to submit this request.',
+    404: 'The system cannot find a response for this request URI.',
+    408: 'The system did not return a response before the server timed out.',
+    409: 'The system did not return a response because there is a current conflict with the resource.',
+    503: ['This resource is not actively implemented in this version of the Cloud 66 API.', 'The user has reached or exceeded the maximum rate limit and must wait until the next hourly interval to retry the request.']
+  }}
+/>
