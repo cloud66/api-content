@@ -27,11 +27,11 @@ parameters:
   - name: command
     presence: required
     data_type: string
-    description: The action to perform for the stack. Valid values are clear_caches, maintenance_mode, and restart.
+    description: The action to perform for the stack. Valid values are clear_caches, maintenance_mode, restart, promote_slave_db, resync_slave_db, disable_replication_slave_db, container_restart, service_restart, service_pause, service_resume, process_restart, process_pause, and process_resume.
     sample_value: "restart"
 ---
 
-Perform an asynchronous action for the stack specified in the request. You can use this method to restart the stack, clear the stack's cache, or enable maintenance mode.
+Perform an asynchronous action for the stack specified in the request. You can use this method to restart the stack, clear the stack's cache, enable maintenance mode, manage database replication, and control containers, services, and processes.
 
 <RelatedModels models={['Stack']} />
 
@@ -39,15 +39,16 @@ Perform an asynchronous action for the stack specified in the request. You can u
 
 | Command | Comments | Extra Parameters |
 | ---------- | ---------- | ---------------- |
-| container_restart | Restarts a particular container on the given stack | • `container`:`5999b763474b0eafa5fafb64bff0ba80` |
-| disable_replication_slave_db | Disable replication to the specified slave database server | • `server`:`server-name`<br/> • `server_group`: valid values `all`, `mysql`, `postgresql`, `redis`, `mongodb` |
-| maintenance_mode | Enable to Disable maintenance mode for a stack. | • `value`:`1` for enable or `0` for disable |
-| process_pause | Pauses the specified process. | • `process-name` |
-| process_restart | Restarts the specified process. | • `process-name` |
-| process_resume | Resumes the specified process. | • `process-name` |
-| promote_slave_db | Promote the specified slave database server to a standalone master | • `server`:`server-name`<br/> • `server_group`: valid values `all`, `mysql`, `postgresql`, `redis`, `mongodb` |
-| restart | Restarts all stack components (nginx, db, etc.) | None |
-| resync_slave_db | Re-sync the specified slave database server with its master database server | • `server`:`server-name`<br/> • `server_group`: valid values `all`, `mysql`, `postgresql`, `redis`, `mongodb` |
-| service_pause | Pauses all the containers from the given service | • `service_name`:`api` <br/> • `server_id_filter`:`474b30a8fea888df8468fc145ea49bac` (optional)  |
-| service_restart | Restarts all the containers from the given service | • `service_name`:`web` <br/> • `server_id_filter`:`f8468fc145ea49bac474b30a8fea888d` (optional)  |
-| service_resume | Pauses all the containers from the given service | • `service_name`:`api` <br/> • `server_id_filter`:`474b30a8fea888df8468fc145ea49bac` (optional)  |
+| clear_caches | Clears all application caches for the stack | None |
+| container_restart | Restarts a particular container on the given stack | • `container_id`:`container-id-or-name` |
+| disable_replication_slave_db | Disable replication to the specified slave database server | • `server_uid`:`server-uid`<br/> • `db_type`:`postgresql`, `redis`, `mysql` (optional) |
+| maintenance_mode | Enable or disable maintenance mode for a stack | • `value`:`1` for enable or `0` for disable |
+| process_pause | Pauses the specified process | • `process_name`:`process-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |
+| process_restart | Restarts the specified process | • `process_name`:`process-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |
+| process_resume | Resumes the specified process | • `process_name`:`process-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |
+| promote_slave_db | Promote the specified slave database server to a standalone master | • `server_uid`:`server-uid`<br/> • `db_type`:`postgresql`, `redis`, `mysql` (optional) |
+| restart | Restarts all stack components | None |
+| resync_slave_db | Re-sync the specified slave database server with its master database server | • `server_uid`:`server-uid`<br/> • `db_type`:`postgresql`, `mysql` (optional) |
+| service_pause | Pauses all the containers from the given service | • `service_name`:`service-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |
+| service_restart | Restarts all the containers from the given service | • `service_name`:`service-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |
+| service_resume | Resumes all the containers from the given service | • `service_name`:`service-name` (optional)<br/> • `server_uid`:`server-uid` (optional) |

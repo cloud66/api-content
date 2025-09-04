@@ -56,4 +56,18 @@ AsyncActions track the progress and results of long-running background operation
 - **database_user_delete**: Database user deletion
 - **stack_reboot**: Stack server reboot operations
 
+**Stack Action Types:**
+- **clear_caches**: Clear all application caches for a stack
+- **maintenance_mode**: Enable or disable maintenance mode for a stack
+- **promote_slave_db**: Promote a slave database server to master
+- **resync_slave_db**: Re-sync a slave database server with its master
+- **disable_replication_slave_db**: Disable database replication for a slave server
+- **container_restart**: Restart a specific container
+- **service_restart**: Restart containers for a specific service
+- **service_pause**: Pause containers for a specific service
+- **service_resume**: Resume containers for a specific service
+- **process_restart**: Restart processes on stack servers
+- **process_pause**: Pause processes on stack servers
+- **process_resume**: Resume processes on stack servers
+
 <RelatedModels models={['Stack', 'Server', 'Database', 'User']} />
