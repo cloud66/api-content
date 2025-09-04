@@ -2,6 +2,26 @@
 title: "Account"
 method: ""
 path: ""
+example: |
+  {
+    "id": 12345,
+    "owner": "john@example.com",
+    "created_at_iso": "2023-01-15T10:30:00Z",
+    "updated_at_iso": "2024-02-20T14:45:00Z",
+    "stack_count": 8,
+    "used_clouds": ["aws", "digitalocean", "azure"],
+    "current_account": true,
+    "friendly_name": "Production Environment",
+    "unmanaged_servers": [
+      {
+        "id": 67890,
+        "name": "web-server-01",
+        "ip": "192.168.1.100"
+      }
+    ],
+    "server_registration_script": "curl -sSL https://app.cloud66.com/registrations/new | sudo bash -s abc123def456",
+    "configstore_namespace": "550e8400-e29b-41d4-a716-446655440000"
+  }
 ---
 
 Accounts represent organizational units in Cloud 66 that own and manage stacks. Users can belong to multiple accounts and have different roles within each account.
