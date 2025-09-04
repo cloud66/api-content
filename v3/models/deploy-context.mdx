@@ -1,0 +1,101 @@
+---
+title: "DeployContext"
+method: ""
+path: ""
+---
+
+# DeployContext
+
+DeployContext represents the configuration and settings for a deployment operation on a stack. It contains all the parameters and options that control how a deployment is executed, including infrastructure updates, security patches, deployment strategies, and operational settings.
+
+<Model>
+<ModelProperty name="id" type="integer">
+Unique identifier for the deploy context.
+</ModelProperty>
+
+<ModelProperty name="stack_id" type="integer">
+The ID of the stack this deploy context belongs to.
+</ModelProperty>
+
+<ModelProperty name="uid" type="string">
+Unique identifier string for the deploy context, automatically generated with format `dc-{hex}`.
+</ModelProperty>
+
+<ModelProperty name="type" type="string">
+The type of deploy context, indicating the specific deployment strategy or framework being used.
+</ModelProperty>
+
+<ModelProperty name="created_at" type="string">
+ISO8601 timestamp when the deploy context was created.
+</ModelProperty>
+
+<ModelProperty name="updated_at" type="string">
+ISO8601 timestamp when the deploy context was last updated.
+</ModelProperty>
+
+<ModelProperty name="apply_infrastructure_upgrades" type="boolean">
+Whether to apply infrastructure upgrades during deployment. When true, servers may be updated with latest operating system packages and infrastructure components.
+</ModelProperty>
+
+<ModelProperty name="apply_security_upgrades" type="boolean">
+Whether to apply security patches and updates during deployment. Focuses specifically on security-related package updates.
+</ModelProperty>
+
+<ModelProperty name="async_action_id" type="integer">
+ID of the associated async action that tracks the deployment operation's progress and status.
+</ModelProperty>
+
+<ModelProperty name="authorized_by" type="string">
+Identifier of the user or system that authorized this deployment context.
+</ModelProperty>
+
+<ModelProperty name="auto_update_docker_versions" type="boolean">
+Whether to automatically update Docker versions during infrastructure upgrades. Only applies when `apply_infrastructure_upgrades` is true.
+</ModelProperty>
+
+<ModelProperty name="deploy_strategy" type="string">
+The deployment strategy to use (e.g., rolling, parallel, serial). Defines how the deployment is executed across multiple servers.
+</ModelProperty>
+
+<ModelProperty name="deploy_type" type="string">
+The type of deployment operation (e.g., redeploy, build, scale, revert). Determines the specific deployment workflow to execute.
+</ModelProperty>
+
+<ModelProperty name="deployment_profile_id" type="integer">
+ID of the deployment profile containing predefined deployment settings and configurations.
+</ModelProperty>
+
+<ModelProperty name="force_infrastructure_upgrades" type="boolean">
+Whether to force infrastructure upgrades even if they might cause downtime. Only applies when `apply_infrastructure_upgrades` is true.
+</ModelProperty>
+
+<ModelProperty name="github_deployment_id" type="integer">
+ID of the associated GitHub deployment when triggered via GitHub integration.
+</ModelProperty>
+
+<ModelProperty name="reboot_servers" type="boolean">
+Whether servers should be rebooted after deployment if required by infrastructure or security updates.
+</ModelProperty>
+
+<ModelProperty name="triggered_by" type="string">
+Identifier of the user or system that triggered this deployment.
+</ModelProperty>
+
+<ModelProperty name="triggered_via" type="string">
+The method or interface used to trigger the deployment (e.g., web, api, webhook, git).
+</ModelProperty>
+
+<ModelProperty name="is_advanced" type="boolean">
+Whether this deployment uses advanced configuration options or custom settings.
+</ModelProperty>
+
+<ModelProperty name="scaler_id" type="integer">
+ID of the scaler configuration used for auto-scaling deployments.
+</ModelProperty>
+
+<ModelProperty name="take_server_snapshots" type="boolean">
+Whether to create server snapshots before performing the deployment for rollback purposes.
+</ModelProperty>
+</Model>
+
+<RelatedModels models={['Stack', 'Async Action']} />
