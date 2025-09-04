@@ -1,0 +1,27 @@
+---
+title: Stack Redeploy Success
+event_type: stack.redeploy.ok
+category: stack
+description: Triggered when stack redeployment completes successfully
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.redeploy.ok",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "deploy_context": {
+      "id": 159,
+      "triggered_by": "Cloudia Sixton",
+      "triggered_via": "web",
+      "started_at": "2024-01-01T11:00:00Z",
+      "finished_at": "2024-01-01T11:10:30Z",
+      "outcome": "success",
+      "git_hash": "def456ghi789...",
+      "deploy_session": "ghi789jkl012...",
+      "deploy_type": "redeploy"
+    }
+  }
+---
+
+This webhook is sent when stack redeployment completes successfully. The payload includes the same stack information as provisioning but with redeployment context.

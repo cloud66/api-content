@@ -1,0 +1,23 @@
+---
+title: Server Back Online
+event_type: server.backon
+category: server
+description: Triggered when a previously offline server comes back online
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "server.backon",
+    "uid": "123123123123123123",
+    "name": "Meerkat",
+    "address": "192.168.1.10",
+    "server_type": "Rails Server",
+    "server_roles": ["rails", "web"],
+    "stack": {
+      "uid": "abc123def456",
+      "name": "My Application",
+      "environment": "production"
+    }
+  }
+---
+
+This webhook is sent when a previously offline server comes back online. The payload structure is the same as server.stopped but indicates the server is now responding.

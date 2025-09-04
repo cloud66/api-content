@@ -6,16 +6,10 @@ title: Stack Events
 
 Stack events are webhooks triggered by changes to your application stacks, including deployments, provisioning, updates, and configuration changes.
 
-## Event Types
+<EventHeader title="Deployment Events" />
 
-### Deployment Events
-
-#### `stack.provision.ok`
+<EventType eventType="stack.provision.ok"/>
 Triggered when stack provisioning completes successfully.
-
-**Payload includes:**
-- [Stack](/v3/models/stack) data
-- Deploy context with deployment details
 
 ```json
 {
@@ -40,26 +34,31 @@ Triggered when stack provisioning completes successfully.
 }
 ```
 
-#### `stack.provision.fail`
+<EventType eventType="stack.provision.fail"/>
 Triggered when stack provisioning fails.
 
-**Payload structure:** Same as `stack.provision.ok` but with failure details in the deploy context.
 
-#### `stack.redeploy.ok` / `stack.redeploy.fail`
+<EventType eventType="stack.redeploy.ok"/>
 Triggered when stack redeployment completes (successfully or with failure).
 
-**Payload structure:** Same as provisioning events but for redeployment operations.
 
-#### `stack.deploy.started`
+
+<EventType eventType="stack.redeploy.fail"/>
+Triggered when stack redeployment fails.
+
+
+
+<EventType eventType="stack.deploy.started"/>
 Triggered when a deployment begins.
 
 **Payload includes:**
 - [Stack](/v3/models/stack) data
 - Deploy context with start details (no finished_at timestamp yet)
 
+
 ### Stack Lifecycle Events
 
-#### `stack.created`
+<EventType eventType="stack.created"/>
 Triggered when a new stack is created.
 
 **Payload includes:**
@@ -82,7 +81,8 @@ Triggered when a new stack is created.
 }
 ```
 
-#### `stack.stackscore.changed`
+
+<EventType eventType="stack.stackscore.changed"/>
 Triggered when the stack score changes.
 
 **Payload includes:**
@@ -110,48 +110,68 @@ Triggered when the stack score changes.
 }
 ```
 
+
 ### Application Update Events
 
-#### `application.update.pending`
+<EventType eventType="application.update.pending"/>
 Triggered when an application update is queued.
 
-#### `application.update.started`
-Triggered when an application update begins.
-
-#### `application.update.succeeded`
-Triggered when an application update completes successfully.
-
-#### `application.update.failed`
-Triggered when an application update fails.
-
-**Payload for all update events:**
+**Payload includes:**
 - [Stack](/v3/models/stack) data
 - `type_symbol` indicating the update type
 
+
+<EventType eventType="application.update.started"/>
+Triggered when an application update begins.
+
+**Payload includes:**
+- [Stack](/v3/models/stack) data
+- `type_symbol` indicating the update type
+
+
+<EventType eventType="application.update.succeeded"/>
+Triggered when an application update completes successfully.
+
+**Payload includes:**
+- [Stack](/v3/models/stack) data
+- `type_symbol` indicating the update type
+
+
+<EventType eventType="application.update.failed"/>
+Triggered when an application update fails.
+
+**Payload includes:**
+- [Stack](/v3/models/stack) data
+- `type_symbol` indicating the update type
+
+
 ### Health & Integration Events
 
-#### `application.health_check.failed`
+<EventType eventType="application.health_check.failed"/>
 Triggered when application health checks fail.
 
 **Payload includes:**
 - [Stack](/v3/models/stack) data
 - Health check failure details
 
-#### `application.integration.configured`
+
+<EventType eventType="application.integration.configured"/>
 Triggered when a new integration (like monitoring tools) is configured for the stack.
 
 **Payload includes:**
 - [Stack](/v3/models/stack) data
 - `integration_name` (e.g., "Datadog", "New Relic")
 
-#### `application.integration.removed`
+
+<EventType eventType="application.integration.removed"/>
 Triggered when an integration is removed from the stack.
 
 **Payload structure:** Same as `integration.configured`
 
+
 ### Error Events
 
-#### `stack.redeploy.hook.fail`
+<EventType eventType="stack.redeploy.hook.fail"/>
 Triggered when redeployment hooks fail to execute.
 
 **Payload includes:**
@@ -168,17 +188,4 @@ Triggered when redeployment hooks fail to execute.
 }
 ```
 
-## Common Use Cases
 
-- **CI/CD Integration**: Trigger downstream processes after successful deployments
-- **Monitoring**: Update external dashboards when stack health changes
-- **Notifications**: Send alerts to team channels when deployments fail
-- **Audit Logging**: Track all stack changes in external systems
-
-## Related Models
-
-Stack events primarily use data from:
-- **[Stack](/v3/models/stack)** - Core stack information
-- **Deploy Context** - Deployment-specific metadata (triggers, timing, outcomes)
-
-<RelatedModels models={['Stack', 'User']} />

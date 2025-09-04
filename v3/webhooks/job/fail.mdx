@@ -1,0 +1,23 @@
+---
+title: Job Failure
+event_type: job.fail
+category: job
+description: Triggered when a scheduled job execution fails
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "job.fail",
+    "job": {
+      "uid": "job123abc456",
+      "name": "daily-cleanup",
+      "command": "rake cleanup:old_logs",
+      "run_on": "rails",
+      "server_uid": "123123123123123123",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T12:30:45Z"
+    },
+    "run_data": "Error: Permission denied accessing /var/log/cleanup"
+  }
+---
+
+This webhook is sent when a scheduled job execution fails. The payload includes job information and configuration, along with execution failure details.

@@ -1,0 +1,24 @@
+---
+title: Autoscaling Failed
+event_type: autoscaling.failed
+category: autoscaling
+description: Triggered when an autoscaling operation fails to complete
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "autoscaling.failed",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "scaler": {
+      "server_group": "web",
+      "metric": "cpu_usage_active",
+      "min_count": 1,
+      "max_count": 10,
+      "scale_up_threshold": 80,
+      "scale_down_threshold": 30
+    }
+  }
+---
+
+This webhook is sent when an autoscaling operation fails to complete. The payload includes stack information, scaler configuration, and failure details.

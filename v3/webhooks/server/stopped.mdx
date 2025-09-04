@@ -1,0 +1,22 @@
+---
+title: Server Stopped
+event_type: server.stopped  
+category: server
+description: Triggered when a server stops responding or goes offline
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "server.stopped",
+    "uid": "123123123123123123",
+    "name": "Meerkat",
+    "address": "192.168.1.10",
+    "server_type": "Rails Server",
+    "server_roles": ["rails", "web"],
+    "region": "us-east-1",
+    "size": "m5.large",
+    "created_at": "2024-01-01T10:00:00Z",
+    "updated_at": "2024-01-01T12:30:45Z"
+  }
+---
+
+This webhook is sent when a server stops responding or becomes unavailable. This typically indicates infrastructure issues, server crashes, or network connectivity problems.

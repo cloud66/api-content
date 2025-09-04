@@ -1,0 +1,15 @@
+---
+title: Payment Failed
+event_type: payment.fail
+category: account
+description: Triggered when a payment fails to process
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "payment.fail",
+    "charged_amount": "$9.00",
+    "reason": "Your credit card company is not accessible"
+  }
+---
+
+This webhook is sent when a payment fails to process. The payload includes the timestamp, event type, the amount that failed to be charged, and the reason for the failure.

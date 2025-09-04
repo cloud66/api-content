@@ -1,0 +1,24 @@
+---
+title: Autoscaling Actions
+event_type: autoscaling.actions
+category: autoscaling
+description: Triggered when autoscaling successfully performs scaling actions (scale up or down)
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "autoscaling.actions",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "scaler": {
+      "server_group": "web",
+      "metric": "cpu_usage_active",
+      "current_count": 5,
+      "target_count": 7,
+      "action": "scale_up"
+    },
+    "action_message": "Scaled up from 5 to 7 servers due to high CPU usage (85%)"
+  }
+---
+
+This webhook is sent when autoscaling successfully performs scaling actions (scale up or down). The payload includes stack information, scaler details, and action message describing what was done.

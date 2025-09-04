@@ -1,0 +1,15 @@
+---
+title: App Authorization
+event_type: app.auth
+category: auth
+description: Triggered when an OAuth application is authorized to access your Cloud66 account
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "app.auth",
+    "user": "user@example.com",
+    "app": "7c2c4ab2ae7ed4c33c3dacd1e9715f796ec222fd8985341128d7f7d485349caf"
+  }
+---
+
+This webhook is sent when an OAuth application is authorized to access your Cloud66 account. The payload includes user information and application identifier.

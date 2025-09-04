@@ -1,0 +1,17 @@
+---
+title: SSH Key Downloaded
+event_type: ssh_key.downloaded
+category: ssh
+description: Triggered when someone downloads SSH keys for server access
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "ssh_key.downloaded",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "server": "Meerkat",
+    "user_email": "user@example.com"
+  }
+---
+
+This webhook is sent when someone downloads SSH keys for server access. The payload includes stack and server information, along with the user who downloaded the keys.

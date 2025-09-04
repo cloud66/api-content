@@ -1,0 +1,20 @@
+---
+title: Server IP Change Failed
+event_type: server.ip.change.fail
+category: server
+description: Triggered when an IP address change operation fails for a server
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "server.ip.change.fail",
+    "uid": "123123123123123123",
+    "name": "Meerkat",
+    "new_ext_ipv4": "111.111.111.111",
+    "stack": {
+      "uid": "abc123def456",
+      "name": "My Application"
+    }
+  }
+---
+
+This webhook is sent when an IP address change operation fails for a server. The payload includes server information and the new_ext_ipv4 field containing the IP address that failed to be assigned.

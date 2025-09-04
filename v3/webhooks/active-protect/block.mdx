@@ -1,0 +1,28 @@
+---
+title: Active Protect Block
+event_type: active.protect.block
+category: active-protect
+description: Triggered when Active Protect blocks an IP address due to suspicious activity
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "active.protect.block",
+    "server": {
+      "name": "Meerkat",
+      "uid": "123123123123123123",
+      "server_type": "MySQL Server"
+    },
+    "fail2ban_action": {
+      "action_date": "2024-01-01T12:30:45Z",
+      "banned": true,
+      "address": "1.2.3.4",
+      "attack": "SSH",
+      "country": "Thailand",
+      "country_code": "th",
+      "port": 22,
+      "created_at": "2024-01-01T12:30:45Z"
+    }
+  }
+---
+
+This webhook is sent when Active Protect blocks an IP address due to suspicious activity. The payload includes server information where the block occurred and details about the blocked activity.

@@ -1,0 +1,15 @@
+---
+title: App Deauthorization
+event_type: app.deauth
+category: auth
+description: Triggered when an OAuth application authorization is revoked
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "app.deauth",
+    "user": "user@example.com",
+    "app": "7c2c4ab2ae7ed4c33c3dacd1e9715f796ec222fd8985341128d7f7d485349caf"
+  }
+---
+
+This webhook is sent when an OAuth application authorization is revoked. The payload structure is the same as app.auth but indicates deauthorization.

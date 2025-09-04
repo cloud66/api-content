@@ -1,0 +1,17 @@
+---
+title: Managed Backup Failure
+event_type: managed_backup.fail
+category: backup
+description: Triggered when a managed backup operation fails
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "managed_backup.fail",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "backup_result": "Unable to determine database name on which backup can be restored."
+  }
+---
+
+This webhook is sent when a managed backup operation fails. The payload includes stack information and backup failure details with error message.

@@ -1,0 +1,28 @@
+---
+title: Cloud Object Delete Success
+event_type: cloud_object.delete.ok
+category: cloud-object
+description: Triggered when a cloud resource (like load balancer, database, etc.) is successfully deleted
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "cloud_object.delete.ok",
+    "cloud_object_delete_queue": {
+      "id": 42,
+      "object_type": "load_balancer",
+      "network_object_id": "c66_abc123def456",
+      "object_name": "c66_abc123def456",
+      "stack_id": 1,
+      "stack_name": "Awesome Stack",
+      "account_id": 11,
+      "account_email": "user@example.com",
+      "cloud_symbol": "aws",
+      "vendor_id": "c66_abc123def456",
+      "status": "deleted",
+      "created_at": "2024-01-01T12:30:45Z",
+      "updated_at": "2024-01-01T12:35:30Z"
+    }
+  }
+---
+
+This webhook is sent when a cloud resource (like load balancer, database, etc.) is successfully deleted. The payload includes object type and identification, stack and account information, and cloud provider details.

@@ -1,0 +1,18 @@
+---
+title: Process Down
+event_type: process.down
+category: process
+description: Triggered when a monitored process stops running
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "process.down",
+    "process_name": "nginx",
+    "server": {
+      "name": "Meerkat",
+      "uid": "123123123123123123"
+    }
+  }
+---
+
+This webhook is sent when a monitored process stops running. The payload includes process information and server details.

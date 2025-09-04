@@ -1,0 +1,26 @@
+---
+title: SSL Certificate Expire Soon
+event_type: ssl_certificate.expire.soon
+category: ssl
+description: Triggered when an SSL certificate is approaching expiration (typically 30 days before)
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "ssl_certificate.expire.soon",
+    "ssl_certificate": {
+      "stack_id": 123,
+      "name": "Awesome SSL Certificate",
+      "server_names": "example.com,awesome-example.com",
+      "lets_encrypt": true,
+      "has_intermediate_cert": true,
+      "ssl_termination": true,
+      "status": "installed",
+      "cert_expiry": "2024-02-01T00:00:00Z",
+      "days_until_expiry": 30,
+      "created_at": "2024-01-01T12:30:45Z",
+      "updated_at": "2024-01-01T12:35:30Z"
+    }
+  }
+---
+
+This webhook is sent when an SSL certificate is approaching expiration (typically 30 days before). The payload includes certificate details with expiry information and domains that will be affected.

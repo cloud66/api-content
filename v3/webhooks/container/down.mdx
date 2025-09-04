@@ -1,0 +1,28 @@
+---
+title: Container Down
+event_type: container.down
+category: container
+description: Triggered when a container stops running or becomes unresponsive
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "container.down",
+    "container_id": "abc123def456789...",
+    "name": "web.lovable-tame-impala",
+    "service_name": "web",
+    "image": "nginx",
+    "ports": [
+      {
+        "container": 80,
+        "http": 80,
+        "https": 443
+      }
+    ],
+    "server": {
+      "name": "Meerkat",
+      "uid": "123123123123123123"
+    }
+  }
+---
+
+This webhook is sent when a container stops running or becomes unresponsive. The payload includes container details (name, image, ports) and server information where the container was running.

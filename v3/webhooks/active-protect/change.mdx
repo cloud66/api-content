@@ -1,0 +1,24 @@
+---
+title: Active Protect Change
+event_type: active.protect.change
+category: active-protect
+description: Triggered when Active Protect detects unauthorized file changes on your servers
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "active.protect.change",
+    "server": {
+      "name": "Meerkat",
+      "uid": "123123123123123123"
+    },
+    "watched_file": {
+      "file_path": "/tmp/important-config",
+      "existing_file_hash": "234234234",
+      "new_file_hash": "123123123",
+      "created_at": "2024-01-01T12:30:45Z",
+      "updated_at": "2024-01-01T12:30:45Z"
+    }
+  }
+---
+
+This webhook is sent when Active Protect detects unauthorized file changes on your servers. The payload includes server information and file change details.

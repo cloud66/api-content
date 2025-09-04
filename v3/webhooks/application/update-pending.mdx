@@ -1,0 +1,27 @@
+---
+title: Application Update Pending
+event_type: application.update.pending
+category: Stack Events
+---
+
+# Application Update Pending
+
+Triggered when an application update is queued.
+
+## Event Data
+
+- **Stack data**: Current stack information
+- **Type symbol**: Indicates the update type
+
+## Example Payload
+
+```json
+{
+  "timestamp": 1640995200,
+  "event_type": "application.update.pending",
+  "uid": "abc123def456",
+  "name": "My Application",
+  "environment": "production",
+  "type_symbol": "docker_image"
+}
+```

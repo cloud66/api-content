@@ -1,0 +1,29 @@
+---
+title: Stack Provision Success
+event_type: stack.provision.ok
+category: stack
+description: Triggered when stack provisioning completes successfully
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.provision.ok",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "deploy_context": {
+      "id": 158,
+      "triggered_by": "Cloudia Sixton",
+      "triggered_via": "web",
+      "started_at": "2024-01-01T10:00:00Z",
+      "finished_at": "2024-01-01T10:15:30Z",
+      "outcome": "success",
+      "git_hash": "abc123def456...",
+      "deploy_session": "def456ghi789...",
+      "deploy_type": "build",
+      "is_head": true,
+      "is_live": true
+    }
+  }
+---
+
+This webhook is sent when a stack provisioning operation completes successfully. The payload includes complete stack information and detailed deployment context.

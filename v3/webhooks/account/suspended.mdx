@@ -1,0 +1,14 @@
+---
+title: Account Suspended
+event_type: account.suspended
+category: account
+description: Triggered when an account is suspended due to billing issues, policy violations, or other reasons
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "account.suspended",
+    "account_name": "Awesome Account"
+  }
+---
+
+This webhook is sent when an account is suspended due to billing issues, policy violations, or other reasons. The payload includes the timestamp, event type, and the name of the suspended account.

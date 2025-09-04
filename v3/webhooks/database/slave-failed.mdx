@@ -1,0 +1,21 @@
+---
+title: Database Slave Failed
+event_type: db.slave.failed
+category: database
+description: Triggered when database replication fails or falls behind the master
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "db.slave.failed",
+    "server": {
+      "name": "Meerkat",
+      "uid": "123123123123123123",
+      "server_type": "MySQL Server",
+      "address": "192.168.1.15"
+    },
+    "db_type": "mysql",
+    "detail": "No longer is slave"
+  }
+---
+
+This webhook is sent when database slave replication fails or falls behind the master. The payload includes server information for the slave database, database type, and failure details.

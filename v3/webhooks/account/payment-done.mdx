@@ -1,0 +1,14 @@
+---
+title: Payment Done
+event_type: payment.done
+category: account
+description: Triggered when a payment is successfully processed
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "payment.done",
+    "charged_amount": "$29.00"
+  }
+---
+
+This webhook is sent when a payment is successfully processed for an account. The payload includes the timestamp, event type, and the amount that was charged.

@@ -1,0 +1,22 @@
+---
+title: Service Build Failure
+event_type: service.build.fail
+category: service
+description: Triggered when a service build fails
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "service.build.fail",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "service": {
+      "name": "web",
+      "image_name": "nginx",
+      "source_type": "git",
+      "git_ref": "master"
+    },
+    "build_outcome": "failed"
+  }
+---
+
+This webhook is sent when a service build fails. The payload includes stack information, service details, and build outcome status indicating failure with build failure details.

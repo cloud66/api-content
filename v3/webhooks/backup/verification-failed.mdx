@@ -1,0 +1,31 @@
+---
+title: Backup Verification Failed
+event_type: backup.verification.failed
+category: backup
+description: Triggered when backup verification fails, indicating the backup may be corrupted or incomplete
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "backup.verification.failed",
+    "stack": {
+      "uid": "abc123def456",
+      "name": "My Application",
+      "environment": "production"
+    },
+    "backup": {
+      "id": 42,
+      "db_type": "postgresql",
+      "database_name": "postgres_production",
+      "backup_date": "2024-01-01T12:00:00Z",
+      "backup_status": "ok",
+      "verify_status": "failed",
+      "verify_result": "The result of your verifier script is not as expected: ERROR 1146 (42S02) at line 1: Table 'users' doesn't exist",
+      "storage_path": "backups/postgresql/postgres_production/2024.01.01.12.00.00",
+      "backup_size": 4274995200,
+      "created_at": "2024-01-01T12:00:00Z",
+      "updated_at": "2024-01-01T12:30:00Z"
+    }
+  }
+---
+
+This webhook is sent when backup verification fails, indicating the backup may be corrupted or incomplete. The payload includes stack information, backup details, and verification failure information.

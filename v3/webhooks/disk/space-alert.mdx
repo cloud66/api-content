@@ -1,0 +1,14 @@
+---
+title: Free Disk Space Alert
+event_type: free.disk.space.alert
+category: disk
+description: Triggered when disk space falls below the configured threshold
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "free.disk.space.alert",
+    "server": "123123123123123123"
+  }
+---
+
+This webhook is sent when disk space falls below the configured threshold. The payload includes the server UID experiencing the disk space issue.

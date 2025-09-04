@@ -1,0 +1,20 @@
+---
+title: Job Back On
+event_type: job.backon
+category: job
+description: Triggered when a previously failing job executes successfully
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "job.backon",
+    "job": {
+      "uid": "job123abc456",
+      "name": "daily-cleanup",
+      "command": "rake cleanup:old_logs",
+      "run_on": "rails",
+      "server_uid": "123123123123123123"
+    }
+  }
+---
+
+This webhook is sent when a previously failing job executes successfully. The payload includes job information and success confirmation details.

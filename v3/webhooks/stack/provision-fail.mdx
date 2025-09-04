@@ -1,0 +1,28 @@
+---
+title: Stack Provision Failure
+event_type: stack.provision.fail
+category: stack
+description: Triggered when stack provisioning fails
+payload: |
+  {
+    "timestamp": 1640995200,
+    "event_type": "stack.provision.fail",
+    "uid": "abc123def456",
+    "name": "My Application",
+    "environment": "production",
+    "deploy_context": {
+      "id": 158,
+      "triggered_by": "Cloudia Sixton",
+      "triggered_via": "web",
+      "started_at": "2024-01-01T10:00:00Z",
+      "finished_at": "2024-01-01T10:15:30Z",
+      "outcome": "failed",
+      "error_message": "Build failed: dependency conflict",
+      "git_hash": "abc123def456...",
+      "deploy_session": "def456ghi789...",
+      "deploy_type": "build"
+    }
+  }
+---
+
+This webhook is sent when a stack provisioning operation fails. The payload includes the same stack information as successful provisioning but with failure details in the deploy context.
