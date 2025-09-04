@@ -1,35 +1,46 @@
 ---
 title: Update Application Group Alerts
 scope: admin
-path: /application_groups/:application_group_name/update_alerts
-method: POST
+path: /application_groups/:application_group_name/notifications
+method: PATCH
 response: |
   {
-    "response": {
-      "ok": true,
-      "message": "Alerts updated successfully for application group"
+    "successes": {
+      "alerts": ["deployment_failed"],
+      "count": 1
+    },
+    "not_applicable": {
+      "alerts": [],
+      "count": 0
+    },
+    "failures": {
+      "alerts": [],
+      "count": 0
     }
   }
 request_body: |
   {
-    "alerts": {
-      "email": {
-        "enabled": true,
-        "recipients": ["admin@example.com", "ops@example.com"]
-      },
-      "slack": {
-        "enabled": true,
-        "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
-      },
-      "deployment": {
-        "success": true,
-        "failure": true
-      },
-      "server": {
-        "down": true,
-        "up": true
+    "alerts": [
+      {
+        "alert_name": "deployment_failed",
+        "subscriptions": [
+          {
+            "channel": "email"
+          },
+          {
+            "channel": "slack",
+            "slack_url": "https://hooks.slack.com/services/..."
+          },
+          {
+            "channel": "webhook",
+            "webhook_url": "https://your-webhook.example.com/alerts"
+          },
+          {
+            "channel": "browser"
+          }
+        ]
       }
-    }
+    ]
   }
 parameters:
   - name: application_group_name
@@ -40,15 +51,35 @@ parameters:
   - name: alerts
     in: body
     required: true
-    type: object
-    description: Alert configuration settings for the application group
+    type: array
+    description: Array of alert configuration objects
 ---
 
-Configures notification alerts for all stacks within the specified application group.
+Updates alert settings for an application group.
 
-This allows bulk management of alert settings across multiple related stacks, making it easier to maintain consistent notification preferences for applications that are logically grouped together.
+Configures notification alerts for all stacks within the specified application group. This allows bulk management of alert settings across multiple related stacks.
 
-<RelatedModels models={['ApplicationGroup', 'Stack', 'Alert']} />
+## Alert Configuration
+
+Each alert configuration requires:
+- **alert_name**: The name of the alert to configure
+- **subscriptions**: Array of notification channel configurations
+
+### Supported Channels
+
+- **email**: Basic email notifications
+- **slack**: Requires `slack_url` parameter with Slack webhook URL
+- **webhook**: Requires `webhook_url` parameter with your webhook endpoint
+- **browser**: In-browser notifications
+
+## Response Structure
+
+The response contains three categories:
+- **successes**: Alerts successfully configured
+- **not_applicable**: Alerts that don't apply to stacks in this group
+- **failures**: Alerts that failed to configure
+
+<RelatedModels models={['Application Group', 'Stack', 'Alert']} />
 
 Alert configurations applied to an application group will affect all stacks within that group. Individual stack alert settings may override application group settings.
 

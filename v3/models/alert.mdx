@@ -1,0 +1,52 @@
+---
+title: "Alert"
+method: ""
+path: ""
+---
+
+# Alert
+
+Alert configuration objects define notification settings for various events within Cloud66. Alerts can be configured at the stack level or application group level, with support for multiple notification channels.
+
+<Model>
+    <ModelProperty name="alert_name" type="string">
+        The name of the alert to configure (e.g., "deployment_failed", "server_down", "deployment_success").
+    </ModelProperty>
+    <ModelProperty name="subscriptions" type="array">
+        Array of subscription channel configurations that define how and where notifications are sent.
+    </ModelProperty>
+</Model>
+
+## Subscription Channels
+
+Each subscription object in the `subscriptions` array supports different notification channels:
+
+<Model>
+    <ModelProperty name="channel" type="string">
+        The notification channel type. Supported values: "email", "slack", "webhook", "browser".
+    </ModelProperty>
+    <ModelProperty name="slack_url" type="string">
+        Required when channel is "slack". The Slack webhook URL for posting notifications.
+    </ModelProperty>
+    <ModelProperty name="webhook_url" type="string">
+        Required when channel is "webhook". The HTTP endpoint URL to receive webhook notifications.
+    </ModelProperty>
+</Model>
+
+## Channel Types
+
+- **email**: Basic email notifications sent to account users
+- **slack**: Notifications posted to Slack channels via webhook integration
+- **webhook**: HTTP POST notifications to custom endpoints
+- **browser**: In-browser notifications displayed in the Cloud66 dashboard
+
+## Common Alert Types
+
+- **deployment_failed**: Triggered when stack deployments fail
+- **deployment_success**: Triggered when stack deployments succeed
+- **server_down**: Triggered when servers become unavailable
+- **server_up**: Triggered when servers come back online
+- **backup_failed**: Triggered when backup operations fail
+- **backup_success**: Triggered when backup operations succeed
+
+<RelatedModels models={['ApplicationGroup', 'Stack', 'Notification']} />
